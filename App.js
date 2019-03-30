@@ -1,15 +1,16 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
-
 //import components
 import Login from './components/login.js';
+import Home from './components/home.js';
 
 
 const AppNavigator = createStackNavigator({
-    Home: Login
+    Login: Login,
+    Home: Home
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
   }
 );
 

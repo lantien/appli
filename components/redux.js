@@ -1,6 +1,5 @@
 const initialState = {
-
-    apiUrl: "http://192.168.1.22/",
+    
     token: ""
 };
 

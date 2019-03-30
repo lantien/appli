@@ -1,8 +1,10 @@
 import React from 'react';
-import { TextInput, View, Button } from 'react-native';
-import { Provider } from 'react-redux'
+import { TextInput, View, Button, Text, Platform } from 'react-native';
 
+import apiUrl from '../config/api.url.js';
 import store from './store.js';
+
+import { connect } from 'react-redux';
 
 export default class Login extends React.Component {
 
@@ -29,9 +31,8 @@ export default class Login extends React.Component {
     }
 
     requestLogin() {
-
-        console.log(this.login, this.password);
-        fetch(store.getState().apiUrl + 'login', {
+        /* store.getState().apiUrl */
+        fetch(apiUrl + 'login', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -44,16 +45,22 @@ export default class Login extends React.Component {
         })
         .then(res => {
 
-            console.log(res);
+            return res.json();
+        })
+        .then(data => {
+
+            //store.dispatch('SET_TOKEN', data.token);
+            this.navigate('Home');
         })
         .catch(err => {
 
             console.log(err);
         });
-
     }
 
     render() {
+
+        const {navigate} = this.props.navigation;
         return (
             <View>
                 <TextInput
@@ -67,7 +74,7 @@ export default class Login extends React.Component {
                 />
 
                 <Button
-                    onPress={() => this.requestLogin()}
+                    onPress={() => navigate('Home', {name: 'Jane'})}/* {() => this.requestLogin()} */
                     title="Login"
                 />
             </View>
