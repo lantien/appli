@@ -22,6 +22,11 @@ export default class Login extends React.Component {
         this.password = "";
     }
 
+    componentDidMount() {
+
+        this.navigate = this.props.navigation;
+    }
+
     _setLogin(text) {
 
         this.login = text;
@@ -34,13 +39,8 @@ export default class Login extends React.Component {
 
     requestLogin() {
 
-        console.log("login account : ", {
-            login: this.login,
-            password: this.password,
-        });
-
         /* store.getState().apiUrl */
-        /* fetch(apiUrl + 'login', {
+        fetch(apiUrl + 'login', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -57,13 +57,16 @@ export default class Login extends React.Component {
         })
         .then(data => {
 
-            //store.dispatch('SET_TOKEN', data.token);
-            this.navigate('Home');
+            store.dispatch({
+                type: 'SET_TOKEN',
+                token: data.token
+            });
+            this.navigate.navigate('Home');
         })
         .catch(err => {
 
             console.log(err);
-        }); */
+        });
     }
 
     render() {
@@ -87,11 +90,7 @@ export default class Login extends React.Component {
 
                     style={styles.input}
                     label={'Adresse email'}
-                  // this is used as active border color
                     borderColor={'#16B6BE'}
-                  // this is used to set backgroundColor of label mask.
-                  // please pass the backgroundColor of your TextInput container.
-                    backgroundColor={'#FFF'}
                     returnKeyType="next"
                     onSubmitEditing = {() => this.passwordInput.focus()}
                     keyboardType="email-address"
@@ -111,9 +110,7 @@ export default class Login extends React.Component {
                     label={'Password'}
                     // this is used as active border color
                     borderColor={'#16B6BE'}
-                    // this is used to set backgroundColor of label mask.
-                    // please pass the backgroundColor of your TextInput container.
-                    backgroundColor={'#FFF'}
+                    /* backgroundColor={'#FFFFFF'} */
                     secureTextEntry
                     ref={(input) => this.passwordInput = input}
                     returnKeyType= "go"
@@ -166,7 +163,7 @@ const styles = StyleSheet.create({
       },
 
     logoText: {
-        backgroundColor: '#FFF',
+        /* backgroundColor: '#FFFFFF', */
         alignItems: 'center',
         justifyContent:'center',
         height: 80,

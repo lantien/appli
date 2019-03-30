@@ -6,7 +6,6 @@ import Home from './components/home.js';
 import CreateAccount from './components/createAccount.js';
 import ForgotPassword from './components/forgotPassword.js';
 
-
 const AppNavigator = createStackNavigator({
     Login: Login,
     Home: Home,
@@ -14,7 +13,7 @@ const AppNavigator = createStackNavigator({
     ForgotPassword: ForgotPassword
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Home",
   }
 );
 

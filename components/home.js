@@ -1,57 +1,31 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Text, View } from 'react-native';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import BottomNavigation, {FullTab } from 'react-native-material-bottom-navigation'
-   
-  export default class Home extends React.Component {
-
-    static navigationOptions = {
-
-        header: null
-    }
-    tabs = [
-      {
-        key: 'movies-tv',
-        icon: 'movie',
-        label: 'Movies & TV',
-        barColor: '#B71C1C',
-        pressColor: 'rgba(255, 255, 255, 0.16)'
-      },
-      {
-        key: 'music',
-        icon: 'music-note',
-        label: 'Music',
-        barColor: '#E64A19',
-        pressColor: 'rgba(255, 255, 255, 0.16)'
-      }
-    ]
-   
-    renderIcon = icon => ({ isActive }) => (
-      <Icon size={24} color="white" name={icon} />
-    )
-   
-    renderTab = ({ tab, isActive }) => (
-      <FullTab
-        isActive={isActive}
-        key={tab.key}
-        label={tab.label}
-        renderIcon={this.renderIcon(tab.icon)}
-      />
-    )
-   
-    render() {
-      return (
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 1 }}>
-            {/* Your screen contents depending on current tab. */}
-          </View>
-          <BottomNavigation
-            onTabPress={newTab => this.setState({ activeTab: newTab.key })}
-            renderTab={this.renderTab}
-            tabs={this.tabs}
-          />
-        </View>
-      )
-    }
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!</Text>
+      </View>
+    );
   }
+}
+
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+  }
+}
+
+export default createMaterialBottomTabNavigator({
+  Album: { screen: SettingsScreen },
+  Library: { screen: HomeScreen }
+}, {
+  initialRouteName: 'Album',
+  activeTintColor: '#F44336',
+});
