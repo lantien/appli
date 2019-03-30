@@ -82,19 +82,44 @@ export default class Login extends React.Component {
                     </Text>
                 </View>
 
+                <View>
+                <Hoshi
 
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={styles.input}
+                    label={'Adresse email'}
+                  // this is used as active border color
+                    borderColor={'#16B6BE'}
+                  // this is used to set backgroundColor of label mask.
+                  // please pass the backgroundColor of your TextInput container.
+                    backgroundColor={'#FFF'}
+                    returnKeyType="next"
+                    onSubmitEditing = {() => this.passwordInput.focus()}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+
                     onChangeText={(text) => this._setLogin(text)}
-                    placeholder="Phone number or email"
+                    
                 />
+                </View>
 
             
 
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                <Hoshi
+                    
+                    style={styles.input2}
+                    label={'Password'}
+                    // this is used as active border color
+                    borderColor={'#16B6BE'}
+                    // this is used to set backgroundColor of label mask.
+                    // please pass the backgroundColor of your TextInput container.
+                    backgroundColor={'#FFF'}
+                    secureTextEntry
+                    ref={(input) => this.passwordInput = input}
+                    returnKeyType= "go"
+                                        
                     onChangeText={(text) => this._setPassword(text)}
-                    placeholder="Password"
+                    
                 />
 
                 <Button
@@ -132,6 +157,13 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal : 10
     },
+    
+    input2: {
+        height: 40,
+        marginBottom: 25,
+        paddingVertical: 10,
+        paddingHorizontal : 10
+      },
 
     logoText: {
         backgroundColor: '#FFF',
