@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default class CreateAccount extends React.Component {
+export default class Shop extends React.Component {
 
     static navigationOptions = {
 
@@ -15,10 +15,9 @@ export default class CreateAccount extends React.Component {
 
     render() {
 
-        const {navigate} = this.props.navigation;
         return (
             <View>
-                <Text>Iloul</Text>
+                <Text>Shops</Text>
             </View>
         );
     }
