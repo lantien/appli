@@ -1,5 +1,7 @@
 import React from 'react';
-import { TextInput, View, Button, Text, Platform } from 'react-native';
+import { StyleSheet, TextInput, View, Button, TouchableOpacity,StatusBar , KeyboardAvoidingView, Text, Platform } from 'react-native';
+
+import { Hoshi } from 'react-native-textinput-effects';
 
 import apiUrl from '../config/api.url.js';
 import store from './store.js';
@@ -68,12 +70,26 @@ export default class Login extends React.Component {
 
         const {navigate} = this.props.navigation;
         return (
-            <View>
+
+            
+
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+
+                <View style={styles.logoText}>
+
+                    <Text style={styles.title}>
+                        Drive
+                    </Text>
+                </View>
+
+
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(text) => this._setLogin(text)}
                     placeholder="Phone number or email"
                 />
+
+            
 
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -95,7 +111,41 @@ export default class Login extends React.Component {
                     onPress={() => navigate('ForgotPassword')}/* {() => this.requestLogin()} */
                     title="ForgotPassword"
                 />
-            </View>
+
+
+
+            </KeyboardAvoidingView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+
+    container: {
+        padding: 20,
+        flexDirection: 'column',
+      },
+
+    input :{
+        height: 40,
+        marginBottom: 10,
+        paddingVertical: 10,
+        paddingHorizontal : 10
+    },
+
+    logoText: {
+        backgroundColor: '#FFF',
+        alignItems: 'center',
+        justifyContent:'center',
+        height: 80,
+        marginBottom: 25,
+        marginTop: 25,
+      },
+      title: {
+        color: '#00b38B',
+        fontSize: 25,
+        marginTop: 10,
+        width: 190,
+        textAlign: 'center'
+      },
+})
