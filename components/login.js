@@ -14,8 +14,8 @@ export default class Login extends React.Component {
     }
 
     constructor(props) {
-
         super(props);
+
         this.login = ""; 
         this.password = "";
     }
@@ -31,8 +31,14 @@ export default class Login extends React.Component {
     }
 
     requestLogin() {
+
+        console.log("login account : ", {
+            login: this.login,
+            password: this.password,
+        });
+
         /* store.getState().apiUrl */
-        fetch(apiUrl + 'login', {
+        /* fetch(apiUrl + 'login', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -55,7 +61,7 @@ export default class Login extends React.Component {
         .catch(err => {
 
             console.log(err);
-        });
+        }); */
     }
 
     render() {
@@ -66,16 +72,28 @@ export default class Login extends React.Component {
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(text) => this._setLogin(text)}
+                    placeholder="Phone number or email"
                 />
 
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(text) => this._setPassword(text)}
+                    placeholder="Password"
                 />
 
                 <Button
-                    onPress={() => navigate('Home', {name: 'Jane'})}/* {() => this.requestLogin()} */
+                    onPress={() => this.requestLogin()}/* {() => this.requestLogin()} */
                     title="Login"
+                />
+
+                <Button
+                    onPress={() => navigate('CreateAccount')}/* {() => this.requestLogin()} */
+                    title="CreateAccount"
+                />
+
+                <Button
+                    onPress={() => navigate('ForgotPassword')}/* {() => this.requestLogin()} */
+                    title="ForgotPassword"
                 />
             </View>
         );
