@@ -7,13 +7,10 @@ import store from '../redux/store.js';
 
 export default class Login extends React.Component {
 
-<<<<<<< HEAD
-=======
   static navigationOptions = {
     title: 'Sign in',
   };
 
->>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
     constructor(props) {
         super(props);
 
@@ -75,7 +72,6 @@ export default class Login extends React.Component {
         });
     }
 
-<<<<<<< HEAD
     _getOrders() {
     
       fetch(apiUrl + 'me/order', {
@@ -102,22 +98,13 @@ export default class Login extends React.Component {
           console.log(err);
       })
     }
-=======
-    
->>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
 
     render() {
 
         return (
-<<<<<<< HEAD
-          <ImageBackground
-                source={require('../../assets/Background_1.jpg')}
-                style={styles.containerImage}>
-=======
           <View style={styles.container}>
 
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
->>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
 
                 <View style={styles.logoText}>             
 
@@ -215,14 +202,9 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 </View>
 
-<<<<<<< HEAD
-            </ImageBackground>
-            
-=======
             </KeyboardAvoidingView>
 
             </View>
->>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
         );
     }
 }
