@@ -66,7 +66,6 @@ export default class Login extends React.Component {
                 type: 'SET_TOKEN',
                 token: data.token
             });
-            this.navigate.navigate('Home');
         })
         .catch(err => {
 
