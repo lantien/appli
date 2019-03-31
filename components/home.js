@@ -17,14 +17,14 @@ export default class Home extends React.Component {
 
     tabs = [
         {
-            key: 'music',
+            key: 'restaurant',
             icon: 'restaurant',
             label: 'Restaurants',
             barColor: '#E64A19',
             pressColor: 'rgba(255, 255, 255, 0.16)'
         },
         {
-            key: 'movies-tv',
+            key: 'account',
             icon: 'account-box',
             label: 'Compte',
             barColor: '#B71C1C',
@@ -55,14 +55,13 @@ export default class Home extends React.Component {
     render() {
         let tabs;
 
-        if(!this.state || this.state.activeTab == 'music') {
+        if(!this.state || this.state.activeTab == 'restaurant') {
 
             tabs = <Shop/>;
-
         } else if (this.state.activeTab == 'order') {
 
             tabs = <Order/>;
-        } else if (this.state.activeTab == 'movies-tv') {
+        } else if (this.state.activeTab == 'account') {
 
             tabs = <Account/>;
         }
