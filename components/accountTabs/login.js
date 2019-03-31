@@ -1,13 +1,19 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, View, TouchableOpacity, Text } from 'react-native';
-
-import { Hoshi } from 'react-native-textinput-effects';
+import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { Header } from 'react-native-elements';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
 export default class Login extends React.Component {
 
+<<<<<<< HEAD
+=======
+  static navigationOptions = {
+    title: 'Sign in',
+  };
+
+>>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
     constructor(props) {
         super(props);
 
@@ -69,6 +75,7 @@ export default class Login extends React.Component {
         });
     }
 
+<<<<<<< HEAD
     _getOrders() {
     
       fetch(apiUrl + 'me/order', {
@@ -95,34 +102,38 @@ export default class Login extends React.Component {
           console.log(err);
       })
     }
+=======
+    
+>>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
 
     render() {
 
         return (
+<<<<<<< HEAD
           <ImageBackground
                 source={require('../../assets/Background_1.jpg')}
                 style={styles.containerImage}>
+=======
+          <View style={styles.container}>
 
-        
-            
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+>>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
 
-                <View style={styles.logoText}>
+                <View style={styles.logoText}>             
 
                     <Text style={styles.title}>
                         Drive
                     </Text>
                 </View>
 
+                <View style={styles.line}>
+              </View>
+
                 <View style={styles.textInput}>
-                <Hoshi
+                <TextInput
 
                     style={styles.input}
-                    label={'Email adress'}
-                  // this is used as active border color
-                    
-                  // this is used to set backgroundColor of label mask.
-                  // please pass the backgroundColor of your TextInput container.
-                    borderColor={'#f77571'}
+                    placeholder="Email adress"
                     returnKeyType="next"
                     onSubmitEditing = {() => this.passwordInput.focus()}
                     keyboardType="email-address"
@@ -133,14 +144,12 @@ export default class Login extends React.Component {
                     
                 />
 
-                <Hoshi
+                
+
+                <TextInput
                     
                     style={styles.input2}
-                    label={'Password'}
-                    // this is used as active border color
-                    borderColor={'#f77571'}
-                    // this is used to set backgroundColor of label mask.
-                    // please pass the backgroundColor of your TextInput container.
+                    placeholder="Password"
                     secureTextEntry
                     ref={(input) => this.passwordInput = input}
                     returnKeyType= "go"
@@ -176,6 +185,23 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 </View>
 
+                {/* diviseur */}
+
+               
+
+                <View style={styles.divider}>
+
+                  <View style={styles.line2}>
+                   </View>
+                   
+                   <Text style={styles.or}> or</Text>
+                   
+                   <View style={styles.line2}>
+                   </View>
+
+                   </View>
+                  
+                
 
                 {/* Pas de compte */}
 
@@ -189,52 +215,82 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 </View>
 
+<<<<<<< HEAD
             </ImageBackground>
             
+=======
+            </KeyboardAvoidingView>
+
+            </View>
+>>>>>>> 7ce744cea03bd425d7629b27a8bf8cc120fd67ca
         );
     }
 }
 
 const styles = StyleSheet.create({
 
+  test :{
+    backgroundColor : '#000'
+  },
+
     container: {
-        padding: 20,
-        flexDirection: 'column',
+      flex: 1,
+      backgroundColor: '#F8F8F8',
+      paddingHorizontal: 20,
+      flexDirection: 'column',
       },
+      
+      line:{
+        backgroundColor: '#A9A9A9',
+        height:1,
+        marginBottom: 15,
+      },
+      line2:{
+        backgroundColor: '#000',
+        height:1,
+        flex : 1,
+      },
+      
       containerImage:{
         flex: 1,
         width: '100%',
         height : '100%',
       },
-    textInput:{
-        backgroundColor: '#FFF',
-        marginBottom : -10,
 
+    textInput:{
+        backgroundColor: '#F8F8F8',
+        
     },
     input :{
+        backgroundColor : '#FFF' ,
         height: 40,
-        marginBottom: 10,
-        paddingVertical: 10,
-        paddingHorizontal : 10
-    },
+        marginBottom: 10,   
+        borderColor : 'gray',
+        borderWidth : 1,    
+        paddingHorizontal :10,
+      },
 
     input2: {
+        backgroundColor : '#FFF' ,
         height: 40,
-        marginBottom: 25,
-        paddingVertical: 10,
-        paddingHorizontal : 10
+        marginBottom: 10,
+        borderColor : 'gray',
+        borderWidth : 1,
+        paddingHorizontal :10,
+
       },
 
     logoText: {
-        /* backgroundColor: '#FFFFFF', */
+        backgroundColor: '#F8F8F8',
         alignItems: 'center',
         justifyContent:'center',
         height: 80,
-        marginBottom: 25,
-        marginTop: 25,
+        marginBottom: 15,
+        marginTop: 0,
       },
       title: {
-        color: '#e8175d',
+        backgroundColor: '#F8F8F8',
+        color: '#FA0129',
         fontSize: 25,
         marginTop: 10,
         width: 190,
@@ -248,11 +304,11 @@ const styles = StyleSheet.create({
       },
 
       buttonCustom: {
-        backgroundColor: '#f77571',
+        backgroundColor: '#FA0129',
         paddingVertical: 15,
         width: 280,
         height: 50,
-        borderRadius: 30
+        borderRadius: 10
       },
 
       buttonText: {
@@ -263,15 +319,26 @@ const styles = StyleSheet.create({
       },
 
       passwordForgotten: {
-        backgroundColor: '#FFF',
-        height: 40,
+        
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        marginBottom: 20,
       },
 
       forgottenCustom: {
-        color: '#bfbfbf',
-        fontSize: 17,
+        color: '#2F7DE1',
+        fontSize: 14,
+        marginTop: 10,
+      },
+
+      divider:{
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        height: 50,        
+      },
+      or :{
+        marginHorizontal: 15,
       },
 
       containerSignUp:{
@@ -280,12 +347,12 @@ const styles = StyleSheet.create({
         justifyContent:'center'
       },
       textSignUp:{
-        fontSize: 17,
+        fontSize: 14,
         color: '#bfbfbf',
       },
       signUp: {
-        color: '#e8175d',
-        fontSize: 17
+        color: '#2F7DE1',
+        fontSize: 14
     
       }
 
