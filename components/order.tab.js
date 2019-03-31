@@ -8,7 +8,7 @@ const AppNavigator = createStackNavigator({
   },
   {
     initialRouteName: "Orders",
-    headerMode: 'none'
+    headerMode: 'none',
   }
 );
 

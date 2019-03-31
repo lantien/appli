@@ -8,7 +8,7 @@ export default class Orders extends React.Component {
 
     static navigationOptions = {
 
-        header: null
+        header: null,
     }
 
     constructor(props) {
