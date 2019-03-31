@@ -1,5 +1,5 @@
-import Shop from './components/homeTabs/shops.js'
-import Order from './components/homeTabs/ordersTabs.js'
+import Shop from './components/shop.tab.js'
+import Order from './components/order.tab.js'
 import Account from './components/account.tab.js'
 
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';

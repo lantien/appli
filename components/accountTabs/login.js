@@ -4,7 +4,7 @@ import { StyleSheet, ImageBackground, View, TouchableOpacity, Text } from 'react
 import { Hoshi } from 'react-native-textinput-effects';
 
 import apiUrl from '../../config/api.url.js';
-import store from '../store.js';
+import store from '../redux/store.js';
 
 import { connect } from 'react-redux';
 

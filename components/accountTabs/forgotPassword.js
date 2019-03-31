@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, View, Button, Text, Platform } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
-import store from '../store.js';
+import store from '../redux/store.js';
 
 import { connect } from 'react-redux';
 

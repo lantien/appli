@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, View, Button, Text, Platform } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
-import store from '../store.js';
+import store from '../redux/store.js';
 
 export default class CreateAccount extends React.Component {
 
