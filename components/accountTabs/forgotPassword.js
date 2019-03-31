@@ -1,8 +1,8 @@
 import React from 'react';
 import { TextInput, View, Button, Text, Platform } from 'react-native';
 
-import apiUrl from '../config/api.url.js';
-import store from './store.js';
+import apiUrl from '../../config/api.url.js';
+import store from '../store.js';
 
 import { connect } from 'react-redux';
 
@@ -19,6 +19,16 @@ export default class Login extends React.Component {
         this.email = "";
     }
 
+    componentDidMount() {
+
+        this.navigate = this.props.navigation;
+    }
+
+    _navigate(compoNanme) {
+
+        this.navigate.navigate(compoNanme);
+    }
+
     _setEmail(text) {
 
         this.email = text;
@@ -31,7 +41,6 @@ export default class Login extends React.Component {
 
     render() {
 
-        const {navigate} = this.props.navigation;
         return (
             <View>
                 <TextInput
@@ -46,7 +55,7 @@ export default class Login extends React.Component {
                 />
 
                 <Button
-                    onPress={() => navigate('Login')}/* {() => this.requestLogin()} */
+                    onPress={() => this.props.navigation.goBack()}/* {() => this.requestLogin()} */
                     title="Retour"
                 />
             </View>

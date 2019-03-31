@@ -1,8 +1,8 @@
 import React from 'react';
 import { TextInput, View, Button, Text, Platform } from 'react-native';
 
-import apiUrl from '../config/api.url.js';
-import store from './store.js';
+import apiUrl from '../../config/api.url.js';
+import store from '../store.js';
 
 export default class CreateAccount extends React.Component {
 
@@ -137,7 +137,7 @@ export default class CreateAccount extends React.Component {
                 />
 
                 <Button
-                    onPress={() => navigate('Login')}/* {() => this.requestLogin()} */
+                    onPress={() => this.props.navigation.goBack()}/* {() => this.requestLogin()} */
                     title="Retour login"
                 />
             </View>

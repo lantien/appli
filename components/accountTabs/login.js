@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, TextInput,ImageBackground, View, Button, TouchableOpacity,StatusBar , KeyboardAvoidingView, Text, Platform } from 'react-native';
+import { StyleSheet, ImageBackground, View, TouchableOpacity, Text } from 'react-native';
 
 import { Hoshi } from 'react-native-textinput-effects';
 
-import apiUrl from '../config/api.url.js';
-import store from './store.js';
+import apiUrl from '../../config/api.url.js';
+import store from '../store.js';
 
 import { connect } from 'react-redux';
 
@@ -35,6 +35,11 @@ export default class Login extends React.Component {
     _setPassword(text) {
 
         this.password = text;
+    }
+
+    _navigate(compoNanme) {
+
+      this.navigate.navigate(compoNanme);
     }
 
     requestLogin() {
@@ -71,11 +76,10 @@ export default class Login extends React.Component {
 
     render() {
 
-        const {navigate} = this.props.navigation;
         return (
 
             <ImageBackground
-                source={require('../assets/Background_1.jpg')}
+                source={require('../../assets/Background_1.jpg')}
                 style={styles.containerImage}>
 
         
@@ -133,7 +137,7 @@ export default class Login extends React.Component {
 
                 <View style={styles.passwordForgotten}>
                 <TouchableOpacity
-                onPress={() => navigate('ForgotPassword')}/* {() => this.requestLogin()} */
+                onPress={() => this._navigate('ForgotPassword')}/* {() => this.requestLogin()} */
                 >                   
                 <Text style={styles.forgottenCustom}>Forget Password ?</Text>
                 </TouchableOpacity>
@@ -158,7 +162,7 @@ export default class Login extends React.Component {
                 <View style={styles.containerSignUp}>
                 <Text style={styles.textSignUp}>Don't have an account ? </Text>
                 <TouchableOpacity
-                    onPress={() => navigate('CreateAccount')}/* {() => this.requestLogin()} */
+                    onPress={() => this._navigate('CreateAccount')}/* {() => this.requestLogin()} */
                 >
                     <Text style={styles.signUp}>Sign up</Text>
                 </TouchableOpacity>

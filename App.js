@@ -1,20 +1,17 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import Shop from './components/homeTabs/shops.js'
+import Order from './components/homeTabs/ordersTabs.js'
+import Account from './components/account.tab.js'
 
-//import components
-import Login from './components/login.js';
-import Home from './components/home.js';
-import CreateAccount from './components/createAccount.js';
-import ForgotPassword from './components/forgotPassword.js';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
-const AppNavigator = createStackNavigator({
-    Login: Login,
-    Home: Home,
-    CreateAccount: CreateAccount,
-    ForgotPassword: ForgotPassword
-  },
-  {
-    initialRouteName: "Home",
-  }
-);
+const TabNavigator = createBottomTabNavigator({
+    Shop: Shop,
+    Account: Account,
+    Order: Order
+},
+{
+    initialRouteName: "Shop",
+    headerMode: 'none'
+});
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(TabNavigator);
