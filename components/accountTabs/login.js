@@ -146,6 +146,23 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 </View>
 
+                {/* diviseur */}
+
+               
+
+                <View style={styles.divider}>
+
+                  <View style={styles.line2}>
+                   </View>
+                   
+                   <Text style={styles.or}> or</Text>
+                   
+                   <View style={styles.line2}>
+                   </View>
+
+                   </View>
+                  
+                
 
                 {/* Pas de compte */}
 
@@ -168,10 +185,14 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
 
+  test :{
+    backgroundColor : '#000'
+  },
+
     container: {
       flex: 1,
-      backgroundColor: '#F5F5F5',
-      padding: 20,
+      backgroundColor: '#F8F8F8',
+      paddingHorizontal: 20,
       flexDirection: 'column',
       },
       
@@ -181,10 +202,11 @@ const styles = StyleSheet.create({
         marginBottom: 15,
       },
       line2:{
-        backgroundColor: '#A9A9A9',
+        backgroundColor: '#000',
         height:1,
-        marginBottom: 15,
+        flex : 1,
       },
+      
       containerImage:{
         flex: 1,
         width: '100%',
@@ -192,8 +214,8 @@ const styles = StyleSheet.create({
       },
 
     textInput:{
-        backgroundColor: '#F5F5F5',
-  
+        backgroundColor: '#F8F8F8',
+        
     },
     input :{
         backgroundColor : '#FFF' ,
@@ -215,15 +237,15 @@ const styles = StyleSheet.create({
       },
 
     logoText: {
-        /* backgroundColor: '#FFFFFF', */
+        backgroundColor: '#F8F8F8',
         alignItems: 'center',
         justifyContent:'center',
         height: 80,
-        marginBottom: 25,
-        marginTop: 25,
+        marginBottom: 15,
+        marginTop: 0,
       },
       title: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#F8F8F8',
         color: '#FA0129',
         fontSize: 25,
         marginTop: 10,
@@ -253,7 +275,7 @@ const styles = StyleSheet.create({
       },
 
       passwordForgotten: {
-        backgroundColor: '#F5F5F5',
+        
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginBottom: 20,
@@ -263,6 +285,16 @@ const styles = StyleSheet.create({
         color: '#2F7DE1',
         fontSize: 14,
         marginTop: 10,
+      },
+
+      divider:{
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        height: 50,        
+      },
+      or :{
+        marginHorizontal: 15,
       },
 
       containerSignUp:{
