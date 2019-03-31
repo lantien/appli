@@ -3,15 +3,19 @@ import Order from './components/order.tab.js'
 import Account from './components/account.tab.js'
 
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';  
 
-const TabNavigator = createBottomTabNavigator({
+const TabNavigator = createMaterialBottomTabNavigator({
     Shop: Shop,
-    Account: Account,
-    Order: Order
+    Order: Order,
+    Account: Account
 },
 {
     initialRouteName: "Shop",
-    headerMode: 'none'
+    headerMode: 'none',
+    activeColor: '#f0edf6',
+    inactiveColor: '#3e2465',
+    barStyle: { backgroundColor: '#4CBB17' },
 });
 
 export default createAppContainer(TabNavigator);
