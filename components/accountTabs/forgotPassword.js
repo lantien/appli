@@ -8,11 +8,6 @@ import { connect } from 'react-redux';
 
 export default class Login extends React.Component {
 
-    static navigationOptions = {
-
-        header: null
-    }
-
     constructor(props) {
 
         super(props);

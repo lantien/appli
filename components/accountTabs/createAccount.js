@@ -6,11 +6,6 @@ import store from '../redux/store.js';
 
 export default class CreateAccount extends React.Component {
 
-    static navigationOptions = {
-
-        header: null
-    }
-
     constructor(props) {
 
         super(props);

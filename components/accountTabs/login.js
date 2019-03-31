@@ -6,14 +6,7 @@ import { Hoshi } from 'react-native-textinput-effects';
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
-import { connect } from 'react-redux';
-
 export default class Login extends React.Component {
-
-    static navigationOptions = {
-
-        header: null
-    }
 
     constructor(props) {
         super(props);
@@ -44,6 +37,7 @@ export default class Login extends React.Component {
 
     requestLogin() {
 
+      console.log("login");
         /* store.getState().apiUrl */
         fetch(apiUrl + 'login', {
             method: 'POST',
@@ -62,22 +56,50 @@ export default class Login extends React.Component {
         })
         .then(data => {
 
-            store.dispatch({
+            this._getOrders(
+              store.dispatch({
                 type: 'SET_TOKEN',
                 token: data.token
-            });
+              })
+            );
         })
         .catch(err => {
 
-            console.log(err);
+            console.log("err", err);
         });
+    }
+
+    _getOrders() {
+    
+      fetch(apiUrl + 'me/order', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'x-access-token': store.getState().token
+          },
+      })
+      .then(data => {
+
+          return data.json();
+      })
+      .then(data => {
+
+        store.dispatch({
+          type: 'SET_ORDER',
+          data: data
+        });
+      })
+      .catch(err => {
+
+          console.log(err);
+      })
     }
 
     render() {
 
         return (
-
-            <ImageBackground
+          <ImageBackground
                 source={require('../../assets/Background_1.jpg')}
                 style={styles.containerImage}>
 
@@ -168,6 +190,7 @@ export default class Login extends React.Component {
                 </View>
 
             </ImageBackground>
+            
         );
     }
 }

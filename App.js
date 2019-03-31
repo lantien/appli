@@ -41,8 +41,8 @@ const TabNavigator = createMaterialBottomTabNavigator({
 },
 {
     initialRouteName: "Shop",
-    headerMode: 'none',
     activeColor: '#FFFFFF',
+    headerMode: 'none',
     inactiveColor: '#fefee2',
     shifting: true
 });

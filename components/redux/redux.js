@@ -1,6 +1,7 @@
 const initialState = {
     
-    token: ""
+    token: "",
+    orders : []
 };
 
 const myReducer = (state = initialState, action) => {
@@ -12,10 +13,16 @@ const myReducer = (state = initialState, action) => {
                 ...state,
                 token: action.token
             }
-
-        return nextState || state
-    default:
-        return state
+            return nextState || state
+        case 'SET_ORDER':
+            nextState = {
+                ...state,
+                orders: action.data
+            }
+            return nextState || state
+        
+        default:
+            return state
     }
 };
 

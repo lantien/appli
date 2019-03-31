@@ -6,11 +6,6 @@ import store from '../redux/store.js';
 
 export default class Shop extends React.Component {
 
-    static navigationOptions = {
-
-        header: null
-    }
-
     position = [45.754516, 4.848909];
 
     constructor(props) {
@@ -19,6 +14,10 @@ export default class Shop extends React.Component {
         this.state = {
             listShops: []
         }
+    }
+
+    componentDidMount() {
+
         this._getShops();
     }
 
@@ -43,7 +42,7 @@ export default class Shop extends React.Component {
             this.setState({
                 listShops: data
             });
-            console.log(this.state.listShops);
+            console.log("shop fetched");
         })
         .catch(err => {
 

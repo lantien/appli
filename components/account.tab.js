@@ -11,8 +11,7 @@ const AppNavigator = createStackNavigator({
     ForgotPassword: ForgotPassword
   },
   {
-    initialRouteName: "Login",
-    headerMode: 'none'
+    initialRouteName: "Login"
   }
 );
 

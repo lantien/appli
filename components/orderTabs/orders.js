@@ -1,54 +1,49 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, FlatList } from 'react-native';
+
+import { Provider, connect } from 'react-redux';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
-export default class Orders extends React.Component {
-
-    static navigationOptions = {
-
-        header: null,
-    }
+class Orders extends React.Component {
 
     constructor(props) {
         super(props);
 
     }
 
-    _getOrders() {
-
-        fetch(apiUrl + 'me/order', {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'x-access-token': store.getState().token
-            },
-        })
-        .then(data => {
-
-            return data.json();
-        })
-        .then(data => {
-
-            this.setState({
-                listShops: data
-            });
-            console.log(this.state.listShops);
-        })
-        .catch(err => {
-
-            console.log(err);
-        })
-    }
+    _keyExtractor = (item, index) => item._id;
 
     render() {
 
         return (
-            <View>
-                <Text>Orders</Text>
-            </View>
+            <Provider store={store}>
+                <FlatList
+                    data={this.props.orders}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={({item}) => <Text>{item._id}</Text>}
+                />
+            </Provider> 
+        );
+    }
+}
+
+function mapStateToProps(state) {
+
+    return state;
+}
+
+const ConnectedRoot = connect(mapStateToProps)(Orders);
+
+export default class App extends Component {
+
+    render() {
+
+        return (
+            <Provider store={store}>
+                <ConnectedRoot/>
+            </Provider>
         );
     }
 }
