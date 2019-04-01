@@ -17,6 +17,8 @@ class Orders extends React.Component {
 
     render() {
 
+        console.log(this.props.orders);
+
         return (
             <Provider store={store}>
                 <FlatList
