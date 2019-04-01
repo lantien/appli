@@ -23,19 +23,17 @@ export default class Shop extends React.Component {
 
         this._getShops();
 
-        componentDidMount() {
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                this.setState({
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                  error: null,
-                });
-              },
-              (error) => this.setState({ error: error.message }),
-              { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-            );
-          };
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+            this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                error: null,
+            });
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        );
     }
 
     _getShops() {
