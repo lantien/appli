@@ -16,7 +16,7 @@ class Orders extends React.Component {
     _keyExtractor = (item, index) => item._id;
 
     render() {
-
+        
         console.log(this.props.orders);
 
         return (
