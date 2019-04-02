@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
 
-
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
@@ -35,6 +34,7 @@ export default class Login extends React.Component {
 
     _navigate(compoNanme) {
 
+      console.log("redirect to", compoNanme);
       this.navigate.navigate(compoNanme);
     }
 
@@ -65,6 +65,13 @@ export default class Login extends React.Component {
                 token: data.token
               })
             );
+
+            const navigateAction = StackActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Account" })],
+            });
+          
+            this.navigate.dispatch(navigateAction);
         })
         .catch(err => {
 

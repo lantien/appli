@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
-export default class OrderDetail extends React.Component {
+export default class Account extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,12 +11,9 @@ export default class OrderDetail extends React.Component {
 
     render() {
 
-        const item = this.props.navigation.getParam('item', "no_data");
-        console.log("item", item);
-
         return (
             <Text>
-                Order detail
+                Display account infos
             </Text>
         );
     }
