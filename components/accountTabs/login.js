@@ -204,10 +204,13 @@ export default class Login extends React.Component {
 
                 <View style={styles.containerSignUp}>
                 <Text style={styles.textSignUp}>Don't have an account ? </Text>
+
                 <TouchableOpacity
                     onPress={() => this._navigate('CreateAccount')}/* {() => this.requestLogin()} */
+                    style={styles.signUpButton}
                 >
                     <Text style={styles.signUp}>Sign up</Text>
+
                 </TouchableOpacity>
                 </View>
 
@@ -299,7 +302,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         width: 280,
         height: 50,
-        borderRadius: 10
+        borderRadius: 5
       },
 
       buttonText: {
@@ -334,17 +337,26 @@ const styles = StyleSheet.create({
 
       containerSignUp:{
         alignItems: 'center',
-        flexDirection:'row',
+        flexDirection:'column',
         justifyContent:'center'
       },
       textSignUp:{
         fontSize: 14,
-        color: '#bfbfbf',
-      },
-      signUp: {
         color: '#2F7DE1',
-        fontSize: 14
-    
+        marginBottom : 15
+      },
+      signUp:{
+        color : '#FFF',
+      },
+      signUpButton: {
+        backgroundColor: '#2F7DE1',
+        paddingVertical: 15,
+        width: 280,
+        height: 50,
+        borderRadius: 5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 10
       }
 
 
