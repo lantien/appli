@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';

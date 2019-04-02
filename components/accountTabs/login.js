@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
 
+import {StackActions, NavigationActions} from 'react-navigation';
+
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
