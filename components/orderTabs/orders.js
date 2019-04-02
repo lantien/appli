@@ -15,18 +15,28 @@ class Orders extends React.Component {
 
     _keyExtractor = (item, index) => item._id;
 
+    showOrder(item)  {
+
+        this.props.navigation.navigate('OrderDetail')
+    }
+
     render() {
         
-        console.log(this.props.orders);
-
         return (
             <Provider store={store}>
+
                 <FlatList
                     data={this.props.orders}
                     keyExtractor={this._keyExtractor}
-                    renderItem={({item}) => <Text>{item._id}</Text>}
+                    renderItem={({item}) => <Text onPress={() => {
+                        this.props.navigation.navigate('OrderDetail');
+                                            }}>
+                                                {item._id}
+                                            </Text>}
+                    
                 />
-            </Provider> 
+            </Provider>
+            
         );
     }
 }
@@ -36,16 +46,4 @@ function mapStateToProps(state) {
     return state;
 }
 
-const ConnectedRoot = connect(mapStateToProps)(Orders);
-
-export default class App extends Component {
-
-    render() {
-
-        return (
-            <Provider store={store}>
-                <ConnectedRoot/>
-            </Provider>
-        );
-    }
-}
+export default connect(mapStateToProps)(Orders);
