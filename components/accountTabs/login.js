@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text, AsyncStorage } from 'react-native';
 
 import {StackActions, NavigationActions} from 'react-navigation';
 
@@ -12,101 +12,72 @@ export default class Login extends React.Component {
     title: 'Sign in',
   };
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.login = ""; 
-        this.password = "";
-    }
+    this.login = ""; 
+    this.password = "";
+  }
 
-    componentDidMount() {
+  async componentDidMount() {
 
-        this.navigate = this.props.navigation;
-    }
+    this.navigate = this.props.navigation;
+  }
 
-    _setLogin(text) {
+  _setLogin(text) {
 
-        this.login = text;
-    } 
+    this.login = text;
+  } 
 
-    _setPassword(text) {
+  _setPassword(text) {
 
-        this.password = text;
-    }
+    this.password = text;
+  }
 
-    _navigate(compoNanme) {
+  _navigate(compoNanme) {
 
-      console.log("redirect to", compoNanme);
-      this.navigate.navigate(compoNanme);
-    }
+    this.navigate.navigate(compoNanme);
+  }
 
-    requestLogin() {
+  requestLogin() {
 
-      console.log("login");
-        /* store.getState().apiUrl */
-        fetch(apiUrl + 'login', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              login: this.login,
-              password: this.password,
-            }),
-        })
-        .then(res => {
-
-            return res.json();
-        })
-        .then(data => {
-
-            this._getOrders(
-              store.dispatch({
-                type: 'SET_TOKEN',
-                token: data.token
-              })
-            );
-
-            const navigateAction = StackActions.reset({
-              index: 0,
-              actions: [NavigationActions.navigate({ routeName: "Account" })],
-            });
-          
-            this.navigate.dispatch(navigateAction);
-        })
-        .catch(err => {
-
-            console.log("err", err);
-        });
-    }
-
-    _getOrders() {
-    
-      fetch(apiUrl + 'me/order', {
-          method: 'GET',
+      fetch(apiUrl + 'login', {
+          method: 'POST',
           headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json',
-            'x-access-token': store.getState().token
           },
+          body: JSON.stringify({
+            login: this.login,
+            password: this.password,
+          }),
+      })
+      .then(res => {
+
+          return res.json();
       })
       .then(data => {
 
-          return data.json();
-      })
-      .then(data => {
+          store.dispatch({
+            type: 'SET_TOKEN',
+            token: data.token
+          });
 
-        store.dispatch({
-          type: 'SET_ORDER',
-          data: data
+          return AsyncStorage.setItem('token', data.token);
+      })
+      .then(() => {
+        const navigateAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: "Account" })],
         });
+      
+        this.navigate.dispatch(navigateAction);
       })
       .catch(err => {
 
-          console.log(err);
-      })
-    }
+          console.log("err", err);
+      });
+  }
 
     render() {
 
