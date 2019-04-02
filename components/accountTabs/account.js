@@ -33,7 +33,7 @@ import apiUrl from '../../config/api.url.js';
         })
         .then(data => {
   
-          console.log(data);
+            console.log(data);
         })
         .catch(err => {
   

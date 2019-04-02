@@ -19,7 +19,7 @@ export default class Login extends React.Component {
     this.password = "";
   }
 
-  async componentDidMount() {
+  componentDidMount() {
 
     this.navigate = this.props.navigation;
   }
