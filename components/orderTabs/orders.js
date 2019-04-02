@@ -17,26 +17,25 @@ class Orders extends React.Component {
 
     showOrder(item)  {
 
-        this.props.navigation.navigate('OrderDetail')
+        this.props.navigation.navigate('OrderDetail', item);
     }
 
     render() {
         
         return (
-            <Provider store={store}>
+            <View>
 
                 <FlatList
                     data={this.props.orders}
                     keyExtractor={this._keyExtractor}
                     renderItem={({item}) => <Text onPress={() => {
-                        this.props.navigation.navigate('OrderDetail');
+                                                this.showOrder({item});
                                             }}>
                                                 {item._id}
                                             </Text>}
                     
                 />
-            </Provider>
-            
+            </View>
         );
     }
 }
