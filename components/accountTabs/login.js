@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
-import { Header } from 'react-native-elements';
+
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -108,9 +108,10 @@ export default class Login extends React.Component {
 
                 <View style={styles.logoText}>             
 
-                    <Text style={styles.title}>
+                    <Text style={styles.title} >
                         Drive
                     </Text>
+
                 </View>
 
                 <View style={styles.line}>
@@ -279,7 +280,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginTop: 10,
         width: 190,
-        textAlign: 'center'
+        textAlign: 'center',
+        
       },
 
       buttonContainer: {
