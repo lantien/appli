@@ -1,6 +1,9 @@
 import React from 'react';
 import { TextInput, View, StyleSheet, ScrollView, Button, Text, Platform } from 'react-native';
 
+import { AsyncStorage } from 'react-native';
+import {StackActions, NavigationActions} from 'react-navigation';
+
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
@@ -19,6 +22,11 @@ export default class CreateAccount extends React.Component {
         this.email = "";
         this.phone_number = "";
         this.password = "";
+    }
+
+    componentDidMount() {
+
+        this.navigate = this.props.navigation;
     }
 
     _setLastname(text) {
@@ -48,14 +56,6 @@ export default class CreateAccount extends React.Component {
 
     createAccount() {
         
-
-        console.log("create account...", {
-            lastname: this.lastname,
-            firstname: this.firstname,
-            email: this.email,
-            phone_number: this.phone_number,
-            password: this.password,
-        });/* 
         fetch(apiUrl + 'user', {
             method: 'POST',
             headers: {
@@ -86,13 +86,30 @@ export default class CreateAccount extends React.Component {
         })
         .then(data => {
 
-            console.log(data);
-            this.navigate('Home');
+            return data.json();
+        })
+        .then(data => {
+
+            store.dispatch({
+                type: 'SET_TOKEN',
+                token: data.token
+            });
+
+            return AsyncStorage.setItem('token', data.token);
+        })
+        .then(() => {
+
+            const navigateAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: "Account" })],
+            });
+        
+            this.navigate.dispatch(navigateAction);
         })
         .catch(err => {
 
             console.log(err);
-        }); */
+        });
     }
 
     render() {
