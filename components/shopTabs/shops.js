@@ -21,22 +21,31 @@ export default class Shop extends React.Component {
 
     componentDidMount() {
 
-        this._getShops();
-
         navigator.geolocation.getCurrentPosition(
+
             (position) => {
-            this.setState({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-                error: null,
-            });
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null,
+                });
+
+                this._getShops(position.coords.latitude, 
+                    position.coords.longitude);
             },
-            (error) => this.setState({ error: error.message }),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            () => {
+
+                this._getShops(this.position[0], this.position[1]);
+            },
+            { 
+                enableHighAccuracy: true, 
+                timeout: 20000, 
+                maximumAge: 1000 
+            },
         );
     }
 
-    _getShops() {
+    _getShops(latitude, longitude) {
 
         fetch(apiUrl + 'shop', {
             method: 'GET',
@@ -44,8 +53,8 @@ export default class Shop extends React.Component {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'distance': 5000,
-              'latitude': this.position[0],
-              'longitude': this.position[1]
+              'latitude': latitude,
+              'longitude': longitude
             },
         })
         .then(data => {
@@ -57,7 +66,7 @@ export default class Shop extends React.Component {
             this.setState({
                 listShops: data
             });
-            console.log("shop fetched");
+            console.log(data);
         })
         .catch(err => {
 

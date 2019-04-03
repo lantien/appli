@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import apiUrl from '../../config/api.url.js';
 
-/* export default */ class Account extends React.Component {
+class Account extends React.Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +33,7 @@ import apiUrl from '../../config/api.url.js';
         })
         .then(data => {
   
-            console.log(data);
+            this.setState(data);
         })
         .catch(err => {
   
