@@ -10,6 +10,12 @@ class Account extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            lastname: "",
+            email: "",
+            phone_number: "",
+            firstname: ""
+        }
     }
 
     componentDidMount() {
@@ -45,7 +51,7 @@ class Account extends React.Component {
 
         return (
             <Text>
-                Display account infos
+                {this.state.lastname}
             </Text>
         );
     }

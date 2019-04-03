@@ -66,7 +66,6 @@ export default class Shop extends React.Component {
             this.setState({
                 listShops: data
             });
-            console.log(data);
         })
         .catch(err => {
 
