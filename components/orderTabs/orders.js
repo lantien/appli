@@ -82,7 +82,7 @@ class Orders extends React.Component {
     render() {
         
         return (
-            <View>
+            <View style={styles.container}>
 
                 <FlatList
                     data={this.state.orders}
@@ -126,7 +126,7 @@ class Orders extends React.Component {
                                                     </View>
 
                                                     <TouchableOpacity style={styles.containerRight}>
-                                                        <MaterialIcons name="chevron-right" size={35} color="#16B6BE"/>
+                                                        <MaterialIcons name="chevron-right" size={35} color="#2F7DE1"/>
                                                     </TouchableOpacity>
 
                                                 </View>
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#f7f7f7'
     },
     containerLeft:{
-  
       height: '100%',
       width: '100%',
     },

@@ -92,6 +92,21 @@ class Account extends React.Component {
             <View style={styles.line}>
                    </View>
 
+            <TouchableOpacity style={styles.settingContainer}>
+                <Text style={styles.textTitles}>Payment options</Text>
+            </TouchableOpacity>
+
+            <View style={styles.line}>
+                   </View>
+
+            <View style={styles.containerLogOut}>
+
+                   <TouchableOpacity style={styles.logOutButton}>
+                    <Text style={styles.logOutText}>Log out</Text>
+
+                </TouchableOpacity>
+                </View>
+
             </ScrollView>
             
 
@@ -114,12 +129,11 @@ const styles = StyleSheet.create({
     },
     
     name : {
-        backgroundColor :'#012',
         flexDirection : 'row',
         marginHorizontal : 20,
         justifyContent : 'center',
         alignItems : 'flex-end',
-        flex : 0.2,
+        padding : 10
     },
     firstname: {
         marginHorizontal : 3,        
@@ -133,7 +147,6 @@ const styles = StyleSheet.create({
         marginHorizontal : 20,
         justifyContent : 'center',
         alignItems : 'flex-end',
-        flex : 0.05,
         marginBottom : 25,
         
     },
@@ -146,7 +159,7 @@ const styles = StyleSheet.create({
       },
     settingContainer:{
         backgroundColor: '#fff',
-        flex : 0.08,
+        padding : 20,
         justifyContent : 'center',
         alignItems : 'flex-start',
         paddingHorizontal : 10
@@ -154,5 +167,25 @@ const styles = StyleSheet.create({
     textTitles:{
         color :'#808080'
     },
+    containerLogOut: {
+        alignItems: 'center',
+        flexDirection:'column',
+        justifyContent:'center',
+        paddingVertical : 60,
+    },
+    logOutButton:{
+        backgroundColor: '#2F7DE1',
+        paddingVertical: 15,
+        width: 280,
+        height: 50,
+        borderRadius: 5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 10
+    },
+    logOutText:{
+        color : '#FFF',
+        fontSize : 17
+    }
 
 })

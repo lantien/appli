@@ -17,7 +17,7 @@ export default class Login extends React.Component {
         this.password = "";
     }s
 
-  componentDidMount() {
+    componentDidMount() {
 
         this.navigate = this.props.navigation;
     }
