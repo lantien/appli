@@ -1,1 +1,1 @@
-module.exports = "http://192.168.1.22/";
+module.exports = "http://89.92.167.8/";

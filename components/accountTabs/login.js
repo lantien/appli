@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text, AsyncStorage } from 'react-native';
-
-import {StackActions, NavigationActions} from 'react-navigation';
+import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -12,72 +10,101 @@ export default class Login extends React.Component {
     title: 'Sign in',
   };
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.login = ""; 
-    this.password = "";
-  }
+        this.login = ""; 
+        this.password = "";
+    }
 
-  async componentDidMount() {
+    componentDidMount() {
 
-    this.navigate = this.props.navigation;
-  }
+        this.navigate = this.props.navigation;
+    }
 
-  _setLogin(text) {
+    _setLogin(text) {
 
-    this.login = text;
-  } 
+        this.login = text;
+    } 
 
-  _setPassword(text) {
+    _setPassword(text) {
 
-    this.password = text;
-  }
+        this.password = text;
+    }
 
-  _navigate(compoNanme) {
+    _navigate(compoNanme) {
 
-    this.navigate.navigate(compoNanme);
-  }
+      console.log("redirect to", compoNanme);
+      this.navigate.navigate(compoNanme);
+    }
 
-  requestLogin() {
+    requestLogin() {
 
-      fetch(apiUrl + 'login', {
-          method: 'POST',
+      console.log("login");
+        /* store.getState().apiUrl */
+        fetch(apiUrl + 'login', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              login: this.login,
+              password: this.password,
+            }),
+        })
+        .then(res => {
+
+            return res.json();
+        })
+        .then(data => {
+
+            this._getOrders(
+              store.dispatch({
+                type: 'SET_TOKEN',
+                token: data.token
+              })
+            );
+
+            const navigateAction = StackActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Account" })],
+            });
+          
+            this.navigate.dispatch(navigateAction);
+        })
+        .catch(err => {
+
+            console.log("err", err);
+        });
+    }
+
+    _getOrders() {
+    
+      fetch(apiUrl + 'me/order', {
+          method: 'GET',
           headers: {
-            Accept: 'application/json',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'x-access-token': store.getState().token
           },
-          body: JSON.stringify({
-            login: this.login,
-            password: this.password,
-          }),
-      })
-      .then(res => {
-
-          return res.json();
       })
       .then(data => {
 
-          store.dispatch({
-            type: 'SET_TOKEN',
-            token: data.token
-          });
-
-          return AsyncStorage.setItem('token', data.token);
+          return data.json();
       })
-      .then(() => {
-        const navigateAction = StackActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({ routeName: "Account" })],
+      .then(data => {
+
+        store.dispatch({
+          type: 'SET_ORDER',
+          data: data
         });
-      
-        this.navigate.dispatch(navigateAction);
       })
       .catch(err => {
 
-          console.log("err", err);
-      });
-  }
+          console.log(err);
+      })
+    }
 
     render() {
 
@@ -194,10 +221,6 @@ export default class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
-  test :{
-    backgroundColor : '#000'
-  },
 
     container: {
       flex: 1,
