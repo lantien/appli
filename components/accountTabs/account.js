@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, ScrollView,StyleSheet,TouchableOpacity, Button, AsyncStorage } from 'react-native';
 
+import { StackActions, NavigationActions } from 'react-navigation';
+
 import { connect } from 'react-redux';
 
 import convertCurrency from '../../tools/convertCurrency.js';
@@ -26,6 +28,11 @@ class Account extends React.Component {
 
     }
 
+    componentWillMount() {
+
+        this.navigate = this.props.navigation;
+    }
+
     componentDidMount() {
 
         this.getProfile();
@@ -43,6 +50,13 @@ class Account extends React.Component {
             orderList: []
         });
         AsyncStorage.clear();
+
+        const navigateAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: "Login" })],
+        });
+    
+        this.navigate.dispatch(navigateAction);
     }
 
     getProfile() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text, AsyncStorage } from 'react-native';
 
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -36,14 +36,11 @@ export default class Login extends React.Component {
 
     _navigate(compoNanme) {
 
-      console.log("redirect to", compoNanme);
       this.navigate.navigate(compoNanme);
     }
 
     requestLogin() {
 
-      console.log("login");
-        /* store.getState().apiUrl */
         fetch(apiUrl + 'login', {
             method: 'POST',
             headers: {
@@ -68,12 +65,16 @@ export default class Login extends React.Component {
               })
             );
 
-            const navigateAction = StackActions.reset({
-              index: 0,
-              actions: [NavigationActions.navigate({ routeName: "Account" })],
-            });
-          
-            this.navigate.dispatch(navigateAction);
+            return AsyncStorage.setItem('token', data.token);
+        })
+        .then(() => {
+
+          const navigateAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: "Account" })],
+          });
+        
+          this.navigate.dispatch(navigateAction);
         })
         .catch(err => {
 
