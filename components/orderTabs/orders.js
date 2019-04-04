@@ -13,10 +13,6 @@ class Orders extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            orders: [],
-            fetch: false
-        };
     }
 
     _keyExtractor = (item, index) => item._id;
@@ -26,66 +22,13 @@ class Orders extends React.Component {
         this.props.navigation.navigate('OrderDetail', item);
     }
 
-    componentWillMount() {
-
-        this._getOrders();
-    }
-
-    componentWillUpdate() {
-
-        this._getOrders();
-    }
-
-    _getOrders() {
-    
-        if(this.props.token != "" && !this.state.fetched) {
-
-            this.setState({
-                fetched: true
-            })
-
-            fetch(apiUrl + 'me/order', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-access-token': this.props.token
-                },
-            })
-            .then(data => {
-
-                return data.json();
-            })
-            .then(data => {
-
-                var displayData = data.map(function(element) {
-
-                    var date = new Date(element.createdAt);
-
-                    element.createdAt = date.toLocaleDateString();
-                    element.symbol = convertCurrency(element.currency);
-                    element.heure = date.getHours() + ":" + date.getMinutes();
-                    return element;
-                });
-
-                this.setState({
-                    orders: displayData
-                });
-            })
-            .catch(err => {
-
-                console.log("error", err);
-            })
-        }
-    }
-
     render() {
-        
+
         return (
             <View style={styles.container}>
 
                 <FlatList
-                    data={this.state.orders}
+                    data={this.props.orderList}
                     keyExtractor={this._keyExtractor}
                     renderItem={({item}) => 
                                             <TouchableOpacity

@@ -1,9 +1,12 @@
 import React from 'react';
-import { Text, View, ScrollView,StyleSheet,TouchableOpacity,Button } from 'react-native';
+import { Text, View, ScrollView,StyleSheet,TouchableOpacity, Button, AsyncStorage } from 'react-native';
 
 import { connect } from 'react-redux';
 
+import convertCurrency from '../../tools/convertCurrency.js';
+
 import apiUrl from '../../config/api.url.js';
+import store from '../redux/store.js';
 
 class Account extends React.Component {
 
@@ -26,6 +29,20 @@ class Account extends React.Component {
     componentDidMount() {
 
         this.getProfile();
+        this.getOrders();
+    }
+
+    logout() {
+
+        store.dispatch({
+            type: 'SET_TOKEN',
+            token: ""
+        });
+        store.dispatch({
+            type: 'SET_ORDERS',
+            orderList: []
+        });
+        AsyncStorage.clear();
     }
 
     getProfile() {
@@ -43,8 +60,8 @@ class Account extends React.Component {
             return data.json();
         })
         .then(data => {
+
             this.setState(data);
-            console.log(data);
         })
         .catch(err => {
   
@@ -52,8 +69,44 @@ class Account extends React.Component {
         })
     }
 
+    getOrders() {
+
+            fetch(apiUrl + 'me/order', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-access-token': this.props.token
+                },
+            })
+            .then(data => {
+
+                return data.json();
+            })
+            .then(data => {
+
+                var displayData = data.map(function(element) {
+
+                    var date = new Date(element.createdAt);
+
+                    element.createdAt = date.toLocaleDateString();
+                    element.symbol = convertCurrency(element.currency);
+                    element.heure = date.getHours() + ":" + date.getMinutes();
+                    return element;
+                });
+
+                store.dispatch({
+                    type: 'SET_ORDERS',
+                    orderList: displayData
+                });
+            })
+            .catch(err => {
+
+                console.log("error", err);
+            })
+    }
+
     render() {
-        console.log(this.state); 
 
         return (
             <ScrollView style={styles.container}>
@@ -101,7 +154,13 @@ class Account extends React.Component {
 
             <View style={styles.containerLogOut}>
 
-                   <TouchableOpacity style={styles.logOutButton}>
+                <TouchableOpacity 
+                    style={styles.logOutButton}
+                    onPress={() => {
+                        this.logout();
+                    }}
+                >
+
                     <Text style={styles.logOutText}>Log out</Text>
 
                 </TouchableOpacity>

@@ -1,6 +1,7 @@
 const initialState = {
     
-    token: ""
+    token: "",
+    orderList: []
 };
 
 const myReducer = (state = initialState, action) => {
@@ -11,6 +12,12 @@ const myReducer = (state = initialState, action) => {
             nextState = {
                 ...state,
                 token: action.token
+            }
+            return nextState || state
+        case 'SET_ORDERS':
+            nextState = {
+                ...state,
+                orderList: action.orderList
             }
             return nextState || state
 
