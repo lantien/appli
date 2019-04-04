@@ -37,6 +37,11 @@ class Account extends React.Component {
 
         this.getProfile();
         this.getOrders();
+
+        if(this.props.navigation.getParam('justLogged', false)) {
+            
+            this.props.screenProps.rootNavigation.navigate({ routeName: 'Shop' });
+        }
     }
 
     logout() {
@@ -99,15 +104,17 @@ class Account extends React.Component {
             })
             .then(data => {
 
-                var displayData = data.map(function(element) {
+                var displayData = [];
 
-                    var date = new Date(element.createdAt);
+                for(var i in data) {
+                    var date = new Date(data[i].createdAt);
 
-                    element.createdAt = date.toLocaleDateString();
-                    element.symbol = convertCurrency(element.currency);
-                    element.heure = date.getHours() + ":" + date.getMinutes();
-                    return element;
-                });
+                    data[i].createdAt = date.toLocaleDateString();
+                    data[i].symbol = convertCurrency(data[i].currency);
+                    data[i].heure = date.getHours() + ":" + date.getMinutes();
+                    data[i].ite = i;
+                    displayData.push(data[i]);
+                }
 
                 store.dispatch({
                     type: 'SET_ORDERS',

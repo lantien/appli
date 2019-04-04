@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, ScrollView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, ScrollView, BackHandler } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
+
+import OrderDetail from './orderDetail.js';
 
 import convertCurrency from '../../tools/convertCurrency.js';
 import apiUrl from '../../config/api.url.js';
@@ -13,28 +15,59 @@ class Orders extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+
+          showDetail: false
+        };
+    }
+
+    componentWillMount(){
+
+      BackHandler.addEventListener('hardwareBackPress', () => {
+
+        if(this.state.showDetail) {
+
+          this.setState({
+            showDetail: false
+          });
+
+          return true;
+        }
+      });
+    }
+
+    shouldComponentUpdate(nextState) {
+
+      if(nextState.token == "") {
+
+        this.state.showDetail = false;
+        return true;
+      }
+
+      return true;
     }
 
     _keyExtractor = (item, index) => item._id;
 
-    showOrder(item)  {
+    showOrder(id)  {
 
-        this.props.navigation.navigate('OrderDetail', item);
+      this.setState({
+        showDetail: <OrderDetail order={this.props.orderList[id]}/>
+      });
     }
 
     render() {
 
-        return (
-            <View style={styles.container}>
+      if(!this.state.showDetail) {
 
-                <FlatList
+        var list = <FlatList
                     data={this.props.orderList}
                     keyExtractor={this._keyExtractor}
                     renderItem={({item}) => 
                                             <TouchableOpacity
                                                 style={styles.container}
                                                 onPress={() => {
-                                                    this.showOrder({item});
+                                                    this.showOrder(item.ite);
                                                 }}
                                             >
 
@@ -80,8 +113,15 @@ class Orders extends React.Component {
                                             </TouchableOpacity>
                                 }
                     
-                />
-            </View>
+                />;
+      }
+
+        return (
+            <View  style={styles.container}>
+            {this.state.showDetail}
+            {list}
+                
+            </View >
         );
     }
 }

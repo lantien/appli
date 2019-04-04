@@ -71,7 +71,11 @@ export default class Login extends React.Component {
 
           const navigateAction = StackActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: "Account" })],
+            actions: [NavigationActions.navigate({ 
+                        routeName: "Account",
+                        params: {justLogged: true}
+                      }
+            )],
           });
         
           this.navigate.dispatch(navigateAction);

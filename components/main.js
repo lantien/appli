@@ -29,7 +29,9 @@ const TabNavigator = createMaterialBottomTabNavigator({
         }
     },
     Account: {
-        screen: Account,
+        screen: ({ navigation }) => {
+            return <Account screenProps={{ rootNavigation: navigation }} />
+        },
         navigationOptions: {
             tabBarLabel: 'Compte',
             tabBarIcon: ({tintColor, activeTintColor}) => (

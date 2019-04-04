@@ -1,25 +1,40 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
 
-import convertCurrency from '../../tools/convertCurrency.js';
 
-export default class OrderDetail extends React.Component {
+import convertCurrency from '../../tools/convertCurrency.js';
+import { connect } from 'react-redux';
+
+class OrderDetail extends React.Component {
 
     constructor(props) {
         super(props);
 
     }
 
+    shouldComponentUpdate(nextState) {
+
+      if(nextState.token == "") {
+
+        return false;
+      } else {
+
+        return true;
+      }
+    }
+
     render() {
 
-        var item = this.props.navigation.getParam('item', "no_data");
+      
+        var item = this.props.order;
         item.displaynum = parseInt(item._id.substr(item._id.length - 4), 16);
         item.displaytotal = item.total + convertCurrency(item.currency);
         item.zipdisplay = item.zip + " " + item.city;
 
         return (
-            <View style={styles.container}>
 
+          
+            <View style={styles.container}>
             <StatusBar
               barStyle="dark-content"
               />
@@ -97,6 +112,12 @@ export default class OrderDetail extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+
+  return state;
+}
+
+export default connect(mapStateToProps)(OrderDetail);
 
 
 const styles = StyleSheet.create({
