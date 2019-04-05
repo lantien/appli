@@ -216,10 +216,13 @@ const styles = StyleSheet.create({
         padding : 10
     },
     firstname: {
-        marginHorizontal : 3,        
+        marginHorizontal : 3,
+        fontSize : 17,
+        fontWeight: '500',     
     },
     lastname : {
-
+        fontSize : 17,
+        fontWeight: '500',
     },
     email:{
        

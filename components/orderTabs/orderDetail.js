@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, Header,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
 
 
 import convertCurrency from '../../tools/convertCurrency.js';
 import { connect } from 'react-redux';
 
 class OrderDetail extends React.Component {
+
+  static navigationOptions = {
+      title: 'Order Details',
+    };
 
     constructor(props) {
         super(props);
@@ -38,6 +42,8 @@ class OrderDetail extends React.Component {
             <StatusBar
               barStyle="dark-content"
               />
+
+                
     
               <View style={styles.containerHeader}>
                 </View>
