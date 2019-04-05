@@ -46,7 +46,10 @@ const TabNavigator = createMaterialBottomTabNavigator({
     activeColor: '#FFFFFF',
     headerMode: 'none',
     inactiveColor: '#fefee2',
-    shifting: true
+    shifting: true,
+    navigationOptions: {
+        gesturesEnabled: true,
+    }
 });
 
 export default createAppContainer(TabNavigator);

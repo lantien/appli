@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
-export default class Shop extends React.Component {
+import { connect } from 'react-redux';
+
+class Shop extends React.Component {
 
     position = [45.754516, 4.848909];
 
@@ -24,11 +26,10 @@ export default class Shop extends React.Component {
         navigator.geolocation.getCurrentPosition(
 
             (position) => {
-                this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    error: null,
-                });
+                
+                this.state.latitude = position.coords.latitude;
+                this.state.longitude = position.coords.longitude;
+                this.state.error = null;
 
                 this._getShops(position.coords.latitude, 
                     position.coords.longitude);
@@ -73,15 +74,44 @@ export default class Shop extends React.Component {
         })
     }
 
+    _keyExtractor = (item, index) => item._id;
+
+    showShop = id => {
+
+        this.props.navigation.navigate('Catalogue', {
+            shopData: this.state.listShops[id]
+        });
+    }
+
+    renderListShop = item => {
+
+        return(
+        <Text
+            onPress={ () => this.showShop(item.index)}
+        >
+            {item.item._id}
+        </Text>)
+        
+        ;
+    }
+
     render() {
 
         return (
             <View>
-                <Text>Shops</Text>
-                <Text>Latitude: {this.state.latitude}</Text>
-                <Text>Longitude: {this.state.longitude}</Text>
-                {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
+               <FlatList
+                    data={this.state.listShops}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this.renderListShop}
+                />
             </View>
         );
     }
 }
+
+function mapStateToProps(state) {
+
+    return state;
+}
+
+export default connect(mapStateToProps)(Shop);
