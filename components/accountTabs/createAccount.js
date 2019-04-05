@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, StyleSheet, ScrollView, Button, Text, Platform } from 'react-native';
+import { TextInput, View, StyleSheet, TouchableOpacity,ScrollView, Button, Text, Platform } from 'react-native';
 
 import { AsyncStorage } from 'react-native';
 import {StackActions, NavigationActions} from 'react-navigation';
@@ -134,46 +134,79 @@ export default class CreateAccount extends React.Component {
                 <View style={styles.containerForm}>             
                 <TextInput
                     style={styles.input}
+                    onChangeText={(text) => this._setFirstname(text)}  
+                    placeholder="Firstname"
+                    returnKeyType= "next"
+                    onSubmitEditing = {() => this.lastNameInput.focus()}
+                />
+
+                <TextInput
+                    style={styles.input}
                     onChangeText={(text) => this._setLastname(text)}
                     placeholder="Lastname"
+                    returnKeyType= "next"
+                    onSubmitEditing = {() => this.emailInput.focus()}
+                    ref={(input) => this.lastNameInput = input}
                 />
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(text) => this._setFirstname(text)}
-                    placeholder="Firstname"
-                />
-
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={styles.input}
                     onChangeText={(text) => this._setEmail(text)}
                     placeholder="email"
+                    returnKeyType= "next"
+                    keyboardType="email-address"
+                    onSubmitEditing = {() => this.phoneNumberInput.focus()}
+                    ref={(input) => this.emailInput = input}
                 />
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={styles.input}
                     onChangeText={(text) => this._setNumber(text)}
                     placeholder="Phone number"
+                    returnKeyType= "next"
+                    onSubmitEditing = {() => this.passwordInput.focus()}
+                    ref={(input) => this.phoneNumberInput = input}
                 />
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={styles.input}
                     onChangeText={(text) => this._setPassword(text)}
-                    placeholder="password"
+                    placeholder="Password"
+                    ref={(input) => this.passwordInput = input}
+                    secureTextEntry
+                    returnKeyType= "next"
+                    onSubmitEditing = {() => this.confirmPasswordInput.focus()}
+                />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => this._setPassword(text)}
+                    placeholder="Confirm password"
+                    ref={(input) => this.confirmPasswordInput = input}
+                    secureTextEntry
+                    returnKeyType= "go"
                 />
                 </View>
 
-                <Button
-                    onPress={() => this.createAccount()}/* {() => this.requestLogin()} */
-                    title="Create Account"
-                />
+                <View style={styles.line}>
+              </View>
+
+                <View  style={styles.containerButton}>
+                    <TouchableOpacity
+                        onPress={() => this._navigate('CreateAccount')}/* {() => this.requestLogin()} */
+                        style={styles.signUpButton}
+                    >
+                    
+                    <Text style={styles.signUp}>Sign up</Text>
+
+                    </TouchableOpacity>
+                </View>
 
                 <Button
                     onPress={() => this.props.navigation.goBack()}/* {() => this.requestLogin()} */
                     title="Retour login"
                 />
+                
 
-            
                 </ScrollView>
             </View>
         );
@@ -184,20 +217,17 @@ const styles = StyleSheet.create({
 
 container: {
   flex: 1,
-  backgroundColor: '#F8F8F8',
-  paddingHorizontal: 20,
+  backgroundColor: '#F5F5F5',
+  paddingHorizontal: 15,
   flexDirection: 'column',
   },
 
   containerForm:{
-     
-      flex : 0.6,
       flexDirection :'column',
-      justifyContent : 'space-between'
+      justifyContent : 'space-between',
   },
-
+  
   logoText: {
-    backgroundColor: '#F8F8F8',
     alignItems: 'center',
     justifyContent:'center',
     height: 80,
@@ -206,20 +236,45 @@ container: {
   },
 
   title: {
-    backgroundColor: '#F8F8F8',
     color: '#FA0129',
     fontSize: 25,
     marginTop: 10,
-    width: 190,
     textAlign: 'center',  
   },
   input :{
     backgroundColor : '#FFF' ,
-    height: 40,
+    height: 45,
     marginBottom: 10,   
-    borderColor : 'gray',
+    borderColor : '#bfbfbf',
     borderWidth : 1,    
-    paddingHorizontal :10,
+    padding :10,
   },
+  containerButton: {
+    
+    alignItems: 'center',
+    flexDirection:'column',
+    justifyContent:'center',
+    marginTop : 10,
+  },
+  signUpButton: {
+    backgroundColor: '#2F7DE1',
+    
+    width: '100%',
+    height: 45,
+    borderRadius: 3,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent : 'center',
+    marginBottom: 10
+  },
+  signUp :{
+      color : '#fff',
+      fontSize : 17,
+  },
+  line :{
+      backgroundColor : '#bfbfbf',
+      height : 1,
+      margin: 10,
+  }
 
 })

@@ -171,7 +171,7 @@ export default class Login extends React.Component {
                 <TouchableOpacity
                 onPress={() => this._navigate('ForgotPassword')}/* {() => this.requestLogin()} */
                 >                   
-                <Text style={styles.forgottenCustom}>Forget Password ?</Text>
+                <Text style={styles.forgottenCustom}>Forgot Password</Text>
                 </TouchableOpacity>
                 </View>
 

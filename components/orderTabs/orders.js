@@ -11,6 +11,9 @@ import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
 class Orders extends React.Component {
+    static navigationOptions = {
+      title: 'My orders',
+      };
 
     navigationOptions =  {
       headerLeft: null
