@@ -12,6 +12,10 @@ import store from '../redux/store.js';
 
 class Orders extends React.Component {
 
+    navigationOptions =  {
+      headerLeft: null
+    }
+
     constructor(props) {
         super(props);
 
@@ -19,6 +23,8 @@ class Orders extends React.Component {
 
           showDetail: false
         };
+
+        this.navigationOptions.headerLeft = this.state.showDetail;
     }
 
     componentWillMount(){
