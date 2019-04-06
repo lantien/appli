@@ -9,10 +9,11 @@ export default class Settings extends React.Component {
         super(props);
 
     }
-
+  
     render() {
 
         return (
+
             <View style={styles.container}>
 
       {/* <Header
@@ -40,12 +41,13 @@ export default class Settings extends React.Component {
         <View style = {styles.headerRight}>
           
         </View>
+
       </View>
       
 
 
 
-      <ScrollView style = {{flex : 1, backgroundColor :'#f5f5f5'}}>
+      <ScrollView style = {{flex : 0.905,}}>
 
         <View style= {{height: 1, backgroundColor : '#E8E8E8', marginTop : 25}}> 
           
@@ -53,7 +55,7 @@ export default class Settings extends React.Component {
           
         {/* Firstname */}
 
-          <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff'}}> 
+          <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
             
                        <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Firstname</Text>
                        <TextInput 
@@ -83,7 +85,7 @@ export default class Settings extends React.Component {
 
             {/* Phone Number */}
 
-            <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff'}}> 
+            <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
             
             <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Phone number</Text>
             <TextInput 
@@ -111,12 +113,23 @@ const styles = StyleSheet.create({
       backgroundColor : '#ffff',
       flexDirection : 'row',    
       justifyContent : 'space-between',
-      alignItems : 'flex-end'
+      alignItems : 'flex-end', 
+      shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 1,
+},
+shadowOpacity: 0.22,
+shadowRadius: 2.22,
+
+elevation: 3,
     },
+
     headerLeft:{
       backgroundColor :'#fff',
       width : 60,
       marginLeft : 10,
+    
     },
     headerRight: {
         width : 60,
