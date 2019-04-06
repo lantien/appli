@@ -152,7 +152,13 @@ class Account extends React.Component {
             <View style={styles.line}>
                    </View>
 
-            <TouchableOpacity style={styles.settingContainer}>
+            <TouchableOpacity 
+                style={styles.settingContainer}
+                onPress={() => {
+
+                    this.props.navigation.navigate('Settings');
+                }}
+            >
                 <Text style={styles.textTitles}>Settings</Text>
             </TouchableOpacity>
 
@@ -166,7 +172,13 @@ class Account extends React.Component {
             <View style={styles.line}>
                    </View>
 
-            <TouchableOpacity style={styles.settingContainer}>
+            <TouchableOpacity 
+                style={styles.settingContainer}
+                onPress={() => {
+
+                    this.props.navigation.navigate('PaymentOptions');
+                }}
+            >
                 <Text style={styles.textTitles}>Payment options</Text>
             </TouchableOpacity>
 
