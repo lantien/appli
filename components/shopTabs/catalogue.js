@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, Button, Alert, TouchableOpacity } from 'react-native';
 
-import Modal from "react-native-modal";
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
