@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, ScrollView,StyleSheet,TouchableOpacity, Button, AsyncStorage } from 'react-native';
 
+import { Feather, MaterialIcons, AntDesign } from 'react-native-vector-icons'
+
 import { StackActions, NavigationActions } from 'react-navigation';
 
 import { connect } from 'react-redux';
@@ -130,7 +132,31 @@ class Account extends React.Component {
     render() {
 
         return (
-            <ScrollView style={styles.container}>
+
+            <View style={styles.container}>
+
+            <View style={styles.header}>
+
+            <View style={styles.headerLeft}> 
+          
+            </View>
+
+
+      <View style={styles.headerCenter}>
+        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>My account</Text>
+        </View>
+
+        <View style = {styles.headerRight}>
+        
+
+            </View>
+
+            </View>
+
+            <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
+              </View>
+
+            <ScrollView>
             
            {/*  <ScrollView> */}
 
@@ -149,57 +175,83 @@ class Account extends React.Component {
                 </Text>
             </View> 
 
-            <View style={styles.line}>
+           {/*  --------------------------------- My Account --------------------------------------- */}
+
+            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
                    </View>
 
             <TouchableOpacity 
-                style={styles.settingContainer}
+                style = {{ padding: 18, flexDirection: 'row',backgroundColor : '#fff', }}
                 onPress={() => {
 
                     this.props.navigation.navigate('Settings');
                 }}
             >
-                <Text style={styles.textTitles}>Settings</Text>
+
+                <AntDesign name = "profile" size={18} color ="#989898"/>
+                <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>My account</Text>
+
             </TouchableOpacity>
 
-            <View style={styles.line}>
+
+            <View style= {{height: 1, backgroundColor : '#E8E8E8', marginBottom: 25}}>
                    </View>
 
-            <TouchableOpacity style={styles.settingContainer}>
-                <Text style={styles.textTitles}>Support</Text>
-            </TouchableOpacity>
 
-            <View style={styles.line}>
+
+                {/* --------------------------------------------- Payment ------------------------------------------------------- */}
+
+                <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
                    </View>
 
             <TouchableOpacity 
-                style={styles.settingContainer}
+                style = {{ padding: 18, flexDirection: 'row',backgroundColor : '#fff', }}
                 onPress={() => {
 
                     this.props.navigation.navigate('PaymentOptions');
                 }}
             >
-                <Text style={styles.textTitles}>Payment options</Text>
+                <MaterialIcons name = "payment" size={18} color ="#989898"/>
+                <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Payment options</Text>
             </TouchableOpacity>
 
-            <View style={styles.line}>
+            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
                    </View>
 
-            <View style={styles.containerLogOut}>
+
+                {/* --------------------------------------- Support ------------------------------------------------------- */}
+
+            
+            <TouchableOpacity style = {{ padding: 18, flexDirection: 'row',backgroundColor : '#fff', }}>
+            
+                <Feather name = "help-circle" size={18} color ="#989898"/>
+
+                <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Support</Text>
+
+            </TouchableOpacity>
+
+            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+                   </View>
+
+                {/* ---------------------------------------------------Log Out --------------------------------------------------- */}       
 
                 <TouchableOpacity 
-                    style={styles.logOutButton}
+                    style = {{ paddingVertical: 18, paddingHorizontal: 20,flexDirection: 'row',backgroundColor : '#fff',  }}
+
                     onPress={() => {
                         this.logout();
                     }}
                 >
-
-                    <Text style={styles.logOutText}>Log out</Text>
+                    <Feather name = "log-out" size={18} color ="#989898"/>
+                    <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Log out</Text>
 
                 </TouchableOpacity>
-                </View>
+                <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+                   </View>
 
             </ScrollView>
+
+            </View>
             
 
         );
@@ -215,10 +267,48 @@ export default connect(mapStateToProps)(Account);
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex : 1,
-        backgroundColor: '#F8F8F8',
-    },
+    container:{
+        flex: 1 ,
+        backgroundColor: '#f5f5f5'    
+      },
+      header :{
+        height : 65,
+        backgroundColor : '#fff',
+        flexDirection : 'row',    
+        justifyContent : 'space-between',
+        alignItems : 'center', 
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,},
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+  
+        },
+  
+      headerLeft:{
+        backgroundColor :'#fff',
+        flex :0.33,
+        height : '75%',
+        marginLeft : 10,
+        justifyContent : 'flex-end',
+    
+      },
+      headerCenter:{
+        
+        flex :0.33,
+        height : '50%',
+        justifyContent : 'flex-end',
+        alignItems : 'center'
+      },
+  
+      headerRight: {
+        flex :0.33,
+        height : '50%',
+        marginRight : 15,
+        alignItems : 'flex-end',
+        justifyContent :'flex-end'
+        },
     
     name : {
         flexDirection : 'row',

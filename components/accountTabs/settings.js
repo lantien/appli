@@ -43,7 +43,11 @@ export default class Settings extends React.Component {
         </View>
 
         <View style = {styles.headerRight}>
-          
+        <TouchableOpacity>
+
+          <Text style={{color:'#2F7DE1', fontSize: 15, fontWeight: '600'}}>Save</Text>
+
+        </TouchableOpacity>
         </View>
 
       </View>
@@ -179,7 +183,7 @@ const styles = StyleSheet.create({
       height : '75%',
       marginLeft : 10,
       justifyContent : 'flex-end',
-      
+  
     },
     headerCenter:{
       
@@ -188,10 +192,13 @@ const styles = StyleSheet.create({
       justifyContent : 'flex-end',
       alignItems : 'center'
     },
+
     headerRight: {
       flex :0.33,
-        marginRight : 10
-    }
+      height : '50%',
+      marginRight : 15,
+      alignItems : 'flex-end',
+      justifyContent :'flex-end'
+      }
   
     });
-  

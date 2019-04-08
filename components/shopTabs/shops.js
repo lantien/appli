@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -98,7 +98,30 @@ class Shop extends React.Component {
     render() {
 
         return (
-            <View>
+            <View style={{flex : 1, backgroundColor : '#fff'}}>
+
+                    <View style={styles.header}>
+
+                    <View style={styles.headerLeft}> 
+
+                    </View>
+
+
+                <View style={styles.headerCenter}>
+                <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
+                </View>
+
+                <View style = {styles.headerRight}>
+
+
+                </View>
+
+                </View>
+
+                    <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
+                </View>
+
+
                <FlatList
                     data={this.state.listShops}
                     keyExtractor={this._keyExtractor}
@@ -115,3 +138,50 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Shop);
+
+const styles = StyleSheet.create({
+    container:{
+      flex: 1 ,
+      backgroundColor: '#f5f5f5'
+    
+    },
+    header :{
+      height : 65,
+      backgroundColor : '#fff',
+      flexDirection : 'row',    
+      justifyContent : 'space-between',
+      alignItems : 'center', 
+      shadowColor: "#000",
+      shadowOffset: {
+	    width: 0,
+	    height: 1,},
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+
+      },
+
+    headerLeft:{
+      backgroundColor :'#fff',
+      flex :0.33,
+      height : '75%',
+      marginLeft : 10,
+      justifyContent : 'flex-end',
+  
+    },
+    headerCenter:{
+      
+      flex :0.33,
+      height : '50%',
+      justifyContent : 'flex-end',
+      alignItems : 'center'
+    },
+
+    headerRight: {
+      flex :0.33,
+      height : '50%',
+      marginRight : 15,
+      alignItems : 'flex-end',
+      justifyContent :'flex-end'
+      }
+  
+    });
