@@ -1,7 +1,7 @@
 import React from 'react';
-import {Alert, StyleSheet, View,TextInput, TouchableOpacity, TouchbableWithoutFeedBack,Text, StatusBar, ScrollView, Image } from 'react-native';
+import {Alert, StyleSheet, View, TextInput, TouchableOpacity, Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
 
-import { Ionicons, MaterialIcons } from 'react-native-vector-icons'
+import { Feather, MaterialIcons } from 'react-native-vector-icons'
 
 export default class Settings extends React.Component {
 
@@ -18,6 +18,10 @@ export default class Settings extends React.Component {
               barStyle="light-content"
             >
 
+<StatusBar
+          barStyle="dark-content"
+          /> 
+
       {/* <Header
   
       centerComponent={{ text: 'MY TITLE', style: { color: '#000' , fontWeight : '700'} }}   
@@ -30,13 +34,13 @@ export default class Settings extends React.Component {
       <View style={styles.headerLeft}> 
           <TouchableOpacity>
 
-          <MaterialIcons name = "keyboard-return" size={28} color ="#34DA4F"/>
+          <MaterialIcons name = "keyboard-return" size={28} color ="#2F7DE1"/>
 
           </TouchableOpacity>
         </View>
 
 
-      <View style={{marginBottom : 10}}>
+      <View style={styles.headerCenter}>
         <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Settings</Text>
         </View>
 
@@ -45,11 +49,14 @@ export default class Settings extends React.Component {
         </View>
 
       </View>
+
+      <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>        
+              </View>
       
 
 
 
-      <ScrollView style = {{flex : 0.905,}}>
+      <ScrollView style = {{flex : 1, }} keyboardDismissMode='on-drag'>
 
         <View style= {{height: 1, backgroundColor : '#E8E8E8', marginTop : 25}}> 
           
@@ -71,7 +78,7 @@ export default class Settings extends React.Component {
           </View>
         
           {/* Lastname */}
-
+          
           <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff'}}> 
             
             <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Lastname</Text>
@@ -81,6 +88,7 @@ export default class Settings extends React.Component {
             ></TextInput>
 
             </View>
+            
 
             <View style= {{height: 0.4, backgroundColor : '#B8B8B8', marginHorizontal: 40}}> 
             </View> 
@@ -97,6 +105,48 @@ export default class Settings extends React.Component {
 
             </View>
 
+            {/* Email adress */}
+
+            <View style= {{height: 0.4, backgroundColor : '#B8B8B8', marginHorizontal: 40}}> 
+            </View> 
+
+            <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
+            
+            <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Email adress</Text>
+            <TextInput 
+             placeholder = 'Mettre l\adresse email' 
+             style= {{fontSize: 17}}
+            ></TextInput>
+
+            </View>
+
+            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>        
+              </View>
+
+            
+            
+                {/* Current password */}
+
+                <View style= {{height: 1, backgroundColor : '#E8E8E8', marginTop : 10}}> 
+          
+                  </View>
+          
+                    <TouchableOpacity style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff', }}> 
+
+                      <Feather name = "lock" size={15} color ="#808080"/>
+
+                       <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8}}>Reset your password</Text>
+                                 
+                      </TouchableOpacity>
+
+                <View style= {{height: 0.4, backgroundColor : '#B8B8B8'}}> 
+                </View>
+                
+              
+            
+
+            
+
       </ScrollView>
 
       </View>
@@ -111,30 +161,37 @@ const styles = StyleSheet.create({
     
     },
     header :{
-      flex : 0.095,
-      backgroundColor : '#ffff',
+      height : 65,
+      backgroundColor : '#fff',
       flexDirection : 'row',    
       justifyContent : 'space-between',
-      alignItems : 'flex-end', 
+      alignItems : 'center', 
       shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.22,
-shadowRadius: 2.22,
+      shadowOffset: {
+	    width: 0,
+	    height: 1,},
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
 
-elevation: 3,
-    },
+      },
 
     headerLeft:{
       backgroundColor :'#fff',
-      width : 60,
+      flex :0.33,
+      height : '75%',
       marginLeft : 10,
-    
+      justifyContent : 'flex-end',
+      
+    },
+    headerCenter:{
+      
+      flex :0.33,
+      height : '50%',
+      justifyContent : 'flex-end',
+      alignItems : 'center'
     },
     headerRight: {
-        width : 60,
+      flex :0.33,
         marginRight : 10
     }
   
