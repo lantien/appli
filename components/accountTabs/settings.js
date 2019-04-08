@@ -14,7 +14,9 @@ export default class Settings extends React.Component {
 
         return (
 
-            <View style={styles.container}>
+            <View style={styles.container}
+              barStyle="light-content"
+            >
 
 <StatusBar
           barStyle="dark-content"

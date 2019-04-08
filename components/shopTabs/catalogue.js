@@ -52,7 +52,9 @@ class Catalogue extends React.Component {
 
     showSupplement = (item) => {
 
-        console.log("clicked", item);
+        this.props.navigation.navigate('addBasket', {
+            item
+        });
     }
 
     renderProduit = item => {

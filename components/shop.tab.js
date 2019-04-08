@@ -3,11 +3,13 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 //import components
 import Shop from './shopTabs/shops.js';
 import Catalogue from './shopTabs/catalogue.js';
+import addBasket from './shopTabs/addBasket.js';
 
 
 const AppNavigator = createStackNavigator({
     Shop: Shop,
-    Catalogue: Catalogue
+    Catalogue: Catalogue,
+    addBasket: addBasket
   },
   {
     initialRouteName: "Shop",
