@@ -1,7 +1,8 @@
 const initialState = {
     
     token: "",
-    orderList: []
+    orderList: [],
+    basket: []
 };
 
 const myReducer = (state = initialState, action) => {
@@ -20,7 +21,12 @@ const myReducer = (state = initialState, action) => {
                 orderList: action.orderList
             }
             return nextState || state
-
+        case 'ADD_ITEM' :
+            nextState = {
+                ...state,
+                basket: [...state.basket, action.item]
+            }
+            return nextState || state
         default:
             return state
     }

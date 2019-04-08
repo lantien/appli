@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, View, TextInput, TouchableOpacity, TouchbableWithoutFeedBack,Text, StatusBar, ScrollView, Image } from 'react-native';
+import {Alert, StyleSheet, View,TextInput, TouchableOpacity, TouchbableWithoutFeedBack,Text, StatusBar, ScrollView, Image } from 'react-native';
 
 import { Ionicons, MaterialIcons } from 'react-native-vector-icons'
 
@@ -14,7 +14,9 @@ export default class Settings extends React.Component {
 
         return (
 
-            <View style={styles.container}>
+            <View style={styles.container}
+              barStyle="light-content"
+            >
 
       {/* <Header
   
