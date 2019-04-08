@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 
 import apiUrl from '../../config/api.url.js';
@@ -25,24 +25,19 @@ class Catalogue extends React.Component {
         });
     }
 
-    _keyExtractor = (item, index) => item.name;
-
-    _keyExtractorProd = (item, index) => item.prod;
+    _keyExtractor = (item, index) => index.toString();
 
     renderCatalogue = (item) => {
 
         return(
             <View>
-                <Text h1
-                >
+
+                <Text h1>
                     {item.item.name}
-
-                    
                 </Text>
-
                 <FlatList
                     data={item.item.content}
-                    keyExtractor={this._keyExtractorProd}
+                    keyExtractor={this._keyExtractor}
                     renderItem={this.renderProduit}
                 />
             </View>
@@ -74,8 +69,32 @@ class Catalogue extends React.Component {
 
         return (
             <View>
-               <Text>Show shop</Text>
-               <FlatList
+               <View style={styles.header}>
+
+                    <View style={styles.headerLeft}> 
+
+                    </View>
+
+
+                    <View style={styles.headerCenter}>
+                        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
+                    </View>
+
+                    <View style = {styles.headerRight}>
+                    <Button
+                        onPress={() =>{
+
+                            this.props.navigation.navigate('Basket');
+                        }}
+                        title="Learn More"
+                        color="#841584"
+                        accessibilityLabel="Learn more about this purple button"
+                    />
+
+                    </View>
+
+                </View>
+                            <FlatList
                     data={this.state.catalogue}
                     keyExtractor={this._keyExtractor}
                     renderItem={this.renderCatalogue}
@@ -91,3 +110,50 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Catalogue);
+
+const styles = StyleSheet.create({
+    container:{
+      flex: 1 ,
+      backgroundColor: '#f5f5f5'
+    
+    },
+    header :{
+      height : 65,
+      backgroundColor : '#fff',
+      flexDirection : 'row',    
+      justifyContent : 'space-between',
+      alignItems : 'center', 
+      shadowColor: "#000",
+      shadowOffset: {
+	    width: 0,
+	    height: 1,},
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+
+      },
+
+    headerLeft:{
+      backgroundColor :'#fff',
+      flex :0.33,
+      height : '75%',
+      marginLeft : 10,
+      justifyContent : 'flex-end',
+  
+    },
+    headerCenter:{
+      
+      flex :0.33,
+      height : '50%',
+      justifyContent : 'flex-end',
+      alignItems : 'center'
+    },
+
+    headerRight: {
+      flex :0.33,
+      height : '50%',
+      marginRight : 15,
+      alignItems : 'flex-end',
+      justifyContent :'flex-end'
+      }
+  
+    });

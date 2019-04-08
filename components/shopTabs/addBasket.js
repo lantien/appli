@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Button } from 'react-native';
 
 import { Text } from 'react-native-elements';
 import SelectMultiple from 'react-native-select-multiple';
@@ -11,22 +11,9 @@ import { connect } from 'react-redux';
 
 class addBasket extends React.Component {
 
-    state = {
-        ref: null,
-        supplements: []
-    }
-
     constructor(props) {
         super(props);
 
-    }
-
-    onSelectionsChange = (selectedFruits) => {
-
-        if(selectedFruits.length <= 2 ) {
-
-            this.setState({selectedFruits});
-        }
     }
 
     componentWillMount() {
@@ -35,15 +22,33 @@ class addBasket extends React.Component {
 
         this.setState({
             ref: item.ref,
-            supplements: item.supplements
+            supplements: item.supplements,
+            selectedSupps: []
+        });
+    }
+
+    addBasket = () => {
+
+        console.log("add panier this", {
+            ref: this.state.ref,
+            selectedSupp: this.state.selectedSupps
+        });
+
+        var item = {
+            ref: this.state.ref,
+            supps: this.state.selectedSupps
+        };
+
+        store.dispatch({
+            type: 'ADD_ITEM',
+            item: item
         });
     }
 
     _keyExtractor = (item, index) => {
         
-        return item.nom;
+        return index.toString();
     }
-
 
     render() {
 
@@ -52,40 +57,37 @@ class addBasket extends React.Component {
                 <Text>
                     Show supplements
                 </Text>
+                
                 <FlatList
                     data={this.state.supplements}
                     keyExtractor={this._keyExtractor}
-                    renderItem={({item}) => {
+                    extraData={this.state}
+                    renderItem={
+                        ({item}) => {
                         
-                        return (
-                            <View>
-                                <Text>{item.nom}</Text>
+                                return <View>
+                                    <Text>{item.nom}</Text>
 
-                                <SelectMultiple
-                                    items={item.list/* () => {
 
-                                        let list = [];
+                                    <SelectMultiple
+                                        items={item.list}
+                                        selectedItems={this.state.selectedSupps}
+                                        onSelectionsChange={(selectedSupps) => {
 
-                                        for(var i in item.list) {
-
-                                            list.push(item.list[i].nom);
-                                        }
-
-                                        return list;
-                                    } */}
-                                    onSelectionsChange={(supp) => {
-
-                                        if(supp.length <= item.nb_option) {
-                                
-                                            this.setState({supp});
-                                        }
-                                    }}>
-                                    </SelectMultiple>
-                            </View>
-                        );
+                                            this.setState({
+                                                selectedSupps
+                                            })
+                                        }}>
+                                        </SelectMultiple>
+                                </View>;
+                            
                     }}
                 />
-
+            <Button
+                 onPress={this.addBasket}
+                title="AddBasket"
+                color="#841584"
+            />
             </View>
         );
     }
