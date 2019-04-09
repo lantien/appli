@@ -3,7 +3,8 @@ const initialState = {
     token: "",
     orderList: [],
     basket: [],
-    shopID: ""
+    shopID: "",
+    currency: ""
 };
 
 const myReducer = (state = initialState, action) => {
@@ -22,6 +23,12 @@ const myReducer = (state = initialState, action) => {
                 orderList: action.orderList
             }
             return nextState || state
+        case 'ADD_ORDER':
+            nextState = {
+                ...state,
+                orderList:[...state.orderList, action.orderList]
+            }
+            return nextState || state
         case 'ADD_ITEM' :
             nextState = {
                 ...state,
@@ -32,6 +39,12 @@ const myReducer = (state = initialState, action) => {
             nextState = {
                 ...state,
                 shopID: action.id
+            }
+            return nextState || state
+        case 'SET_CURRENCY' :
+            nextState = {
+                ...state,
+                currency: action.currency
             }
             return nextState || state
         default:

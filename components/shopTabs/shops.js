@@ -83,6 +83,11 @@ class Shop extends React.Component {
             id: this.state.listShops[id]._id
         });
 
+        store.dispatch({
+            type: 'SET_CURRENCY',
+            currency: this.state.listShops[id].currency
+        });
+
         this.props.navigation.navigate('Catalogue', {
             shopData: this.state.listShops[id]
         });
