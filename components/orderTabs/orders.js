@@ -56,12 +56,12 @@ class Orders extends React.Component {
       return true;
     }
 
-    _keyExtractor = (item, index) => item._id;
+    _keyExtractor = (item, index) => index.toString();
 
-    showOrder(id)  {
+    showOrder(item)  {
 
       this.setState({
-        showDetail: <OrderDetail order={this.props.orderList[id]}/>
+        showDetail: <OrderDetail order={item}/>
       });
     }
 
@@ -76,7 +76,7 @@ class Orders extends React.Component {
                                             <TouchableOpacity
                                                 style={styles.container}
                                                 onPress={() => {
-                                                    this.showOrder(item.ite);
+                                                    this.showOrder(item);
                                                 }}
                                             >
 

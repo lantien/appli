@@ -4,6 +4,8 @@ import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
+import convertCurrency from '../../tools/convertCurrency.js';
+
 import { connect } from 'react-redux';
 
 class Basket extends React.Component {
@@ -33,6 +35,12 @@ class Basket extends React.Component {
             return data.json();
         })
         .then(data => {
+
+            var date = new Date(data.createdAt);
+
+            data.createdAt = date.toLocaleDateString();
+            data.symbol = convertCurrency(data.currency);
+            data.heure = date.getHours() + ":" + date.getMinutes();
   
           store.dispatch({
             type: 'ADD_ORDER',
