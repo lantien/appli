@@ -20,8 +20,6 @@ class addBasket extends React.Component {
 
         var item = this.props.navigation.getParam('item', []).item;
 
-        console.log(item);
-
         this.setState({
             ref: item.ref,
             supplements: item.supplements,

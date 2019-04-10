@@ -21,8 +21,7 @@ class Catalogue extends React.Component {
     componentWillMount() {
 
         this.setState({
-            catalogue: this.props.navigation.getParam('shopData', []).catalogue,
-            total: this.props.total
+            catalogue: this.props.navigation.getParam('shopData', []).catalogue
         });
     }
 
@@ -67,7 +66,7 @@ class Catalogue extends React.Component {
     }
 
     render() {
-        
+
         return (
             <View>
                <View style={styles.header}>

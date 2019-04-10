@@ -32,7 +32,12 @@ export default class Settings extends React.Component {
       <View style={styles.header} > 
 
       <View style={styles.headerLeft}> 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+
+              this.props.navigation.goBack();
+            }}
+          >
 
           <MaterialIcons name = "keyboard-return" size={28} color ="#2F7DE1"/>
 
