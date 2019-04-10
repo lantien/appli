@@ -153,7 +153,7 @@ class Account extends React.Component {
 
             </View>
 
-            <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
+            <View style= {{height: 0.4, backgroundColor : '#E8E8E8' ,}}>        
               </View>
 
             <ScrollView>
@@ -177,7 +177,7 @@ class Account extends React.Component {
 
            {/*  --------------------------------- My Account --------------------------------------- */}
 
-            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+            <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>
                    </View>
 
             <TouchableOpacity 
@@ -189,19 +189,19 @@ class Account extends React.Component {
             >
 
                 <AntDesign name = "profile" size={18} color ="#989898"/>
-                <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>My account</Text>
+                <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Account details</Text>
 
             </TouchableOpacity>
 
 
-            <View style= {{height: 1, backgroundColor : '#E8E8E8', marginBottom: 25}}>
+            <View style= {{height: 0.4, backgroundColor : '#E8E8E8', marginBottom: 25}}>
                    </View>
 
 
 
                 {/* --------------------------------------------- Payment ------------------------------------------------------- */}
 
-                <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+                <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>
                    </View>
 
             <TouchableOpacity 
@@ -215,7 +215,7 @@ class Account extends React.Component {
                 <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Payment options</Text>
             </TouchableOpacity>
 
-            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+            <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>
                    </View>
 
 
@@ -230,7 +230,7 @@ class Account extends React.Component {
 
             </TouchableOpacity>
 
-            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+            <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>
                    </View>
 
                 {/* ---------------------------------------------------Log Out --------------------------------------------------- */}       
@@ -246,7 +246,7 @@ class Account extends React.Component {
                     <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Log out</Text>
 
                 </TouchableOpacity>
-                <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>
+                <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>
                    </View>
 
             </ScrollView>
@@ -269,7 +269,7 @@ export default connect(mapStateToProps)(Account);
 const styles = StyleSheet.create({
     container:{
         flex: 1 ,
-        backgroundColor: '#f5f5f5'    
+        backgroundColor: '#f9fafb'    
       },
       header :{
         height : 65,
