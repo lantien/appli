@@ -3,6 +3,7 @@ const initialState = {
     token: "",
     orderList: [],
     basket: [],
+    total: 0,
     shopID: "",
     currency: ""
 };
@@ -32,6 +33,7 @@ const myReducer = (state = initialState, action) => {
         case 'ADD_ITEM' :
             nextState = {
                 ...state,
+                total: state.total + action.prix,
                 basket: [...state.basket, action.item]
             }
             return nextState || state

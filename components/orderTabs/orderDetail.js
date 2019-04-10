@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Header,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
 
 
 import convertCurrency from '../../tools/convertCurrency.js';
@@ -25,6 +25,26 @@ class OrderDetail extends React.Component {
 
         return true;
       }
+    }
+
+    _keyExtractor = (item, index) => index.toString();
+
+    _renderItem = (orderList) => {
+      
+      let tmpPrice = orderList.item.prix + convertCurrency(this.props.order.currency);
+      return (
+        <View style={styles.orderDetails}>
+          <View style={styles.numberOfArticle}>
+            <Text style={styles.textNumberOfArticle}>1x</Text>
+          </View>
+          <View style={styles.contentOfArticle}>
+            <Text style={styles.textContentOfArticle}>{orderList.item.prod}</Text>
+            </View>
+          <View style={styles.priceOfArticle}>
+            <Text style={styles.textContentOfArticle}>{tmpPrice}</Text>
+          </View>
+        </View>
+      );
     }
 
     render() {
@@ -85,18 +105,12 @@ class OrderDetail extends React.Component {
                         <View>
                         <View style={styles.containerOrderDetails}>
 
-        <View style={styles.orderDetails}>
-          <View style={styles.numberOfArticle}>
-            <Text style={styles.textNumberOfArticle}>1x</Text>
-            </View>
-          <View style={styles.contentOfArticle}>
-            <Text style={styles.textContentOfArticle}>Menu Burger végétarien</Text>
-            </View>
-          <View style={styles.priceOfArticle}>
-            <Text style={styles.textContentOfArticle}>11,90€</Text>
-          </View>
-
-        </View>
+        <FlatList
+          data={this.props.order.content}
+          extraData={this.state}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
+        />
 
       </View>
                         </View>

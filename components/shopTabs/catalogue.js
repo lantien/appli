@@ -21,7 +21,8 @@ class Catalogue extends React.Component {
     componentWillMount() {
 
         this.setState({
-            catalogue: this.props.navigation.getParam('shopData', []).catalogue
+            catalogue: this.props.navigation.getParam('shopData', []).catalogue,
+            total: this.props.total
         });
     }
 
@@ -66,7 +67,7 @@ class Catalogue extends React.Component {
     }
 
     render() {
-
+        
         return (
             <View>
                <View style={styles.header}>
@@ -81,15 +82,15 @@ class Catalogue extends React.Component {
                     </View>
 
                     <View style = {styles.headerRight}>
-                    <Button
+                    <Text
                         onPress={() =>{
 
                             this.props.navigation.navigate('Basket');
                         }}
-                        title="Learn More"
-                        color="#841584"
-                        accessibilityLabel="Learn more about this purple button"
-                    />
+                    >
+
+                        {this.props.total}
+                    </Text>
 
                     </View>
 
