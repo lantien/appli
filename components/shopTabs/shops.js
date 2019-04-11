@@ -78,6 +78,16 @@ class Shop extends React.Component {
 
     showShop = id => {
 
+        store.dispatch({
+            type: 'SET_SHOP',
+            id: this.state.listShops[id]._id
+        });
+
+        store.dispatch({
+            type: 'SET_CURRENCY',
+            currency: this.state.listShops[id].currency
+        });
+
         this.props.navigation.navigate('Catalogue', {
             shopData: this.state.listShops[id]
         });
@@ -86,13 +96,12 @@ class Shop extends React.Component {
     renderListShop = item => {
 
         return(
-        <Text
-            onPress={ () => this.showShop(item.index)}
-        >
-            {item.item._id}
-        </Text>)
-        
-        ;
+            <Text
+                onPress={ () => this.showShop(item.index)}
+            >
+                {item.item._id}
+            </Text>
+        );
     }
 
     render() {
@@ -100,21 +109,21 @@ class Shop extends React.Component {
         return (
             <View style={{flex : 1, backgroundColor : '#fff'}}>
 
-                    <View style={styles.header}>
+                <View style={styles.header}>
 
                     <View style={styles.headerLeft}> 
 
                     </View>
 
 
-                <View style={styles.headerCenter}>
-                <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
-                </View>
+                    <View style={styles.headerCenter}>
+                        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
+                    </View>
 
-                <View style = {styles.headerRight}>
+                    <View style = {styles.headerRight}>
 
 
-                </View>
+                    </View>
 
                 </View>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Button } from 'react-native';
 
 import { Text } from 'react-native-elements';
 import SelectMultiple from 'react-native-select-multiple';
@@ -11,22 +11,9 @@ import { connect } from 'react-redux';
 
 class addBasket extends React.Component {
 
-    state = {
-        ref: null,
-        supplements: []
-    }
-
     constructor(props) {
         super(props);
 
-    }
-
-    onSelectionsChange = (selectedFruits) => {
-
-        if(selectedFruits.length <= 2 ) {
-
-            this.setState({selectedFruits});
-        }
     }
 
     componentWillMount() {
@@ -35,15 +22,48 @@ class addBasket extends React.Component {
 
         this.setState({
             ref: item.ref,
-            supplements: item.supplements
+            supplements: item.supplements,
+            selectedSupps: []
+        });
+    }
+
+    addBasket = () => {
+
+        var cardItem = this.props.navigation.getParam('item', []).item;
+
+        var item = {
+            ref: this.state.ref,
+            supps: this.state.selectedSupps,
+            nom: cardItem.prod,
+            nom_supps: [],
+            prix: 0
+        };
+
+        var total = Number(cardItem.prix);
+
+        for(var i in item.supps) {
+
+            let x = item.supps[i].value[0];
+            let y = item.supps[i].value[1];
+
+            item.nom_supps.push(cardItem.supplements[x].list[y].label);
+
+            total += Number(cardItem.supplements[x].list[y].prix);
+        }
+
+        item.prix = total;
+
+        store.dispatch({
+            type: 'ADD_ITEM',
+            item: item,
+            prix: total
         });
     }
 
     _keyExtractor = (item, index) => {
         
-        return item.nom;
+        return index.toString();
     }
-
 
     render() {
 
@@ -52,40 +72,37 @@ class addBasket extends React.Component {
                 <Text>
                     Show supplements
                 </Text>
+                
                 <FlatList
                     data={this.state.supplements}
                     keyExtractor={this._keyExtractor}
-                    renderItem={({item}) => {
+                    extraData={this.state}
+                    renderItem={
+                        ({item}) => {
                         
-                        return (
-                            <View>
-                                <Text>{item.nom}</Text>
+                                return <View>
+                                    <Text>{item.nom}</Text>
 
-                                <SelectMultiple
-                                    items={item.list/* () => {
 
-                                        let list = [];
+                                    <SelectMultiple
+                                        items={item.list}
+                                        selectedItems={this.state.selectedSupps}
+                                        onSelectionsChange={(selectedSupps) => {
 
-                                        for(var i in item.list) {
-
-                                            list.push(item.list[i].nom);
-                                        }
-
-                                        return list;
-                                    } */}
-                                    onSelectionsChange={(supp) => {
-
-                                        if(supp.length <= item.nb_option) {
-                                
-                                            this.setState({supp});
-                                        }
-                                    }}>
-                                    </SelectMultiple>
-                            </View>
-                        );
+                                            this.setState({
+                                                selectedSupps
+                                            })
+                                        }}>
+                                        </SelectMultiple>
+                                </View>;
+                            
                     }}
                 />
-
+            <Button
+                 onPress={this.addBasket}
+                title="AddBasket"
+                color="#841584"
+            />
             </View>
         );
     }

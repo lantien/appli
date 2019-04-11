@@ -114,7 +114,6 @@ class Account extends React.Component {
                     data[i].createdAt = date.toLocaleDateString();
                     data[i].symbol = convertCurrency(data[i].currency);
                     data[i].heure = date.getHours() + ":" + date.getMinutes();
-                    data[i].ite = i;
                     displayData.push(data[i]);
                 }
 

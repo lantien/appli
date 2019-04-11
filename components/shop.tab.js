@@ -4,12 +4,14 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import Shop from './shopTabs/shops.js';
 import Catalogue from './shopTabs/catalogue.js';
 import addBasket from './shopTabs/addBasket.js';
+import Basket from './shopTabs/basket.js';
 
 
 const AppNavigator = createStackNavigator({
     Shop: Shop,
     Catalogue: Catalogue,
-    addBasket: addBasket
+    addBasket: addBasket,
+    Basket: Basket
   },
   {
     initialRouteName: "Shop",
