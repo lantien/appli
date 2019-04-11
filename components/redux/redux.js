@@ -40,7 +40,8 @@ const myReducer = (state = initialState, action) => {
         case 'REMOVE_ITEM':        
             nextState = {
                 ...state,
-                basket: [...state.basket.slice(0, action.index)]
+                total: state.total - action.obj.prix,
+                basket: state.basket.slice(0, action.obj.id).concat(state.basket.slice(action.obj.id + 1))
             }
             return nextState || state
         case 'SET_SHOP' :

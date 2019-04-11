@@ -53,11 +53,14 @@ class Basket extends React.Component {
         })
     }
 
-    deleteItem = (id) => {
+    deleteItem = (id, prix) => {
 
         store.dispatch({
             type: 'REMOVE_ITEM',
-            index: id
+            obj: {
+                id,
+                prix
+            }
         });
     }
 
@@ -82,7 +85,7 @@ class Basket extends React.Component {
                 <Button
                     onPress={() => {
 
-                        this.deleteItem(id);
+                        this.deleteItem(id, item.prix);
                     }}
                     title="X"
                     color="#841584"
