@@ -37,6 +37,12 @@ const myReducer = (state = initialState, action) => {
                 basket: [...state.basket, action.item]
             }
             return nextState || state
+        case 'REMOVE_ITEM':        
+            nextState = {
+                ...state,
+                basket: [...state.basket.slice(0, action.index)]
+            }
+            return nextState || state
         case 'SET_SHOP' :
             nextState = {
                 ...state,

@@ -53,14 +53,40 @@ class Basket extends React.Component {
         })
     }
 
+    deleteItem = (id) => {
+
+        store.dispatch({
+            type: 'REMOVE_ITEM',
+            index: id
+        });
+    }
+
     _keyExtractor = (item, index) => index.toString();
 
-    _renderItem = ({item}) => {
+    _renderItem = (item) => {
 
-        console.log(item.nom);
+        let id = item.index;
+
+        item = item.item;
         return (
-            <View>
-                <Text>{item.nom}</Text>
+            <View style={styles.orderDetails}>
+                <View style={styles.numberOfArticle}>
+                    <Text style={styles.textNumberOfArticle}>1x</Text>
+                </View>
+                <View style={styles.contentOfArticle}>
+                    <Text style={styles.textContentOfArticle}>{item.nom}</Text>
+                    </View>
+                <View style={styles.priceOfArticle}>
+                    <Text style={styles.textContentOfArticle}>{item.prix}</Text>
+                </View>
+                <Button
+                    onPress={() => {
+
+                        this.deleteItem(id);
+                    }}
+                    title="X"
+                    color="#841584"
+                />
             </View>
         );
     }
@@ -92,3 +118,130 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Basket);
+
+const styles = StyleSheet.create({
+    container:{
+      flex: 1 ,
+      backgroundColor: '#fafbfb'
+    },
+    // Partie Supérieure
+    containerDetails:{
+  
+      padding: 5,
+      alignItems: 'center'
+  
+    },
+    containerName:{
+      marginTop: 5
+    },
+    name: {
+      fontSize: 23,
+      fontWeight: 'bold'
+    },
+    containerOrderNumber:{
+      alignItems: 'center',
+      marginTop: 30
+    },
+    orderNumberHeader:{
+      fontSize: 13,
+      fontWeight: '500',
+      color: '#8e8e8e',
+      marginBottom: 5
+    },
+    orderNumber:{
+      fontSize: 20,
+      fontWeight: '600',
+      color: '#000'
+    },
+    containerAdress:{
+      alignItems: 'center',
+      marginTop: 25,
+      marginBottom: 5
+    },
+    adressHeader:{
+      fontSize: 13,
+      fontWeight: '500',
+      color: '#8e8e8e',
+      marginBottom: 5
+    },
+    adress:{
+      fontSize: 14,
+      fontWeight: '400',
+      color: '#000'
+    },
+    zipCode:{
+      fontSize: 14,
+      fontWeight: '400',
+      color: '#000'
+    },
+    containerStatus:{
+      alignItems: 'center',
+      marginTop: 25,
+      marginBottom: 10
+    },
+    statusHeader: {
+      fontSize: 13,
+      fontWeight: '500',
+      color: '#8e8e8e',
+      marginBottom: 5
+    },
+    status:{
+      fontSize: 14,
+      fontWeight: '400',
+      color: '#000'
+    },
+    line:{
+      backgroundColor: '#e0e0e0',
+      height: 1
+    },
+    containerHeaderArticles:{
+      alignItems: 'center',
+      padding: 15
+    },
+    headerText:{
+      fontSize: 13,
+      fontWeight: '500',
+      color: '#8e8e8e',
+    },
+  
+    //Paiement
+    containerPayment:{
+      flexDirection: 'row',
+      justifyContent:'space-between',
+      paddingVertical: 15,
+      paddingHorizontal: 10
+    },
+    totalText:{
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#000'
+    },
+    orderDetails:{
+        flexDirection : 'row',
+        marginBottom: 10
+      },
+      numberOfArticle:{
+        padding: 10
+      },
+      textNumberOfArticle:{
+        fontSize: 15,
+        fontWeight: '500',
+        color: '#8e8e8e',
+      },
+    
+      contentOfArticle:{
+        padding: 10,
+        marginLeft: 5
+      },
+      textContentOfArticle: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: '#000',
+      },
+      priceOfArticle:{
+        flex : 1,
+        alignItems: 'flex-end',
+        padding: 10
+      },
+    
+});
