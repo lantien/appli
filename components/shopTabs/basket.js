@@ -53,13 +53,29 @@ class Basket extends React.Component {
         })
     }
 
-    render() {
+    _keyExtractor = (item, index) => index.toString();
 
-        console.log(this.props.basket);
+    _renderItem = ({item}) => {
+
+        console.log(item.nom);
+        return (
+            <View>
+                <Text>{item.nom}</Text>
+            </View>
+        );
+    }
+
+    render() {
 
         return (
             <View>
                 <Text>Show basket</Text>
+                <FlatList
+                    data={this.props.basket}
+                    extraData={this.props}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this._renderItem}
+                />
                 <Button
                         onPress={this.makeOrder}
                         title="Buy"
