@@ -55,6 +55,8 @@ class Basket extends React.Component {
 
     render() {
 
+        console.log(this.props.basket);
+
         return (
             <View>
                 <Text>Show basket</Text>

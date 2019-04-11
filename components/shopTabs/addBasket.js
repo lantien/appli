@@ -29,12 +29,15 @@ class addBasket extends React.Component {
 
     addBasket = () => {
 
+        var cardItem = this.props.navigation.getParam('item', []).item;
+
         var item = {
             ref: this.state.ref,
-            supps: this.state.selectedSupps
+            supps: this.state.selectedSupps,
+            nom: cardItem.prod,
+            nom_supps: [],
+            prix: 0
         };
-
-        var cardItem = this.props.navigation.getParam('item', []).item;
 
         var total = Number(cardItem.prix);
 
@@ -43,8 +46,12 @@ class addBasket extends React.Component {
             let x = item.supps[i].value[0];
             let y = item.supps[i].value[1];
 
+            item.nom_supps.push(cardItem.supplements[x].list[y].label);
+
             total += Number(cardItem.supplements[x].list[y].prix);
         }
+
+        item.prix = total;
 
         store.dispatch({
             type: 'ADD_ITEM',
