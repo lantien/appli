@@ -55,6 +55,14 @@ export default class PaymentOptions extends React.Component {
                      </View>
 
 
+              <TouchableOpacity style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff'}}> 
+
+                <MaterialIcons name = "payment" size={22} color ="#2F7DE1"/>
+
+                <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8, marginVertical : 2}}>Payer avec la carte Ticket Restaurant</Text>
+                        
+                </TouchableOpacity>
+
             </ScrollView>
 
 

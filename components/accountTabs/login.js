@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TextInput, Text, AsyncStorage } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TouchableWithoutFeedback,Keyboard,TextInput, Text, AsyncStorage } from 'react-native';
+
 
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -118,19 +119,22 @@ export default class Login extends React.Component {
         return (
           <View style={styles.container}>
 
+            
+
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
+
 
                 <View style={styles.logoText}>             
 
-                    <Text style={styles.title} >
-                        Drive
+                    <Text style={{fontSize: 33, color : '#000', fontWeight :'600'}} >
+                        foodr
                     </Text>
 
                 </View>
 
-                <View style={styles.line}>
-              </View>
-
+               
                 <View style={styles.textInput}>
                 <TextInput
 
@@ -183,7 +187,7 @@ export default class Login extends React.Component {
                     onPress={() => this.requestLogin()}/* {() => this.requestLogin()} */                    
                     style={styles.buttonCustom}
                 >
-                <Text style={styles.buttonText}>Sign In</Text>
+                <Text style={styles.buttonText}>Log In</Text>
                 </TouchableOpacity>
                 </View>
 
@@ -196,7 +200,7 @@ export default class Login extends React.Component {
                   <View style={styles.line2}>
                    </View>
                    
-                   <Text style={styles.or}> or</Text>
+                   <Text style={styles.or}>OR</Text>
                    
                    <View style={styles.line2}>
                    </View>
@@ -222,6 +226,8 @@ export default class Login extends React.Component {
 
             </KeyboardAvoidingView>
 
+            </TouchableWithoutFeedback>
+
             </View>
         );
     }
@@ -231,9 +237,10 @@ const styles = StyleSheet.create({
 
     container: {
       flex: 1,
-      backgroundColor: '#F8F8F8',
-      paddingHorizontal: 20,
+      backgroundColor: '#fff',
+     
       flexDirection: 'column',
+      justifyContent : 'center',
       },
       
       line:{
@@ -242,7 +249,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
       },
       line2:{
-        backgroundColor: '#000',
+        backgroundColor: '#E8E8E8',
         height:1,
         flex : 1,
       },
@@ -254,30 +261,50 @@ const styles = StyleSheet.create({
       },
 
     textInput:{
-        backgroundColor: '#F8F8F8',
-        
+        paddingHorizontal : 20
+                
     },
     input :{
-        backgroundColor : '#FFF' ,
+        backgroundColor : '#f9fafb' ,
         height: 40,
         marginBottom: 10,   
-        borderColor : 'gray',
-        borderWidth : 1,    
+        borderColor : '#DCDCDC',
+        borderWidth: 0.6,    
         paddingHorizontal :10,
+        width :'100%',
+        borderRadius : 5,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.18,
+        shadowRadius: 1.00,
+        
+        elevation: 1,
+
       },
 
     input2: {
-        backgroundColor : '#FFF' ,
+        backgroundColor : '#f9fafb' ,
         height: 40,
         marginBottom: 10,
-        borderColor : 'gray',
-        borderWidth : 1,
+        borderColor : '#DCDCDC',
+        borderWidth : 0.6,
         paddingHorizontal :10,
+        borderRadius : 5,
+        shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 1,
+},
+shadowOpacity: 0.18,
+shadowRadius: 1.00,
 
+elevation: 1,
       },
 
     logoText: {
-        backgroundColor: '#F8F8F8',
         alignItems: 'center',
         justifyContent:'center',
         height: 80,
@@ -287,7 +314,7 @@ const styles = StyleSheet.create({
       title: {
         backgroundColor: '#F8F8F8',
         color: '#FA0129',
-        fontSize: 25,
+        fontSize: 30,
         marginTop: 10,
         width: 190,
         textAlign: 'center',
@@ -295,16 +322,17 @@ const styles = StyleSheet.create({
       },
 
       buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 10
+        flexDirection: 'column',
+        alignItems :'center',
+        marginBottom: 10,
+        paddingHorizontal : 20
       },
 
       buttonCustom: {
-        backgroundColor: '#FA0129',
-        paddingVertical: 15,
-        width: 280,
-        height: 50,
+        backgroundColor: '#2F7DE1',
+        justifyContent: 'center',
+        width : '100%',
+        height: 40,
         borderRadius: 5
       },
 
@@ -312,19 +340,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FFF',
         fontWeight: '500',
-        fontSize: 17
+        fontSize: 14,
+        fontWeight : '500'
       },
 
       passwordForgotten: {
         
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginBottom: 20,
+        paddingHorizontal : 20,
+        marginBottom : 20,
       },
 
       forgottenCustom: {
         color: '#2F7DE1',
-        fontSize: 14,
+        fontSize: 13,
+        fontWeight : '700',
         marginTop: 10,
       },
 
@@ -332,34 +363,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent:'space-between',
-        height: 50,        
+        height: 50,     
+        paddingHorizontal : 20   
       },
       or :{
+        color: '#A9A9A9',
         marginHorizontal: 15,
+        fontSize : 10,
+        fontWeight :'700'
       },
 
       containerSignUp:{
         alignItems: 'center',
-        flexDirection:'column',
+        flexDirection:'row',
         justifyContent:'center'
       },
       textSignUp:{
         fontSize: 14,
-        color: '#2F7DE1',
-        marginBottom : 15
+        color: '#909090',
+        
+        fontWeight :'500'
       },
       signUp:{
-        color : '#FFF',
+        color : '#2F7DE1',
+        fontSize: 14,
+        fontWeight : '500'
       },
       signUpButton: {
-        backgroundColor: '#2F7DE1',
-        paddingVertical: 15,
-        width: 280,
-        height: 50,
-        borderRadius: 5,
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: 10
+       
       }
 
 
