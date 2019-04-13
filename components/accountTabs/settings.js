@@ -22,12 +22,7 @@ export default class Settings extends React.Component {
           barStyle="dark-content"
           /> 
 
-      {/* <Header
-  
-      centerComponent={{ text: 'MY TITLE', style: { color: '#000' , fontWeight : '700'} }}   
-      outerContainerStyles= {{backgroundColor: '#FFF'}}
- 
-      /> */}
+      {/* ----------------------------------------------------HEADER------------------------------------- */}
 
       <View style={styles.header} > 
 
@@ -63,7 +58,7 @@ export default class Settings extends React.Component {
               </View>
       
 
-
+{/* --------------------------------------------------------END HEADER------------------------------------------------------------ */}
 
       <ScrollView style = {{flex : 1, }} keyboardDismissMode='on-drag'>
 

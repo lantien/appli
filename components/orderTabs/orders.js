@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, ScrollView, BackHandler } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 
@@ -87,7 +87,7 @@ class Orders extends React.Component {
                                             <ScrollView>
                                                 
 
-                                                <View style={styles.line}>
+                                                <View style={{height: 0.8, backgroundColor : '#E8E8E8', marginTop : 10}}>
                                                 </View>
 
 
@@ -96,9 +96,12 @@ class Orders extends React.Component {
                                                     <View style={styles.containerLeft}>
                                                     
                                                         <View style={styles.containerName}>
+                                                          <View style={{flexDirection :'row'}}>
                                                             <Text style={styles.statusOrder}>Complétée à </Text>
                                                             <Text style={styles.statusOrder}>{item.heure}</Text>
+                                                            </View>
                                                             <Text style={styles.name}>{item.shop_name}</Text>
+                                                            
                                                         </View>
 
                                                         <View style={styles.containerPrice}>
@@ -111,12 +114,12 @@ class Orders extends React.Component {
                                                     </View>
 
                                                     <TouchableOpacity style={styles.containerRight}>
-                                                        <MaterialIcons name="chevron-right" size={35} color="#2F7DE1"/>
+                                                        <Ionicons name="ios-arrow-forward" size={18} color="#00d751"/>
                                                     </TouchableOpacity>
 
                                                 </View>
 
-                                                <View style={styles.line}>
+                                                <View style={{height: 0.8, backgroundColor : '#E8E8E8'}}>
                                                 </View>
                                             </ScrollView>
                                             </TouchableOpacity>
@@ -127,6 +130,36 @@ class Orders extends React.Component {
 
         return (
             <View  style={styles.container}>
+
+          <View style={styles.header} > 
+
+          <View style={styles.headerLeft}> 
+          <TouchableOpacity
+            onPress={() => {
+
+              this.props.navigation.goBack();
+            }}
+          >
+
+          <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
+
+          </TouchableOpacity>
+              
+            </View>
+
+
+          <View style={styles.headerCenter}>
+            <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Orders</Text>
+            </View>
+
+            <View style = {styles.headerRight}>
+            
+            </View>
+
+          </View>
+          <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
+              </View>
+
             {this.state.showDetail}
             {list}
                 
@@ -145,8 +178,52 @@ export default connect(mapStateToProps)(Orders);
 const styles = StyleSheet.create({
     container:{
       flex: 1 ,
-      backgroundColor: '#f7f7f7'
+      backgroundColor: '#f9fafb'
     },
+
+    /* -----------------HEADER------------------------- */
+    header :{
+      height : 65,
+      backgroundColor : '#fff',
+      flexDirection : 'row',    
+      justifyContent : 'space-between',
+      alignItems : 'center', 
+      shadowColor: "#000",
+      shadowOffset: {
+	    width: 0,
+	    height: 1,},
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+      
+      },
+
+    headerLeft:{
+      backgroundColor :'#fff',
+      flex :0.33,
+      height : '75%',
+      marginLeft : 10,
+      justifyContent : 'flex-end',
+  
+    },
+    headerCenter:{
+      
+      flex :0.33,
+      height : '50%',
+      justifyContent : 'flex-end',
+      alignItems : 'center'
+    },
+
+    headerRight: {
+      flex :0.33,
+      height : '50%',
+      marginRight : 15,
+      alignItems : 'flex-end',
+      justifyContent :'flex-end'
+      },
+
+      /* ---------------FIN HEADER----------------------- */
+
+
     containerLeft:{
       height: '100%',
       width: '100%',
@@ -162,13 +239,14 @@ const styles = StyleSheet.create({
     },
     line:{
       backgroundColor: '#e0e0e0',
-      height:1
+      height:1,
+      marginTop : 20,
     },
     containerCardItem: {
       flexDirection: 'row',
       flex : 0.15,
       backgroundColor: '#FFF',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
     containerLeft:{
       backgroundColor: '#FFF',
@@ -176,30 +254,29 @@ const styles = StyleSheet.create({
     containerName:{
       backgroundColor:'#FFF',
       height: 45,
-      justifyContent: 'space-between',
       paddingHorizontal: 20,
       paddingVertical : 2,
-      marginBottom: 10
+
     },
     statusOrder: {
-      color :'#bfbfbf',
+      color :'#A9A9A9',
       fontWeight: '500',
-      fontSize: 13
-    },
+      fontSize: 14
+        },
     name: {
       fontSize: 15,
       fontWeight: '400',
-      color: '#000'
+      color: '#000',
     },
     containerPrice: {
       backgroundColor: '#FFF',
       flexDirection: 'row',
-      height: 20,
+      
       marginBottom: 10,
       paddingHorizontal: 20
     },
     price:{
-      color :'#bfbfbf',
+      
       fontWeight: '500',
       fontSize: 13
     },

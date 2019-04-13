@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,View, TouchableOpacity, TouchableWithoutFeedback,Keyboard,TextInput, Text, AsyncStorage } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView,View, SafeAreaView,TouchableOpacity, Platform,TouchableWithoutFeedback,Keyboard,TextInput, Text, AsyncStorage } from 'react-native';
 
 
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -117,13 +117,20 @@ export default class Login extends React.Component {
     render() {
 
         return (
-          <View style={styles.container}>
 
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
+          style={{ flex: 1 }}
+      >
+
+
+          <SafeAreaView style={styles.container}>
+            
             
 
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+          <View>
+            
 
 
                 <View style={styles.logoText}>             
@@ -191,8 +198,10 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 </View>
 
+            
                 {/* diviseur */}
 
+              
                
 
                 <View style={styles.divider}>
@@ -224,11 +233,15 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
                 </View>
 
-            </KeyboardAvoidingView>
+            
+               
+                </View>
+                </TouchableWithoutFeedback>
 
-            </TouchableWithoutFeedback>
+            </SafeAreaView>
 
-            </View>
+  </KeyboardAvoidingView>
+
         );
     }
 }
@@ -353,9 +366,9 @@ elevation: 1,
       },
 
       forgottenCustom: {
-        color: '#2F7DE1',
+        color: '#5897e7',
         fontSize: 13,
-        fontWeight : '700',
+        fontWeight : '600',
         marginTop: 10,
       },
 
