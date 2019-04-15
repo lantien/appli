@@ -398,7 +398,7 @@ elevation: 1,
         fontWeight :'500'
       },
       signUp:{
-        color : '#2F7DE1',
+        color : '#5897e7',
         fontSize: 14,
         fontWeight : '500'
       },

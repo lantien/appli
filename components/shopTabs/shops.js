@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -107,6 +107,10 @@ class Shop extends React.Component {
 
     render() {
 
+        let pic ={
+            uri: 'https://1843784937.rsc.cdn77.org/wp-content/uploads/2018/06/Screen-Shot-2018-06-15-at-12.25.40-PM-400x200.png'
+          }
+
         return (
             <View style={{flex : 1, backgroundColor : '#fff'}}>
 
@@ -137,6 +141,42 @@ class Shop extends React.Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={this.renderListShop}
                 />
+
+                <View>
+                
+                <View style={styles.containerCardItem}>
+
+            
+          <View style={styles.containerPicture}>
+            <TouchableOpacity style={styles.pictureButton} onPress={this._onPressButton} underlayColor="grey">
+              <Image style={styles.pictureLogo}
+                source={pic}
+              />
+
+              </TouchableOpacity>
+            </View>
+
+              
+              <TouchableOpacity onPress={this._onPressButton} underlayColor="white">
+                <View style={styles.containerDescription}>
+                  <Text style={styles.nameRestaurant}>Antoinette Pain & Brioche</Text>
+                  <Text style={styles.descriptionRestaurant}>Pain • Sandwich • Viennoiserie</Text>
+
+                  <View style={styles.containerNote}>
+                    <Text style={styles.priceRange}>€€ •</Text>
+                    <Text style={styles.noteRestaurant}>10-15 mins</Text>
+                  </View>
+            </View>
+            </TouchableOpacity>
+
+          </View>
+
+
+
+
+
+                </View>
+
             </View>
         );
     }
@@ -192,6 +232,59 @@ const styles = StyleSheet.create({
       marginRight : 15,
       alignItems : 'flex-end',
       justifyContent :'flex-end'
+      },
+      containerCardItem: {
+        backgroundColor: '#FFF',
+        justifyContent: 'space-between',
+        marginTop: 15,
+        marginBottom: 20
+      },
+    
+      containerPicture:{
+        padding: 5,
+        alignItems: 'center',
+    
+      },
+      pictureButton:{
+        borderRadius: 3
+      },
+      pictureLogo:{
+        height: 200,
+        width: 390,
+        borderRadius: 3
+      },
+    
+      containerDescription:{
+        backgroundColor :'#FFF',
+        height: 80,
+        justifyContent: 'space-between',
+        paddingHorizontal: 15
+    
+      },
+      nameRestaurant: {
+        fontSize: 18,
+        fontWeight :'500',
+        marginTop: 5,
+      },
+      descriptionRestaurant: {
+        fontSize: 13,
+        fontWeight :'400',
+        color: '#8e8e8e'
+      },
+      containerNote:{
+        flexDirection:'row',
+        alignItems: 'center',
+        width: 100,
+      },
+      noteRestaurant :{
+        color :'#00b38B',
+        fontSize: 13,
+        fontWeight :'500',
+        marginLeft : 5
+      },
+      priceRange: {
+        color : '#8e8e8e',
+    
       }
   
     });
