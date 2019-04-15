@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, View, TextInput, TouchableOpacity, Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
+import {Alert, StyleSheet, View, TextInput, TouchableOpacity, TouchableWithoutFeedback,Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
 
 import { Feather, MaterialIcons } from 'react-native-vector-icons'
 
@@ -59,7 +59,7 @@ export default class Settings extends React.Component {
       
 
 {/* --------------------------------------------------------END HEADER------------------------------------------------------------ */}
-
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <ScrollView style = {{flex : 1, }} keyboardDismissMode='on-drag'>
 
         <View style= {{height: 0.4, backgroundColor : '#E8E8E8', marginTop : 25}}> 
@@ -152,6 +152,7 @@ export default class Settings extends React.Component {
             
 
       </ScrollView>
+      </TouchableWithoutFeedback>
 
       </View>
         );

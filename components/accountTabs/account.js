@@ -310,6 +310,7 @@ const styles = StyleSheet.create({
         },
     
     name : {
+        
         flexDirection : 'row',
         marginHorizontal : 20,
         justifyContent : 'center',

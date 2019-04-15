@@ -87,7 +87,7 @@ class Orders extends React.Component {
                                             <ScrollView>
                                                 
 
-                                                <View style={{height: 0.8, backgroundColor : '#E8E8E8', marginTop : 10}}>
+                                                <View style={{height: 0.8, backgroundColor : '#E8E8E8', marginTop : 25}}>
                                                 </View>
 
 
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
 
     /* -----------------HEADER------------------------- */
     header :{
+      
       height : 65,
       backgroundColor : '#fff',
       flexDirection : 'row',    
@@ -190,11 +191,11 @@ const styles = StyleSheet.create({
       alignItems : 'center', 
       shadowColor: "#000",
       shadowOffset: {
-	    width: 0,
-	    height: 1,},
+        width: 0,
+        height: 1,},
       shadowOpacity: 0.22,
       shadowRadius: 2.22,
-      
+
       },
 
     headerLeft:{
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
     },
     statusContainer:{
       marginBottom: 10,
-      marginTop: 10,
+      
       marginLeft: 20
     },
     statusText:{
