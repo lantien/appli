@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, View, TextInput, TouchableOpacity, Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
+import {Alert, StyleSheet, View, TextInput, TouchableOpacity, TouchableWithoutFeedback,Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
 
 import { Feather, MaterialIcons } from 'react-native-vector-icons'
 
@@ -22,12 +22,7 @@ export default class Settings extends React.Component {
           barStyle="dark-content"
           /> 
 
-      {/* <Header
-  
-      centerComponent={{ text: 'MY TITLE', style: { color: '#000' , fontWeight : '700'} }}   
-      outerContainerStyles= {{backgroundColor: '#FFF'}}
- 
-      /> */}
+      {/* ----------------------------------------------------HEADER------------------------------------- */}
 
       <View style={styles.header} > 
 
@@ -46,7 +41,7 @@ export default class Settings extends React.Component {
 
 
       <View style={styles.headerCenter}>
-        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Settings</Text>
+        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Account details</Text>
         </View>
 
         <View style = {styles.headerRight}>
@@ -59,15 +54,15 @@ export default class Settings extends React.Component {
 
       </View>
 
-      <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>        
+      <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
               </View>
       
 
-
-
+{/* --------------------------------------------------------END HEADER------------------------------------------------------------ */}
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <ScrollView style = {{flex : 1, }} keyboardDismissMode='on-drag'>
 
-        <View style= {{height: 1, backgroundColor : '#E8E8E8', marginTop : 25}}> 
+        <View style= {{height: 0.4, backgroundColor : '#E8E8E8', marginTop : 25}}> 
           
         </View>
           
@@ -129,14 +124,14 @@ export default class Settings extends React.Component {
 
             </View>
 
-            <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>        
+            <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
               </View>
 
             
             
                 {/* Current password */}
 
-                <View style= {{height: 1, backgroundColor : '#E8E8E8', marginTop : 10}}> 
+                <View style= {{height: 0.4, backgroundColor : '#E8E8E8', marginTop : 10}}> 
           
                   </View>
           
@@ -148,8 +143,8 @@ export default class Settings extends React.Component {
                                  
                       </TouchableOpacity>
 
-                <View style= {{height: 0.4, backgroundColor : '#B8B8B8'}}> 
-                </View>
+                      <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}> 
+                     </View>
                 
               
             
@@ -157,6 +152,7 @@ export default class Settings extends React.Component {
             
 
       </ScrollView>
+      </TouchableWithoutFeedback>
 
       </View>
         );
@@ -166,7 +162,7 @@ export default class Settings extends React.Component {
 const styles = StyleSheet.create({
     container:{
       flex: 1 ,
-      backgroundColor: '#f5f5f5'
+      backgroundColor: '#f9fafb'
     
     },
     header :{
