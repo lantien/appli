@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Store from './components/redux/store.js';
 import Entry from './components/main.js';
 
+import convertCurrency from './tools/convertCurrency.js';
+
 import apiUrl from './config/api.url';
 
 export default class App extends React.Component {
@@ -35,12 +37,12 @@ export default class App extends React.Component {
               var date = new Date(data[i].createdAt);
 
               data[i].createdAt = date.toLocaleDateString();
-              data[i].symbol = convertCurrency(data[i].currency);
+              //data[i].symbol = convertCurrency(data[i].currency);
               data[i].heure = date.getHours() + ":" + date.getMinutes();
               displayData.push(data[i]);
           }
 
-          store.dispatch({
+          Store.dispatch({
               type: 'SET_ORDERS',
               orderList: displayData
           });

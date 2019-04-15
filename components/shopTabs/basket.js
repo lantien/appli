@@ -39,7 +39,7 @@ class Basket extends React.Component {
             var date = new Date(data.createdAt);
 
             data.createdAt = date.toLocaleDateString();
-            data.symbol = convertCurrency(data.currency);
+            //data.symbol = convertCurrency(data.currency);
             data.heure = date.getHours() + ":" + date.getMinutes();
   
           store.dispatch({

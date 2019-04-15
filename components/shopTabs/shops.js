@@ -4,7 +4,6 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
-import convertCurrency from '../../tools/convertCurrency.js';
 
 import { connect } from 'react-redux';
 
