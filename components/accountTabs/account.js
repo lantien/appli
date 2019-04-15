@@ -37,8 +37,8 @@ class Account extends React.Component {
 
     componentDidMount() {
 
-        this.getProfile();
         this.getOrders();
+        this.getProfile();
 
         if(this.props.navigation.getParam('justLogged', false)) {
             
@@ -92,41 +92,44 @@ class Account extends React.Component {
 
     getOrders() {
 
-            fetch(apiUrl + 'me/order', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-access-token': this.props.token
-                },
-            })
-            .then(data => {
-
-                return data.json();
-            })
-            .then(data => {
-
-                var displayData = [];
-
-                for(var i in data) {
-                    var date = new Date(data[i].createdAt);
-
-                    data[i].createdAt = date.toLocaleDateString();
-                    data[i].symbol = convertCurrency(data[i].currency);
-                    data[i].heure = date.getHours() + ":" + date.getMinutes();
-                    displayData.push(data[i]);
-                }
-
-                store.dispatch({
-                    type: 'SET_ORDERS',
-                    orderList: displayData
-                });
-            })
-            .catch(err => {
-
-                console.log("error", err);
-            })
-    }
+        if(this.props.orderList.length == 0) {
+          
+          fetch(apiUrl + 'me/order', {
+              method: 'GET',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'x-access-token': this.props.token
+              },
+          })
+          .then(data => {
+  
+              return data.json();
+          })
+          .then(data => {
+  
+              var displayData = [];
+  
+              for(var i in data) {
+                  var date = new Date(data[i].createdAt);
+  
+                  data[i].createdAt = date.toLocaleDateString();
+                  data[i].symbol = convertCurrency(data[i].currency);
+                  data[i].heure = date.getHours() + ":" + date.getMinutes();
+                  displayData.push(data[i]);
+              }
+  
+              store.dispatch({
+                  type: 'SET_ORDERS',
+                  orderList: displayData
+              });
+          })
+          .catch(err => {
+  
+              console.log("error", err);
+          })
+        }
+      }
 
     render() {
 
