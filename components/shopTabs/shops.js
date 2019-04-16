@@ -94,14 +94,25 @@ class Shop extends React.Component {
         });
     }
 
+    hexToBase64 = (str) => {
+      
+      return String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" "));
+    }
+
     renderListShop = item => {
 
         return(
+          <View>
             <Text
                 onPress={ () => this.showShop(item.index)}
             >
                 {item.item._id}
             </Text>
+            <Image 
+              style={styles.pictureLogo}
+              source={{uri: `data:image/gif;base64,${item.item.frontImg}`}} 
+            />
+          </View>
         );
     }
 
