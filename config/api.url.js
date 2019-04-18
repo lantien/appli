@@ -1,1 +1,1 @@
-module.exports = "https://florentin-besset.com/bediss/";
+module.exports = "https://bediss.florentin-besset.com/";

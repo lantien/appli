@@ -4,6 +4,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
+import convertCurrency from '../../tools/convertCurrency.js';
 
 import { connect } from 'react-redux';
 
@@ -101,26 +102,53 @@ class Shop extends React.Component {
 
     renderListShop = item => {
 
+        var strType = item.item.type.join(" • ");
+        
+        let currency = convertCurrency(item.item.currency);
+        
+        var strPrice = "";
+
+        for(var i = 0; i < item.item.rate_price; i++) {
+
+          strPrice += currency;
+        }
+
+        strPrice += " •";
+
         return(
-          <View>
-            <Text
-                onPress={ () => this.showShop(item.index)}
-            >
-                {item.item._id}
-            </Text>
-            <Image 
-              style={styles.pictureLogo}
-              source={{uri: `data:image/gif;base64,${item.item.frontImg}`}} 
-            />
-          </View>
+
+          <TouchableOpacity 
+            style={styles.containerCardItem}
+            onPress={ () => this.showShop(item.index)}
+          >
+                  <View style={styles.containerPicture}>
+                  <View style={styles.pictureButton} onPress={this._onPressButton} underlayColor="grey">
+                    <Image 
+                      style={styles.pictureLogo}
+                      source={{uri: `data:image/gif;base64,${item.item.frontImg}`}} 
+                    />
+
+                    </View>
+                  </View>
+
+                    
+                    <View onPress={this._onPressButton} underlayColor="white">
+                      <View style={styles.containerDescription}>
+                        <Text style={styles.nameRestaurant}>{item.item.name}</Text>
+                        <Text style={styles.descriptionRestaurant}>{strType}</Text>
+
+                        <View style={styles.containerNote}>
+                          <Text style={styles.priceRange}>{strPrice}</Text>
+                          <Text style={styles.noteRestaurant}>{item.item.average_time_prep}</Text>
+                        </View>
+                    </View>
+                  </View>
+
+          </TouchableOpacity>
         );
     }
 
     render() {
-
-        let pic ={
-            uri: 'https://1843784937.rsc.cdn77.org/wp-content/uploads/2018/06/Screen-Shot-2018-06-15-at-12.25.40-PM-400x200.png'
-          }
 
         return (
             <View style={{flex : 1, backgroundColor : '#fff'}}>
@@ -154,40 +182,7 @@ class Shop extends React.Component {
                 />
 
                 <View>
-                
-                <View style={styles.containerCardItem}>
-
-            
-          <View style={styles.containerPicture}>
-            <TouchableOpacity style={styles.pictureButton} onPress={this._onPressButton} underlayColor="grey">
-              <Image style={styles.pictureLogo}
-                source={pic}
-              />
-
-              </TouchableOpacity>
-            </View>
-
-              
-              <TouchableOpacity onPress={this._onPressButton} underlayColor="white">
-                <View style={styles.containerDescription}>
-                  <Text style={styles.nameRestaurant}>Antoinette Pain & Brioche</Text>
-                  <Text style={styles.descriptionRestaurant}>Pain • Sandwich • Viennoiserie</Text>
-
-                  <View style={styles.containerNote}>
-                    <Text style={styles.priceRange}>€€ •</Text>
-                    <Text style={styles.noteRestaurant}>10-15 mins</Text>
-                  </View>
-            </View>
-            </TouchableOpacity>
-
-          </View>
-
-
-
-
-
-                </View>
-
+              </View>
             </View>
         );
     }
