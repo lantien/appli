@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, ScrollView, BackHandler } from 'react-native';
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, Image,ScrollView, BackHandler } from 'react-native';
+import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 
@@ -66,6 +66,9 @@ class Orders extends React.Component {
     }
 
     render() {
+      let pic ={
+        uri: 'http://painrisien.com/wp-content/uploads/2017/06/DSC09787.jpg'
+      }
 
       if(!this.state.showDetail) {
 
@@ -86,12 +89,65 @@ class Orders extends React.Component {
 
                                             <ScrollView>
                                                 
+                                                <View style={{height : 0.4, backgroundColor : '#ecf0f1', marginTop : 20}}></View>
+                                                
+                                                <View style={styles.containerCardItem}>
 
-                                                <View style={{height: 0.8, backgroundColor : '#E8E8E8', marginTop : 25}}>
+                                              <View style ={styles.containerName}>
+
+                                                <View style ={{flexDirection : 'row', padding : 5, alignItems : 'center'}}>
+
+                                                  <Image
+                                                    style = {{height : 35, width: 35, borderRadius : 35/2}}
+                                                    source={pic}
+                                                  />
+
+                                                  <Text style={styles.name}>{item.shop_name}</Text>
+                                                  </View>
+
+                                                  <View style={styles.orderNumber}>
+                                                    <Text>Order n° : 254684</Text>
+                                                  </View>
+
                                                 </View>
 
+                                              <View style={{backgroundColor : '#E8E8E8', height : 0.8}}></View>
 
-                                                <View style={styles.containerCardItem}>
+                                              <View style ={{ flexDirection : 'row'}}>
+
+                                              <View style={{ flexDirection :'row',width : '50%'/* , backgroundColor : '#02f1' */}}>
+
+                                              <View style={{paddingVertical : 8, paddingHorizontal : 5 }}>
+
+                                                    <AntDesign name="checkcircleo" size={12} color="#00d751"/>
+                                              </View>
+
+                                              <View style={{padding : 5, flexDirection : 'column', alignItems : 'center'}}>
+
+                                              <Text style={{fontSize : 14, fontWeight : '500', marginLeft : 10}}>Commande terminée</Text>
+
+                                              <View style={{ flexDirection : 'row', paddingHorizontal : 5}}>
+                                              <Text style ={{color : '#A9A9A9'}}>3 avr. 2019 à </Text>
+                                              <Text style ={{color : '#A9A9A9'}}>{item.heure}</Text>
+                                              </View>
+
+                                                </View >
+
+                                              </View>
+
+                                              <View style={{ flexDirection :'row', height : '100%',width : '50%'/* , backgroundColor :'#f021' */, justifyContent :'flex-end', alignItems : 'flex-end', padding : 5}}>
+                                              <Text style={{fontSize : 15, fontWeight : '600'}}> Total: {item.total} {item.symbol}</Text>
+                                              </View>
+
+                                              </View>
+
+                                              </View>
+
+
+
+                                              <View style={{backgroundColor : '#DCDCDC', height : 0.8}}></View>
+
+                                                {/* <View style={styles.containerCardItem}>
 
                                                     <View style={styles.containerLeft}>
                                                     
@@ -120,7 +176,7 @@ class Orders extends React.Component {
                                                 </View>
 
                                                 <View style={{height: 0.8, backgroundColor : '#E8E8E8'}}>
-                                                </View>
+                                                </View> */}
                                             </ScrollView>
                                             </TouchableOpacity>
                                 }
@@ -225,66 +281,23 @@ const styles = StyleSheet.create({
       /* ---------------FIN HEADER----------------------- */
 
 
-    containerLeft:{
-      height: '100%',
-      width: '100%',
-    },
-    statusContainer:{
-      marginBottom: 10,
-      
-      marginLeft: 20
-    },
-    statusText:{
-      fontSize: 16,
-      fontWeight: '500'
-    },
-    line:{
-      backgroundColor: '#e0e0e0',
-      height:1,
-      marginTop : 20,
-    },
-    containerCardItem: {
-      flexDirection: 'row',
-      flex : 0.15,
-      backgroundColor: '#FFF',
-      justifyContent: 'space-between',
-    },
-    containerLeft:{
-      backgroundColor: '#FFF',
-    },
-    containerName:{
-      backgroundColor:'#FFF',
-      height: 45,
-      paddingHorizontal: 20,
-      paddingVertical : 2,
-
-    },
-    statusOrder: {
-      color :'#A9A9A9',
-      fontWeight: '500',
-      fontSize: 14
-        },
-    name: {
-      fontSize: 15,
-      fontWeight: '400',
-      color: '#000',
-    },
-    containerPrice: {
-      backgroundColor: '#FFF',
-      flexDirection: 'row',
-      
-      marginBottom: 10,
-      paddingHorizontal: 20
-    },
-    price:{
-      
-      fontWeight: '500',
-      fontSize: 13
-    },
-    containerRight: {
-      backgroundColor: '#FFF',
-      justifyContent: 'center',
-      paddingHorizontal: 20
-    }
+      containerCardItem :{
+        flex : 0.1618,
+        backgroundColor : '#fff'
+      },
+      containerName: {
+        flexDirection :'row',
+        justifyContent: 'space-between'
+      },
+      name : {
+        marginLeft : 5,
+        fontSize : 15,
+        fontWeight : '600'
+      },
+      orderNumber :{
+        flexDirection : 'row',
+        padding : 5,
+        alignItems : 'center'
+      }
   
 });
