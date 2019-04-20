@@ -115,7 +115,7 @@ class Shop extends React.Component {
           strPrice += currency;
         }
 
-        strPrice += " •";
+        strPrice += " • ";
 
         return(
 
@@ -137,11 +137,23 @@ class Shop extends React.Component {
                     <View onPress={this._onPressButton} underlayColor="white">
                       <View style={styles.containerDescription}>
                         <Text style={styles.nameRestaurant}>{item.item.name}</Text>
-                        <Text style={styles.descriptionRestaurant}>{strType}</Text>
+
+                        
 
                         <View style={styles.containerNote}>
+                        <View style={{flexDirection: 'row'}}>
                           <Text style={styles.priceRange}>{strPrice}</Text>
-                          <Text style={styles.noteRestaurant}>{item.item.average_time_prep}</Text>
+                          <Text style={styles.descriptionRestaurant}>{strType}</Text>
+                          </View>
+                          <View style={{flexDirection: 'row'}}>
+                            <View style={{backgroundColor :'#F0F0F0', borderRadius :2, paddingHorizontal : 2}}>
+                              <Text style={styles.waitingTime}>{item.item.average_time_prep}</Text>
+                            </View> 
+                            <View style={{backgroundColor :'#F0F0F0', borderRadius :2, paddingHorizontal : 2, marginLeft : 5}}>
+                              <Text style={styles.noteRestaurant}>4.2 ★</Text>
+                            </View>
+                          </View>
+
                         </View>
                     </View>
                   </View>
@@ -151,7 +163,7 @@ class Shop extends React.Component {
     }
 
     render() {
-
+      
         return (
             <View style={{flex : 1, backgroundColor : '#fff'}}>
 
@@ -241,58 +253,65 @@ const styles = StyleSheet.create({
       alignItems : 'flex-end',
       justifyContent :'flex-end'
       },
+
       containerCardItem: {
-        backgroundColor: '#FFF',
+        
         justifyContent: 'space-between',
         marginTop: 15,
         marginBottom: 20
       },
     
       containerPicture:{
-        padding: 5,
         alignItems: 'center',
-    
+        paddingHorizontal : 20,
+        paddingVertical : 5,
       },
+
       pictureButton:{
-        borderRadius: 3
+        borderRadius: 3,
+        width : '100%',
+        
       },
       pictureLogo:{
-        height: 200,
-        width: 390,
+        height: 160,
+        
         borderRadius: 3
       },
     
       containerDescription:{
-        backgroundColor :'#FFF',
-        height: 80,
-        justifyContent: 'space-between',
-        paddingHorizontal: 15
-    
+        
+        paddingHorizontal: 20
       },
+
       nameRestaurant: {
         fontSize: 18,
         fontWeight :'500',
         marginTop: 5,
       },
+      priceRange: {
+        color : '#808080',
+        fontSize: 14,
+      },
       descriptionRestaurant: {
-        fontSize: 13,
+        fontSize: 14,
         fontWeight :'400',
-        color: '#8e8e8e'
+        color: '#808080'
       },
       containerNote:{
         flexDirection:'row',
         alignItems: 'center',
-        width: 100,
+        justifyContent : 'space-between',
+        paddingVertical : 5,
       },
       noteRestaurant :{
         color :'#00b38B',
-        fontSize: 13,
-        fontWeight :'500',
-        marginLeft : 5
+        fontSize: 14,
+        fontWeight :'300', 
       },
-      priceRange: {
-        color : '#8e8e8e',
-    
-      }
+      waitingTime:{
+        fontSize: 14,
+        fontWeight :'300', 
+      },
+      
   
     });

@@ -77,7 +77,7 @@ class Orders extends React.Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={({item}) => 
                                             <TouchableOpacity
-                                                style={styles.container}
+                                                style={styles.containerCardItem}
                                                 onPress={() => {
                                                     this.showOrder(item);
                                                 }}
@@ -87,11 +87,11 @@ class Orders extends React.Component {
                                                 barStyle="dark-content"
                                             />
 
-                                            <ScrollView>
+                                            
                                                 
-                                                <View style={{height : 0.4, backgroundColor : '#ecf0f1', marginTop : 20}}></View>
+                                               <View style={{height : 0.4, backgroundColor : '#E8E8E8'}}></View>
                                                 
-                                                <View style={styles.containerCardItem}>
+                                                
 
                                               <View style ={styles.containerName}>
 
@@ -111,7 +111,7 @@ class Orders extends React.Component {
 
                                                 </View>
 
-                                              <View style={{backgroundColor : '#E8E8E8', height : 0.8}}></View>
+                                              <View style={{backgroundColor : '#F0F0F0', height : 0.5}}></View>
 
                                               <View style ={{ flexDirection : 'row'}}>
 
@@ -141,11 +141,11 @@ class Orders extends React.Component {
 
                                               </View>
 
-                                              </View>
+                                              
 
 
 
-                                              <View style={{backgroundColor : '#DCDCDC', height : 0.8}}></View>
+                                              <View style={{backgroundColor : '#E8E8E8', height : 0.5}}></View>
 
                                                 {/* <View style={styles.containerCardItem}>
 
@@ -177,7 +177,7 @@ class Orders extends React.Component {
 
                                                 <View style={{height: 0.8, backgroundColor : '#E8E8E8'}}>
                                                 </View> */}
-                                            </ScrollView>
+                                            
                                             </TouchableOpacity>
                                 }
                     
@@ -215,10 +215,12 @@ class Orders extends React.Component {
           </View>
           <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
               </View>
+              <ScrollView>
 
             {this.state.showDetail}
             {list}
-                
+
+                </ScrollView>
             </View >
         );
     }
@@ -283,7 +285,8 @@ const styles = StyleSheet.create({
 
       containerCardItem :{
         flex : 0.1618,
-        backgroundColor : '#fff'
+        backgroundColor : '#fff',
+        marginTop : 15
       },
       containerName: {
         flexDirection :'row',
