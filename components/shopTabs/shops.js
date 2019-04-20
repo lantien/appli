@@ -80,7 +80,11 @@ class Shop extends React.Component {
 
     showShop = id => {
 
-      this.state.listShops[id].catalogue = JSON.parse(this.state.listShops[id].catalogue);
+      if(typeof this.state.listShops[id].catalogue != 'object') {
+
+        this.state.listShops[id].catalogue = JSON.parse(this.state.listShops[id].catalogue);
+      }
+      
 
       store.dispatch({
           type: 'SET_SHOP',
