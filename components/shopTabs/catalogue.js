@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
+import { Ionicons, MaterialIcons, } from '@expo/vector-icons'
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -67,8 +68,12 @@ class Catalogue extends React.Component {
 
     render() {
 
+        let pic ={
+            uri: 'https://scontent-cdt1-1.xx.fbcdn.net/v/t31.0-8/13403146_184981928566610_276148320834237026_o.jpg?_nc_cat=105&_nc_ht=scontent-cdt1-1.xx&oh=d820c14f5b388820204a2d36a0f395a5&oe=5D40135A'
+          }
+
         return (
-            <View>
+            <View style={{flex : 1, backgroundColor: '#f5f5f5'}}>
                <View style={styles.header}>
 
                     <View style={styles.headerLeft}> 
@@ -92,13 +97,79 @@ class Catalogue extends React.Component {
                     </Text>
 
                     </View>
-
+                    
                 </View>
+
+                <View style= {{height: 1, backgroundColor : '#E8E8E8' }}>        
+                </View>
+
+                <ScrollView style={{flex : 1 }}>
+
+
+{/* ----------------------------------------NAME/DESCRIPTION---------------------------------------------------- */}
+                <View style={styles.containerCardItem}>
+
+                    <View style={styles.containerLogo}>
+                    <Image style={styles.pictureLogo}
+                    source={pic}
+                    />
+                    </View>
+
+                    <View style={styles.descriptionRestaurant}>
+                        <Text style={styles.nameRestaurant}>Antoinette Pain & Brioche </Text>
+
+                        <View style={styles.containerNote}>
+                            <View style={{backgroundColor :'#F0F0F0', flexDirection : 'row', alignItems : 'center', justifyContent : 'center', borderRadius : 5, padding : 2}}>
+                                <Ionicons name="md-star" size={20} color="#00b38B"/>
+                                <Text style={styles.noteRestaurant}>4.2</Text>
+                                <Text style={styles.priceRange}>• €</Text>
+                            </View>
+                        </View>
+
+                        <Text style={styles.descriptionText}>Antoinette, parce que la boulangerie n'a pas besoin d'être conformiste pour être traditionnelle! 
+                        </Text>
+
+                        </View>
+
+                    </View>
+
+                    <View style={styles.greyLine}>
+                    </View>
+
+                    <View style={styles.foodAllergy}>
+                    <Text style={styles.allergyText}>Vous pouvez renseignez vos détails allergies dans votre panier.</Text>
+                    </View>
+
+                    {/* --------------------------------------------------------------------------------------------------------- */}
+            
+                    <View style={styles.containerMain}>
+
+                    <View style={styles.cardItemName}>
+                    <View style={styles.containerName}>
+                    <Text style={styles.nameCategory}>Les tacos</Text>
+                        </View>
+                        <View style={styles.greyLine}>
+                        </View>
+                    </View>
+
+                    <TouchableOpacity style={styles.categoryCustom}>
+                    <Text style={styles.itemName}>Tacos junior</Text>
+                    <Text style={styles.itemDescription}>Viande au choix, frites, crudités, fromage râpé et sauce au choix...</Text>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.itemPrice}>6€50</Text>
+                        </View>
+                        <View style={styles.greyLine}>
+                        </View>
+                    </TouchableOpacity>
+                    </View>
+                
                     <FlatList
                         data={this.state.catalogue}
                         keyExtractor={this._keyExtractor}
                         renderItem={this.renderCatalogue}
                     />
+
+                </ScrollView>
             </View>
         );
     }
@@ -114,8 +185,8 @@ export default connect(mapStateToProps)(Catalogue);
 const styles = StyleSheet.create({
     container:{
       flex: 1 ,
-      backgroundColor: '#f5f5f5'
-    
+      backgroundColor: '#ECEFF1'
+    /* -------------------------------------------------------HEADER--------------------------------------------------------- */
     },
     header :{
       height : 65,
@@ -154,6 +225,121 @@ const styles = StyleSheet.create({
       marginRight : 15,
       alignItems : 'flex-end',
       justifyContent :'flex-end'
-      }
-  
+      },
+/* ------------------------------------------------------------------------------------------------------ */
+      
+    containerCardItem:{
+        backgroundColor: '#FFF',
+        flexDirection : 'row',
+
+    },
+    containerLogo:{
+        backgroundColor: '#FFF',
+        padding: 10
+
+    },
+    pictureLogo:{
+        width: 150,
+        height: 150,
+        borderRadius : 10
+    },
+    descriptionRestaurant:{
+        flex : 1,
+        backgroundColor: '#fff',
+        padding : 10
+    },
+    nameRestaurant:{
+        fontSize: 20,
+        fontWeight: '700',
+    },
+    containerNote:{
+        flexDirection:'row',
+        alignItems: 'center',
+        marginVertical: 5
+        
+    },
+    noteRestaurant:{
+        color :'#00b38B',
+        fontSize: 13,
+        fontWeight :'300',
+        marginLeft : 5
+    },
+    priceRange:{
+        color : '#808080',
+        marginLeft: 10
+    },
+    descriptionText:{
+        color : '#808080',
+        fontSize: 13,
+        fontWeight: '500'
+    },
+    greyLine:{
+        flex: 1,
+        backgroundColor: '#e0e0e0',
+        height: 0.8,
+    },
+
+    foodAllergy:{
+       
+        alignItems: 'center',
+        paddingTop: 20, 
+    },
+    
+    allergyText:{
+        color: '#808080',
+        fontSize: 13,
+        fontWeight: '500',
+        justifyContent: 'center'
+    },
+    containerMain:{
+        
+        marginBottom: 55
+    },
+    containerName:{
+        paddingLeft : 15,
+        paddingVertical: 15,
+        
+    },
+    nameCategory:{
+        color: '#000',
+        fontSize: 18,
+        fontWeight: '600'
+    },
+    categoryCustom:{
+        backgroundColor: '#FFF',
+        paddingTop: 10,
+        paddingLeft: 15
+    },
+    itemName:{
+        color: '#000',
+        fontSize: 16,
+        fontWeight: '400',
+        marginBottom: 5
+    },
+    itemDescription:{
+        color: '#8e8e8e',
+        fontSize: 13,
+        fontWeight: '500',
+    },
+    priceContainer:{
+        backgroundColor:'#fff',
+        flexDirection: 'row',
+        alignItems:'flex-end',
+        marginBottom: 5
+    },
+    itemPrice:{
+        marginTop: 10,
+        fontSize: 15,
+        fontWeight: '400',
+        marginRight:10
+    },
+    popularity:{
+        color:'#0fdfbd',
+        fontSize: 15,
+        fontWeight: '500',
+        marginLeft:5
+    }    
+
+
+    
     });
