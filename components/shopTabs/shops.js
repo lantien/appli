@@ -80,19 +80,21 @@ class Shop extends React.Component {
 
     showShop = id => {
 
-        store.dispatch({
-            type: 'SET_SHOP',
-            id: this.state.listShops[id]._id
-        });
+      this.state.listShops[id].catalogue = JSON.parse(this.state.listShops[id].catalogue);
 
-        store.dispatch({
-            type: 'SET_CURRENCY',
-            currency: this.state.listShops[id].currency
-        });
+      store.dispatch({
+          type: 'SET_SHOP',
+          id: this.state.listShops[id]._id
+      });
 
-        this.props.navigation.navigate('Catalogue', {
-            shopData: this.state.listShops[id]
-        });
+      store.dispatch({
+          type: 'SET_CURRENCY',
+          currency: this.state.listShops[id].currency
+      });
+
+      this.props.navigation.navigate('Catalogue', {
+          shopData: this.state.listShops[id]
+      });
     }
 
     hexToBase64 = (str) => {

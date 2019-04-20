@@ -57,7 +57,7 @@ class Catalogue extends React.Component {
         return (
             <View>
                 <Button
-                    title={item.item.prod + " " + item.item.prix}
+                    title={item.item.name + " " + item.item.prix}
                     color="#841584"
                     onPress={this.showSupplement.bind(this, item)}
                 />
@@ -94,11 +94,11 @@ class Catalogue extends React.Component {
                     </View>
 
                 </View>
-                            <FlatList
-                    data={this.state.catalogue}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this.renderCatalogue}
-                />
+                    <FlatList
+                        data={this.state.catalogue}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={this.renderCatalogue}
+                    />
             </View>
         );
     }
