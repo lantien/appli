@@ -13,26 +13,48 @@ export default class Login extends React.Component {
     title: 'Sign in',
   };
 
+  
+
     constructor(props) {
         super(props);
 
-        this.login = ""; 
-        this.password = "";
-    }s
+        this.state = {
+          login: "",
+          password: ""
+        }
+    }
 
     componentDidMount() {
 
         this.navigate = this.props.navigation;
     }
 
+    _clearPassword() {
+
+      this.setState({
+        password: ""
+      });
+    }
+
+    _clearLogin() {
+
+      this.setState({
+        login: ""
+      });
+    }
+
     _setLogin(text) {
 
-        this.login = text;
+      this.setState({
+        login: text
+      });
     } 
 
     _setPassword(text) {
 
-        this.password = text;
+      this.setState({
+        password: text
+      });
     }
 
     _navigate(compoNanme) {
@@ -49,8 +71,8 @@ export default class Login extends React.Component {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              login: this.login,
-              password: this.password,
+              login: this.state.login,
+              password: this.state.password,
             }),
         })
         .then(res => {
@@ -152,12 +174,18 @@ export default class Login extends React.Component {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     autoCorrect={false}
-
+                    value={this.state.login}
+              
                     onChangeText={(text) => this._setLogin(text)}
                     
                 />
                   {/* <AntDesign name = "exclamationcircleo" size={13} color ="#f02c2c"/> */}
-                  <AntDesign name = "closecircle" size={14} color ="#cacaca"/>
+                  <AntDesign 
+                    name = "closecircle" 
+                    size={14} 
+                    color ="#cacaca"
+                    onPress={() => this._clearLogin()}
+                  />
                 </View>
                 
                 <View style={styles.textInput}>
@@ -168,12 +196,21 @@ export default class Login extends React.Component {
                     secureTextEntry
                     ref={(input) => this.passwordInput = input}
                     returnKeyType= "go"
+                    value={this.state.password}
                     
                     onChangeText={(text) => this._setPassword(text)}
                     
                 />
                 {/* <AntDesign name = "exclamationcircleo" size={13} color ="#f02c2c"/> */}
-                <AntDesign name = "closecircle" size={14} color ="#cacaca"/>
+                <AntDesign 
+                  name = "closecircle" 
+                  size={14} 
+                  color ="#cacaca"
+                  onPress={() => {
+
+                    this._clearPassword();
+                  }}
+                />
                 </View>
 
             
