@@ -33,6 +33,11 @@ export default class App extends React.Component {
 
           var displayData = [];
 
+          if(data.success == false) {
+
+            return;
+          }
+
           for(var i in data) {
               var date = new Date(data[i].createdAt);
 
@@ -59,11 +64,16 @@ export default class App extends React.Component {
     try {
       const value = await AsyncStorage.getItem('token');
 
-      this.getOrders(value);
-      Store.dispatch({
-        type: 'SET_TOKEN',
-        token: value
-      });
+      if(value != null) {
+
+        this.getOrders(value);
+        
+        Store.dispatch({
+          type: 'SET_TOKEN',
+          token: value
+        });
+
+      }
 
     } catch(err) {
 

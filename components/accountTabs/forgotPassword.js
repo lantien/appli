@@ -98,11 +98,6 @@ export default class Login extends React.Component {
 
                     </TouchableOpacity>
                 </View>
-
-                <Button
-                    onPress={() => this.props.navigation.goBack()}/* {() => this.requestLogin()} */
-                    title="Retour"
-                />
             
             </View>
 

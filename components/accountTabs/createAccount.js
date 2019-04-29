@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, StyleSheet, TouchableOpacity, KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback,Button, Text, Platform } from 'react-native';
+import { TextInput, View, StyleSheet, TouchableOpacity, KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback, Alert, Text, Platform } from 'react-native';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 
@@ -21,16 +21,12 @@ export default class CreateAccount extends React.Component {
 
         this.state = {
             validateEmail: false,
-            validatePhone_number: false,
             validatePassword: false,
-
+            email: "",
+            firstname: "",
+            lastname: "",
+            password: ""
         }
-
-        this.lastname = "";
-        this.firstname = "";
-        this.email = "";
-        this.phone_number = "";
-        this.password = "";
     }
 
     componentDidMount() {
@@ -40,75 +36,65 @@ export default class CreateAccount extends React.Component {
 
     _setLastname(text) {
 
-        this.lastname = text;
+        this.setState({
+            lastname: text
+        });
     }
 
     _setFirstname(text) {
 
-        this.firstname = text;
+        this.setState({
+            firstname: text
+        });
     }
 
     _setEmail(text) {
 
         regEmail=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/     
         
-            if(regEmail.test(text)){
-                
-                this.setState({
-                    validateEmail:true,
-                })
-
-            }
-            else {        
-                this.setState({
-                    validateEmail:false,
-                })
+        if(regEmail.test(text)){
             
+            this.setState({
+                validateEmail:true,
+            });
+        }
+        else {   
+
+            this.setState({
+                validateEmail:false,
+            });
         } 
 
-        this.email = text;
+        this.setState({
+            email: text
+        });
     }
 
-    _setNumber(text) {
-
-        regPhone_number= /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/
-
-        if(regPhone_number.test(text)) {
-            
-            this.setState({
-                validatePhone_number: true,
-            })
-        }
-        else{
-            this.setState({
-                validatePhone_number:false,
-            })
-        }
-
-        this.phone_number = text;
-    }
 
     _setPassword(text) {
-        regPassword =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*).{8,64}$/
+        var regPass = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 
-        if(regPhone_number.test(text)) {
-            
+
+        if(regPass.test(text)) {
+
             this.setState({
-                validatePassword: true,
+                validatePassword:true,
             })
-        }
-        else{
+        } else {
+            
             this.setState({
                 validatePassword:false,
             })
         }
 
-        this.password = text;
+        this.setState({
+            password: text
+        });
     }
 
     createAccount() {
 
-        if(this.state.validateEmail && this.state.validatePassword && this.state.validatePhone_number){
+        if(this.state.validateEmail && this.state.validatePassword){
             fetch(apiUrl + 'user', {
                 method: 'POST',
                 headers: {
@@ -116,11 +102,10 @@ export default class CreateAccount extends React.Component {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    lastname: this.lastname,
-                    firstname: this.firstname,
-                    email: this.email,
-                    phone_number: this.phone_number,
-                    password: this.password,
+                    lastname: this.state.lastname,
+                    firstname: this.state.firstname,
+                    email: this.state.email,
+                    password: this.state.password,
                 }),
             })
             .then(res => {
@@ -132,8 +117,8 @@ export default class CreateAccount extends React.Component {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                      login: this.email,
-                      password: this.password,
+                      login: this.state.email,
+                      password: this.state.password,
                     }),
                 });
             })
@@ -173,18 +158,7 @@ export default class CreateAccount extends React.Component {
                 ],
                 {cancelable: false},
             );
-        }
-        else if(this.state.validatePhone_number == false){
-            Alert.alert(
-                "Quelque chose s\'est mal passé!",
-                'Verifiez le format de votre numéro de téléphone',
-                [
-                    {text: 'OK'},
-                ],
-                {cancelable: false},
-            );
-        }
-        else if(this.state.validatePassword == false) {
+        }else if(this.state.validatePassword == false) {
             Alert.alert(
                 "Impossible d'enregistrer le mot de passe",
                 'Verifiez que votre mot de passe \ncontient au moins : \n• 8 caractères \n• 1 chiffre \n• 1 lettre majuscule et \n1 lettre minuscule',
@@ -252,6 +226,7 @@ export default class CreateAccount extends React.Component {
                 <TextInput
                     style={styles.input}
                     onChangeText={(text) => this._setEmail(text, 'email')}
+                    onSubmitEditing = {() => this.firstnameInput.focus()}
                     placeholder="Email adress"
                     placeholderTextColor="#A9A9A9"
                     returnKeyType= "next"
@@ -267,6 +242,7 @@ export default class CreateAccount extends React.Component {
                     onChangeText={(text) => this._setFirstname(text)}  
                     placeholder="Firstname"
                     returnKeyType= "next"
+                    ref={(input) => this.firstnameInput = input}
                     onSubmitEditing = {() => this.lastNameInput.focus()}
                     />
 
@@ -279,21 +255,8 @@ export default class CreateAccount extends React.Component {
                     onChangeText={(text) => this._setLastname(text)}
                     placeholder="Lastname"
                     returnKeyType= "next"
-                    onSubmitEditing = {() => this.phoneNumberInput.focus()}
-                    ref={(input) => this.lastNameInput = input}
-                />
-
-                    <View style= {{height: 0.8, backgroundColor : '#E8E8E8', marginHorizontal : 20}}>        
-                </View>
-
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#A9A9A9"
-                    onChangeText={(text) => this._setNumber(text)}
-                    placeholder="Phone number"
-                    returnKeyType= "next"
                     onSubmitEditing = {() => this.passwordInput.focus()}
-                    ref={(input) => this.phoneNumberInput = input}
+                    ref={(input) => this.lastNameInput = input}
                 />
 
                     <View style= {{height: 0.8, backgroundColor : '#E8E8E8', marginHorizontal : 20}}>        
@@ -325,7 +288,7 @@ export default class CreateAccount extends React.Component {
                 
                 <View  style={styles.containerButton}>
                     <TouchableOpacity
-                        onPress={() => this._navigate('CreateAccount')}/* {() => this.requestLogin()} */
+                        onPress={() => this.createAccount()}/* {() => this.requestLogin()} */
                         style={styles.signUpButton}
                     >
                     

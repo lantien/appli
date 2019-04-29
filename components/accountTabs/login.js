@@ -125,10 +125,26 @@ export default class Login extends React.Component {
       })
       .then(data => {
 
-        store.dispatch({
-          type: 'SET_ORDER',
-          data: data
-        });
+        var displayData = [];
+
+          if(data.success == false) {
+
+            return;
+          }
+
+          for(var i in data) {
+              var date = new Date(data[i].createdAt);
+
+              data[i].createdAt = date.toLocaleDateString();
+              //data[i].symbol = convertCurrency(data[i].currency);
+              data[i].heure = date.getHours() + ":" + date.getMinutes();
+              displayData.push(data[i]);
+          }
+
+          store.dispatch({
+              type: 'SET_ORDERS',
+              orderList: displayData
+          });
       })
       .catch(err => {
 
@@ -158,7 +174,7 @@ export default class Login extends React.Component {
                 <View style={styles.logoText}>             
 
                     <Text style={{fontSize: 33, color : '#000', fontWeight :'600'}} >
-                        foodr
+                        Foodr
                     </Text>
 
                 </View>

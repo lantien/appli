@@ -109,14 +109,23 @@ class Account extends React.Component {
           .then(data => {
   
               var displayData = [];
+
+              if(!data.success) {
+
+                return;
+              }
   
               for(var i in data) {
-                  var date = new Date(data[i].createdAt);
+
+                if(data[i]._id != undefined) {
+
+                    var date = new Date(data[i].createdAt);
   
-                  data[i].createdAt = date.toLocaleDateString();
-                  data[i].symbol = convertCurrency(data[i].currency);
-                  data[i].heure = date.getHours() + ":" + date.getMinutes();
-                  displayData.push(data[i]);
+                    data[i].createdAt = date.toLocaleDateString();
+                    data[i].symbol = convertCurrency(data[i].currency);
+                    data[i].heure = date.getHours() + ":" + date.getMinutes();
+                    displayData.push(data[i]);
+                }
               }
   
               store.dispatch({
