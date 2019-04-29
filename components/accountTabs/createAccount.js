@@ -19,6 +19,13 @@ export default class CreateAccount extends React.Component {
 
         super(props);
 
+        this.state = {
+            validateEmail: false,
+            validatePhone_number: false,
+            validatePassword: false,
+
+        }
+
         this.lastname = "";
         this.firstname = "";
         this.email = "";
@@ -43,75 +50,152 @@ export default class CreateAccount extends React.Component {
 
     _setEmail(text) {
 
+        regEmail=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/     
+        
+            if(regEmail.test(text)){
+                
+                this.setState({
+                    validateEmail:true,
+                })
+
+            }
+            else {        
+                this.setState({
+                    validateEmail:false,
+                })
+            
+        } 
+
         this.email = text;
     }
 
     _setNumber(text) {
 
+        regPhone_number= /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/
+
+        if(regPhone_number.test(text)) {
+            
+            this.setState({
+                validatePhone_number: true,
+            })
+        }
+        else{
+            this.setState({
+                validatePhone_number:false,
+            })
+        }
+
         this.phone_number = text;
     }
 
     _setPassword(text) {
+        regPassword =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*).{8,64}$/
+
+        if(regPhone_number.test(text)) {
+            
+            this.setState({
+                validatePassword: true,
+            })
+        }
+        else{
+            this.setState({
+                validatePassword:false,
+            })
+        }
 
         this.password = text;
     }
 
     createAccount() {
-        
-        fetch(apiUrl + 'user', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                lastname: this.lastname,
-                firstname: this.firstname,
-                email: this.email,
-                phone_number: this.phone_number,
-                password: this.password,
-            }),
-        })
-        .then(res => {
 
-            return fetch(apiUrl + 'login', {
+        if(this.state.validateEmail && this.state.validatePassword && this.state.validatePhone_number){
+            fetch(apiUrl + 'user', {
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  login: this.email,
-                  password: this.password,
+                    lastname: this.lastname,
+                    firstname: this.firstname,
+                    email: this.email,
+                    phone_number: this.phone_number,
+                    password: this.password,
                 }),
+            })
+            .then(res => {
+    
+                return fetch(apiUrl + 'login', {
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      login: this.email,
+                      password: this.password,
+                    }),
+                });
+            })
+            .then(data => {
+    
+                return data.json();
+            })
+            .then(data => {
+    
+                store.dispatch({
+                    type: 'SET_TOKEN',
+                    token: data.token
+                });
+    
+                return AsyncStorage.setItem('token', data.token);
+            })
+            .then(() => {
+    
+                const navigateAction = StackActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: "Account" })],
+                });
+            
+                this.navigate.dispatch(navigateAction);
+            })
+            .catch(err => {
+    
+                console.log(err);
             });
-        })
-        .then(data => {
-
-            return data.json();
-        })
-        .then(data => {
-
-            store.dispatch({
-                type: 'SET_TOKEN',
-                token: data.token
-            });
-
-            return AsyncStorage.setItem('token', data.token);
-        })
-        .then(() => {
-
-            const navigateAction = StackActions.reset({
-                index: 0,
-                actions: [NavigationActions.navigate({ routeName: "Account" })],
-            });
+        }
+        else if (this.state.validateEmail == false) {
+            Alert.alert(
+                "Quelque chose s\'est mal passé!",
+                'Verifiez le format de votre adresse',
+                [
+                    {text: 'OK'},
+                ],
+                {cancelable: false},
+            );
+        }
+        else if(this.state.validatePhone_number == false){
+            Alert.alert(
+                "Quelque chose s\'est mal passé!",
+                'Verifiez le format de votre numéro de téléphone',
+                [
+                    {text: 'OK'},
+                ],
+                {cancelable: false},
+            );
+        }
+        else if(this.state.validatePassword == false) {
+            Alert.alert(
+                "Impossible d'enregistrer le mot de passe",
+                'Verifiez que votre mot de passe \ncontient au moins : \n• 8 caractères \n• 1 chiffre \n• 1 lettre majuscule et \n1 lettre minuscule',
+                [
+                    {text: 'OK'},
+                ],
+                {cancelable: false},
+            );
+        }
         
-            this.navigate.dispatch(navigateAction);
-        })
-        .catch(err => {
-
-            console.log(err);
-        });
+        
     }
 
     render() {
@@ -165,13 +249,14 @@ export default class CreateAccount extends React.Component {
                 >
                 <View style={styles.containerForm}>      
 
-               {/*  <TextInput
+                <TextInput
                     style={styles.input}
-                    onChangeText={(text) => this._setEmail(text)}
+                    onChangeText={(text) => this._setEmail(text, 'email')}
                     placeholder="Email adress"
+                    placeholderTextColor="#A9A9A9"
                     returnKeyType= "next"
                     keyboardType="email-address"
-                /> */}
+                /> 
                     
                     <View style= {{height: 1, backgroundColor : '#E8E8E8'}}>        
                 </View>
@@ -249,11 +334,7 @@ export default class CreateAccount extends React.Component {
                     </TouchableOpacity>
                 </View>
 
-                <Button
-                    onPress={() => this.props.navigation.goBack()}/* {() => this.requestLogin()} */
-                    title="Retour login"
-                />
-                
+                                
                 </KeyboardAvoidingView>
                 
                 </View>

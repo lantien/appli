@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, KeyboardAvoidingView,View, SafeAreaView,TouchableOpacity, Platform,TouchableWithoutFeedback,Keyboard,TextInput, Text, AsyncStorage } from 'react-native';
-
+import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -156,9 +156,11 @@ export default class Login extends React.Component {
                     onChangeText={(text) => this._setLogin(text)}
                     
                 />
-
+                  {/* <AntDesign name = "exclamationcircleo" size={13} color ="#f02c2c"/> */}
+                  <AntDesign name = "closecircle" size={14} color ="#cacaca"/>
+                </View>
                 
-
+                <View style={styles.textInput}>
                 <TextInput
                     
                     style={styles.input2}
@@ -166,10 +168,12 @@ export default class Login extends React.Component {
                     secureTextEntry
                     ref={(input) => this.passwordInput = input}
                     returnKeyType= "go"
-                                        
+                    
                     onChangeText={(text) => this._setPassword(text)}
                     
                 />
+                {/* <AntDesign name = "exclamationcircleo" size={13} color ="#f02c2c"/> */}
+                <AntDesign name = "closecircle" size={14} color ="#cacaca"/>
                 </View>
 
             
@@ -274,18 +278,17 @@ const styles = StyleSheet.create({
       },
 
     textInput:{
-        paddingHorizontal : 20
-                
-    },
-    input :{
-        backgroundColor : '#f9fafb' ,
+      backgroundColor :'#f9fafb',
+        flexDirection: 'row',
+        paddingHorizontal : 20,
+        alignItems: 'center',
         height: 40,
-        marginBottom: 10,   
         borderColor : '#DCDCDC',
         borderWidth: 0.6,    
-        paddingHorizontal :10,
-        width :'100%',
+        marginHorizontal :10,
         borderRadius : 5,
+        marginBottom: 10,
+
         shadowColor: "#000",
         shadowOffset: {
           width: 0,
@@ -295,26 +298,24 @@ const styles = StyleSheet.create({
         shadowRadius: 1.00,
         
         elevation: 1,
-
+                
+    },
+    input :{
+        backgroundColor : '#f9fafb' ,
+        height: 38,
+        flex : 1,
+        /* borderColor : '#DCDCDC',
+        borderWidth: 0.6,    
+        paddingHorizontal :10,
+        /* width :'100%', */
+        /* borderRadius : 5,  */
+        
       },
 
     input2: {
-        backgroundColor : '#f9fafb' ,
-        height: 40,
-        marginBottom: 10,
-        borderColor : '#DCDCDC',
-        borderWidth : 0.6,
-        paddingHorizontal :10,
-        borderRadius : 5,
-        shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.18,
-shadowRadius: 1.00,
-
-elevation: 1,
+      backgroundColor : '#f9fafb' ,
+      height: 38,
+      flex : 1,  
       },
 
     logoText: {
