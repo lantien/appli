@@ -93,6 +93,7 @@ class Catalogue extends React.Component {
                             this.props.navigation.navigate('Basket');
                         }}
                     >
+
                         <Ionicons name="md-basket" size={20} color="#00b38B"/>
                         <Text style={{paddingLeft : 5}}>
                         {this.props.total}
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
       height : 65,
       backgroundColor : '#fff',
       flexDirection : 'row',    
-      justifyContent : 'space-between',
+      justifyContent : 'center',
       alignItems : 'center', 
       shadowColor: "#000",
       shadowOffset: {
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
 
     headerRight: {
       flex :0.33,
-      height : '50%',
+      height : '75%',
       marginRight : 15,
       alignItems : 'flex-end',
       justifyContent :'flex-end'
