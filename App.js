@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Store from './components/redux/store.js';
 import Entry from './components/main.js';
 
+import { Provider as PaperProvider } from 'react-native-paper';
+
 import convertCurrency from './tools/convertCurrency.js';
 
 import apiUrl from './config/api.url';
@@ -84,7 +86,9 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={Store}>
-        <Entry/>
+        <PaperProvider>
+          <Entry/>
+        </PaperProvider>
       </Provider>
     )
   }
