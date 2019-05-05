@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
-import { Ionicons, MaterialIcons, } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -86,15 +86,18 @@ class Catalogue extends React.Component {
                     </View>
 
                     <View style = {styles.headerRight}>
-                    <Text
+                    <TouchableOpacity
+                        style={{flexDirection: 'row', justifyContent: 'center', alignItems:'center'}}
                         onPress={() =>{
 
                             this.props.navigation.navigate('Basket');
                         }}
                     >
-
+                        <Ionicons name="md-basket" size={20} color="#00b38B"/>
+                        <Text style={{paddingLeft : 5}}>
                         {this.props.total}
-                    </Text>
+                        </Text>
+                    </TouchableOpacity>
 
                     </View>
                     
@@ -124,9 +127,13 @@ class Catalogue extends React.Component {
                                 <Text style={styles.noteRestaurant}>4.2</Text>
                                 <Text style={styles.priceRange}>• €</Text>
                             </View>
+                            <TouchableOpacity style={{paddingLeft : 10}}>
+                                <MaterialCommunityIcons name="map-marker" size={22} color="#00c3ff "/>
+                            </TouchableOpacity>
                         </View>
 
-                        <Text style={styles.descriptionText}>Antoinette, parce que la boulangerie n'a pas besoin d'être conformiste pour être traditionnelle! 
+                        <Text style={styles.descriptionText}>
+                            117 Rue Sébastien Gryphe, 69007 Lyon 
                         </Text>
 
                         </View>
