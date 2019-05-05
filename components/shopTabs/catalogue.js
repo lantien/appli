@@ -30,18 +30,6 @@ class Catalogue extends React.Component {
     renderCatalogue = (item) => {
 
         return(
-            /* <View>
-
-                <Text h1>
-                    {item.item.name}
-                </Text>
-                <FlatList
-                    data={item.item.content}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this.renderProduit}
-                />
-            </View> */
-
             <View style={styles.cardItemName}> 
                 <View style={styles.containerName}>
                     <Text style={styles.nameCategory}>{item.item.name}</Text>
@@ -50,12 +38,11 @@ class Catalogue extends React.Component {
                 <FlatList
                     data={item.item.content}
                     keyExtractor={this._keyExtractor}
-                    renderItem={this.renderProduit}
+                    renderItem={(childItem) => this.renderProduit(childItem, item.index)}
                 />
                 <View style={styles.greyLine}>
                 </View>
             </View>
-
             );
     }
 
@@ -66,7 +53,9 @@ class Catalogue extends React.Component {
         });
     }
 
-    renderProduit = item => {
+    renderProduit = (item, motherIndex) => {
+
+        item.item.ref = [motherIndex, item.index];
 
         return (
 
@@ -148,7 +137,7 @@ class Catalogue extends React.Component {
                                 <Text style={styles.priceRange}>• €</Text>
                             </View>
                             <TouchableOpacity style={{paddingLeft : 10}}>
-                                <MaterialCommunityIcons name="map-marker" size={22} color="#00c3ff "/>
+                                <MaterialCommunityIcons name="map-marker" size={22} />
                             </TouchableOpacity>
                         </View>
 

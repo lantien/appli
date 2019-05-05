@@ -39,7 +39,9 @@ class Basket extends React.Component {
         })
         .then(data => {
 
-            var date = new Date(data.createdAt);
+          console.log(data);
+
+            /* var date = new Date(data.createdAt);
 
             data.createdAt = date.toLocaleDateString();
             //data.symbol = convertCurrency(data.currency);
@@ -48,7 +50,7 @@ class Basket extends React.Component {
           store.dispatch({
             type: 'ADD_ORDER',
             orderList: data
-          });
+          });*/
         })
         .catch(err => {
   
