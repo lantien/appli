@@ -4,7 +4,6 @@ import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, But
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import apiUrl from '../../config/api.url.js';
-import store from '../redux/store.js';
 
 import { connect } from 'react-redux';
 
