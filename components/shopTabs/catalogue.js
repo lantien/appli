@@ -31,7 +31,7 @@ class Catalogue extends React.Component {
     renderCatalogue = (item) => {
 
         return(
-            <View>
+            /* <View>
 
                 <Text h1>
                     {item.item.name}
@@ -41,6 +41,20 @@ class Catalogue extends React.Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={this.renderProduit}
                 />
+            </View> */
+
+            <View style={styles.cardItemName}> 
+                <View style={styles.containerName}>
+                    <Text style={styles.nameCategory}>{item.item.name}</Text>
+                </View>
+
+                <FlatList
+                    data={item.item.content}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this.renderProduit}
+                />
+                <View style={styles.greyLine}>
+                </View>
             </View>
 
             );
@@ -56,13 +70,19 @@ class Catalogue extends React.Component {
     renderProduit = item => {
 
         return (
-            <View>
-                <Button
-                    title={item.item.name + " " + item.item.prix}
-                    color="#841584"
-                    onPress={this.showSupplement.bind(this, item)}
-                />
-            </View>
+
+            <TouchableOpacity 
+                style={styles.categoryCustom}
+                onPress={this.showSupplement.bind(this, item)}
+            >
+                    <Text style={styles.itemName}>{item.item.name}</Text>
+                    <Text style={styles.itemDescription}>{item.item.desc}</Text>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.itemPrice}>{item.item.prix}</Text>
+                        </View>
+                        <View style={styles.greyLine}>
+                        </View>
+            </TouchableOpacity>
         );
     }
 
@@ -144,30 +164,12 @@ class Catalogue extends React.Component {
             
                     <View style={styles.containerMain}>
 
-                    <View style={styles.cardItemName}>
-                    <View style={styles.containerName}>
-                    <Text style={styles.nameCategory}>Les tacos</Text>
-                        </View>
-                        <View style={styles.greyLine}>
-                        </View>
+                        <FlatList
+                            data={this.state.catalogue}
+                            keyExtractor={this._keyExtractor}
+                            renderItem={this.renderCatalogue}
+                        />
                     </View>
-
-                    <TouchableOpacity style={styles.categoryCustom}>
-                    <Text style={styles.itemName}>Tacos junior</Text>
-                    <Text style={styles.itemDescription}>Viande au choix, frites, crudités, fromage râpé et sauce au choix...</Text>
-                    <View style={styles.priceContainer}>
-                        <Text style={styles.itemPrice}>6€50</Text>
-                        </View>
-                        <View style={styles.greyLine}>
-                        </View>
-                    </TouchableOpacity>
-                    </View>
-                
-                    <FlatList
-                        data={this.state.catalogue}
-                        keyExtractor={this._keyExtractor}
-                        renderItem={this.renderCatalogue}
-                    />
 
                 </ScrollView>
             </View>
