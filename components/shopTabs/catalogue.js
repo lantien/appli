@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Platform, Linking,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
+import { View, Text, Platform, Linking
+    ,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
