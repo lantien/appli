@@ -1,10 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
 import { Appbar } from 'react-native-paper';
-import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
-=======
-import { View, Text, Platform, Linking,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
->>>>>>> e7699265c55de2e4dc2bc7b840fe5a6d6b359e36
+import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Platform, Linking,Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -144,12 +140,13 @@ class Catalogue extends React.Component {
                                 <Text style={styles.priceRange}>• €</Text>
                             </View>
                             <TouchableOpacity 
-                                style={{paddingLeft : 10}}
+                                style={{paddingLeft : 10, flexDirection: 'row', justifyContent : 'center', alignItems: 'center'}}
                                 onPress={() => {
                                     Linking.openURL(this.state.urlMap);
                                 }}
                             >
                                 <MaterialCommunityIcons name="map-marker" size={22} />
+                                <Text style={{fontWeight: '300', color : '#a8a8a8', fontSize: 15}}>1.2km</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -181,22 +178,44 @@ class Catalogue extends React.Component {
 
                 </ScrollView>
 
-            <View style={styles.footerContainer}>
+            <TouchableHighlight
+                style={styles.footerContainer}
+                onPress={() =>{
+                    this.props.navigation.navigate('Basket');
+                        }}
+            >
 
-                <View style={styles.numberItems}>
+                <View 
+                style={{flexDirection: 'row',backgroundColor:'#4cbb17', flex : 1, paddingHorizontal: 10,}}            
+                >
+
+
+                <View style={{flexDirection : 'row', flex : 1, justifyContent: 'center', alignItems: 'center'}}>
+                        
+                    <View style={{flex: 0.2, alignItems: 'flex-start'}}>
+                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', backgroundColor: '#44a814', padding : 3}}>0</Text>
+                    </View>
+                    
+                    <View style={{flex : 0.7, alignItems: 'center'}}>
+                    <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>Voir la commande</Text>
+                    </View>
+                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>9,40€</Text>
+                    </View>
 
                 </View>
 
-                <View style={styles.textBasket}>
-
+                <View style={{}}>
+                    
                 </View>
 
-                <View style={styles.totalPrice}>
-
+                <View style={{}}>
+                    
                 </View>
-
-
-            </View>
+                
+                </View>
+                
+            </TouchableHighlight>
 
             </View>
         );
@@ -370,13 +389,11 @@ const styles = StyleSheet.create({
 
     /* -------------------------------------FOOTER----------------------- */
     footerContainer:{
-        flexDirection: 'row',
+
         backgroundColor :'#fff', 
-        height: 40, 
+        flex : 0.085, 
         width: '100%', 
-        borderWidth: 0.6, 
-        borderColor: '#cacaca'
-    }
+       }
 
 
     
