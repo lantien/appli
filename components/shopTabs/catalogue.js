@@ -1,11 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Appbar } from 'react-native-paper';
 import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
+=======
+import { View, Text, Platform, Linking,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
+>>>>>>> e7699265c55de2e4dc2bc7b840fe5a6d6b359e36
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import apiUrl from '../../config/api.url.js';
-import store from '../redux/store.js';
 
 import { connect } from 'react-redux';
 
@@ -22,9 +25,20 @@ class Catalogue extends React.Component {
 
     componentWillMount() {
 
-        this.setState({
-            catalogue: this.props.navigation.getParam('shopData', []).catalogue
-        });
+        let tmpShop = this.props.navigation.getParam('shopData', null);
+
+        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:'
+        
+        if(tmpShop != null) {
+
+            this.setState({
+                catalogue: tmpShop.catalogue,
+                shopName: tmpShop.name,
+                note: (tmpShop.sum_note/tmpShop.nb_note).toFixed(1),
+                adress: tmpShop.adress + " " + tmpShop.zip + " " + tmpShop.city,
+                urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude
+            });
+        }
     }
 
     _keyExtractor = (item, index) => index.toString();
@@ -32,18 +46,6 @@ class Catalogue extends React.Component {
     renderCatalogue = (item) => {
 
         return(
-            /* <View>
-
-                <Text h1>
-                    {item.item.name}
-                </Text>
-                <FlatList
-                    data={item.item.content}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this.renderProduit}
-                />
-            </View> */
-
             <View style={styles.cardItemName}> 
                 <View style={styles.containerName}>
                     <Text style={styles.nameCategory}>{item.item.name}</Text>
@@ -52,12 +54,11 @@ class Catalogue extends React.Component {
                 <FlatList
                     data={item.item.content}
                     keyExtractor={this._keyExtractor}
-                    renderItem={this.renderProduit}
+                    renderItem={(childItem) => this.renderProduit(childItem, item.index)}
                 />
                 <View style={styles.greyLine}>
                 </View>
             </View>
-
             );
     }
 
@@ -68,7 +69,9 @@ class Catalogue extends React.Component {
         });
     }
 
-    renderProduit = item => {
+    renderProduit = (item, motherIndex) => {
+
+        item.item.ref = [motherIndex, item.index];
 
         return (
 
@@ -132,22 +135,26 @@ class Catalogue extends React.Component {
                     </View>
 
                     <View style={styles.descriptionRestaurant}>
-                        <Text style={styles.nameRestaurant}>Antoinette Pain & Brioche </Text>
+                        <Text style={styles.nameRestaurant}>{this.state.shopName}</Text>
 
                         <View style={styles.containerNote}>
                             <View style={{backgroundColor :'#F0F0F0', flexDirection : 'row', alignItems : 'center', justifyContent : 'center', borderRadius : 5, padding : 2}}>
                                 <Ionicons name="md-star" size={20} color="#00b38B"/>
-                                <Text style={styles.noteRestaurant}>4.2</Text>
+                                <Text style={styles.noteRestaurant}>{this.state.note}</Text>
                                 <Text style={styles.priceRange}>• €</Text>
                             </View>
-                            <TouchableOpacity style={{paddingLeft : 10, flexDirection : 'row', justifyContent : 'center', alignItems: 'center'}}>
-                                <MaterialCommunityIcons name="map-marker" size={22}/>
-                                <Text style={{fontSize: 15, fontWeight: '300', color:'#808080'}}>1.2km</Text>
+                            <TouchableOpacity 
+                                style={{paddingLeft : 10}}
+                                onPress={() => {
+                                    Linking.openURL(this.state.urlMap);
+                                }}
+                            >
+                                <MaterialCommunityIcons name="map-marker" size={22} />
                             </TouchableOpacity>
                         </View>
 
                         <Text style={styles.descriptionText}>
-                            117 Rue Sébastien Gryphe, 69007 Lyon 
+                            {this.state.adress}
                         </Text>
 
                         </View>

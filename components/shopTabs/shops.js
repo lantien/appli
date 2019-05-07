@@ -154,7 +154,7 @@ class Shop extends React.Component {
                               <Text style={styles.waitingTime}>{item.item.average_time_prep}</Text>
                             </View> 
                             <View style={{backgroundColor :'#F0F0F0', borderRadius :2, paddingHorizontal : 2, marginLeft : 5}}>
-                              <Text style={styles.noteRestaurant}>4.2 ★</Text>
+                              <Text style={styles.noteRestaurant}> {(item.item.sum_note/item.item.nb_note).toFixed(1)} ★</Text>
                             </View>
                           </View>
 

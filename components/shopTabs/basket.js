@@ -39,11 +39,11 @@ class Basket extends React.Component {
         })
         .then(data => {
 
-            var date = new Date(data.createdAt);
+          var date = new Date(data.createdAt);
 
-            data.createdAt = date.toLocaleDateString();
-            //data.symbol = convertCurrency(data.currency);
-            data.heure = date.getHours() + ":" + date.getMinutes();
+          data.createdAt = date.toLocaleDateString();
+          //data.symbol = convertCurrency(data.currency);
+          data.heure = date.getHours() + ":" + date.getMinutes();
   
           store.dispatch({
             type: 'ADD_ORDER',

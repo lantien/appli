@@ -34,7 +34,7 @@ class addBasket extends React.Component {
         var item = {
             ref: this.state.ref,
             supps: this.state.selectedSupps,
-            nom: cardItem.prod,
+            nom: cardItem.name,
             nom_supps: [],
             prix: 0
         };
@@ -84,7 +84,7 @@ class addBasket extends React.Component {
                                     <Text>{item.nom}</Text>
 
 
-                                    <SelectMultiple
+                                    {/* <SelectMultiple
                                         items={item.list}
                                         selectedItems={this.state.selectedSupps}
                                         onSelectionsChange={(selectedSupps) => {
@@ -93,7 +93,7 @@ class addBasket extends React.Component {
                                                 selectedSupps
                                             })
                                         }}>
-                                        </SelectMultiple>
+                                        </SelectMultiple> */}
                                 </View>;
                             
                     }}
