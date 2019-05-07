@@ -27,7 +27,7 @@ const myReducer = (state = initialState, action) => {
         case 'ADD_ORDER':
             nextState = {
                 ...state,
-                orderList:[...state.orderList, action.orderList]
+                orderList:[action.orderList, ...state.orderList]
             }
             return nextState || state
         case 'ADD_ITEM' :

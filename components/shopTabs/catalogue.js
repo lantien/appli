@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
+import { View, Text, Platform, Linking,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -20,9 +20,20 @@ class Catalogue extends React.Component {
 
     componentWillMount() {
 
-        this.setState({
-            catalogue: this.props.navigation.getParam('shopData', []).catalogue
-        });
+        let tmpShop = this.props.navigation.getParam('shopData', null);
+
+        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:'
+        
+        if(tmpShop != null) {
+
+            this.setState({
+                catalogue: tmpShop.catalogue,
+                shopName: tmpShop.name,
+                note: (tmpShop.sum_note/tmpShop.nb_note).toFixed(1),
+                adress: tmpShop.adress + " " + tmpShop.zip + " " + tmpShop.city,
+                urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude
+            });
+        }
     }
 
     _keyExtractor = (item, index) => index.toString();
@@ -128,21 +139,26 @@ class Catalogue extends React.Component {
                     </View>
 
                     <View style={styles.descriptionRestaurant}>
-                        <Text style={styles.nameRestaurant}>Antoinette Pain & Brioche </Text>
+                        <Text style={styles.nameRestaurant}>{this.state.shopName}</Text>
 
                         <View style={styles.containerNote}>
                             <View style={{backgroundColor :'#F0F0F0', flexDirection : 'row', alignItems : 'center', justifyContent : 'center', borderRadius : 5, padding : 2}}>
                                 <Ionicons name="md-star" size={20} color="#00b38B"/>
-                                <Text style={styles.noteRestaurant}>4.2</Text>
+                                <Text style={styles.noteRestaurant}>{this.state.note}</Text>
                                 <Text style={styles.priceRange}>• €</Text>
                             </View>
-                            <TouchableOpacity style={{paddingLeft : 10}}>
+                            <TouchableOpacity 
+                                style={{paddingLeft : 10}}
+                                onPress={() => {
+                                    Linking.openURL(this.state.urlMap);
+                                }}
+                            >
                                 <MaterialCommunityIcons name="map-marker" size={22} />
                             </TouchableOpacity>
                         </View>
 
                         <Text style={styles.descriptionText}>
-                            117 Rue Sébastien Gryphe, 69007 Lyon 
+                            {this.state.adress}
                         </Text>
 
                         </View>
