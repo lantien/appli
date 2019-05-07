@@ -1,4 +1,5 @@
 import React from 'react';
+import { Appbar } from 'react-native-paper';
 import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -94,40 +95,31 @@ class Catalogue extends React.Component {
 
         return (
             <View style={{flex : 1, backgroundColor: '#f5f5f5'}}>
-               <View style={styles.header}>
 
-                    <View style={styles.headerLeft}> 
-
-                    </View>
-
-
-                    <View style={styles.headerCenter}>
-                        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
-                    </View>
-
-                    <View style = {styles.headerRight}>
-                    <TouchableOpacity
-                        style={{flexDirection: 'row', justifyContent: 'center', alignItems:'center'}}
-                        onPress={() =>{
-
-                            this.props.navigation.navigate('Basket');
-                        }}
-                    >
-
-                        <Ionicons name="md-basket" size={20} color="#00b38B"/>
-                        <Text style={{paddingLeft : 5}}>
-                        {this.props.total}
-                        </Text>
-                    </TouchableOpacity>
-
-                    </View>
+                               
+                <Appbar
+                    style={{backgroundColor :'#fff', paddingTop: 25 ,height: 65, justifyContent: 'flex-end',}}
+                >
+                    <Appbar.Action
+                        style={{backgroundColor :'#fff',}}
+                        size={20}
+                        icon ="arrow-back"
+                    />
+                    <Appbar.Content
+                        style={{backgroundColor :'#fff'}}
+                        color= '#000'
+                        title= "Antoinette Pain & Brioche"
+                        />
+                    <Appbar.Action
                     
-                </View>
+                    />
+                                        
+                </Appbar>
 
                 <View style= {{height: 1, backgroundColor : '#E8E8E8' }}>        
                 </View>
 
-                <ScrollView style={{flex : 1 }}>
+                <ScrollView style={{flex : 1 }}>   
 
 
 {/* ----------------------------------------NAME/DESCRIPTION---------------------------------------------------- */}
@@ -148,8 +140,9 @@ class Catalogue extends React.Component {
                                 <Text style={styles.noteRestaurant}>4.2</Text>
                                 <Text style={styles.priceRange}>• €</Text>
                             </View>
-                            <TouchableOpacity style={{paddingLeft : 10}}>
-                                <MaterialCommunityIcons name="map-marker" size={22} color="#00c3ff "/>
+                            <TouchableOpacity style={{paddingLeft : 10, flexDirection : 'row', justifyContent : 'center', alignItems: 'center'}}>
+                                <MaterialCommunityIcons name="map-marker" size={22}/>
+                                <Text style={{fontSize: 15, fontWeight: '300', color:'#808080'}}>1.2km</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -180,6 +173,24 @@ class Catalogue extends React.Component {
                     </View>
 
                 </ScrollView>
+
+            <View style={styles.footerContainer}>
+
+                <View style={styles.numberItems}>
+
+                </View>
+
+                <View style={styles.textBasket}>
+
+                </View>
+
+                <View style={styles.totalPrice}>
+
+                </View>
+
+
+            </View>
+
             </View>
         );
     }
@@ -348,7 +359,17 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '500',
         marginLeft:5
-    }    
+    },
+
+    /* -------------------------------------FOOTER----------------------- */
+    footerContainer:{
+        flexDirection: 'row',
+        backgroundColor :'#fff', 
+        height: 40, 
+        width: '100%', 
+        borderWidth: 0.6, 
+        borderColor: '#cacaca'
+    }
 
 
     
