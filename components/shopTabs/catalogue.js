@@ -25,7 +25,16 @@ class Catalogue extends React.Component {
 
         let tmpShop = this.props.navigation.getParam('shopData', null);
 
-        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:'
+        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+
+        let currency = convertCurrency(tmpShop.currency);
+        
+        var strPrice = "• ";
+
+        for(var i = 0; i < tmpShop.rate_price; i++) {
+
+          strPrice += currency;
+        }
         
         if(tmpShop != null) {
 
@@ -35,7 +44,8 @@ class Catalogue extends React.Component {
                 note: (tmpShop.sum_note/tmpShop.nb_note).toFixed(1),
                 adress: tmpShop.adress + " " + tmpShop.zip + " " + tmpShop.city,
                 urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude,
-                currency: convertCurrency(tmpShop.currency)
+                currency: currency,
+                priceRange: strPrice
             });
         }
     }
@@ -140,7 +150,7 @@ class Catalogue extends React.Component {
                             <View style={{backgroundColor :'#F0F0F0', flexDirection : 'row', alignItems : 'center', justifyContent : 'center', borderRadius : 5, padding : 2}}>
                                 <Ionicons name="md-star" size={20} color="#00b38B"/>
                                 <Text style={styles.noteRestaurant}>{this.state.note}</Text>
-                                <Text style={styles.priceRange}>• €</Text>
+                                <Text style={styles.priceRange}>{this.state.priceRange}</Text>
                             </View>
                             <TouchableOpacity 
                                 style={{paddingLeft : 10, flexDirection: 'row', justifyContent : 'center', alignItems: 'center'}}
