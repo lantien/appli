@@ -82,6 +82,11 @@ class Account extends React.Component {
         })
         .then(data => {
 
+            store.dispatch({
+                type: 'SET_USER',
+                user: data
+            });
+
             this.setState(data);
         })
         .catch(err => {

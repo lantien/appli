@@ -1,13 +1,61 @@
 import React from 'react';
 import {Alert, StyleSheet, View, TextInput, TouchableOpacity, TouchableWithoutFeedback,Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
 
+
+import apiUrl from '../../config/api.url.js';
+import { connect } from 'react-redux';
+import store from '../redux/store.js';
+
 import { Feather, MaterialIcons } from 'react-native-vector-icons'
 
-export default class Settings extends React.Component {
+class Settings extends React.Component {
 
     constructor(props) {
-        super(props);
+      super(props);
 
+
+      this.state = {
+        lastname : this.props.user.lastname,
+        email: this.props.user.email,
+        firstname : this.props.user.firstname
+      }
+    }
+
+    updateUserInfos() {
+
+      fetch(apiUrl + 'me/user', {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            lastname: this.state.lastname,
+            firstname: this.state.firstname,
+            email: this.state.email
+        }),
+      })
+      .then(data => {
+
+          return data.json();
+      })
+      .then(data => {
+
+          store.dispatch({
+              type: 'SET_USER',
+              user: data
+          });
+
+          this.setState({
+            lastname : data.lastname,
+            email: data.email,
+            firstname : data.firstname
+          });
+      })
+      .catch(err => {
+
+          console.log(err);
+      });
     }
   
     render() {
@@ -45,7 +93,12 @@ export default class Settings extends React.Component {
         </View>
 
         <View style = {styles.headerRight}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+
+            this.updateUserInfos();
+          }}
+        >
 
           <Text style={{color:'#2F7DE1', fontSize: 15, fontWeight: '600'}}>Save</Text>
 
@@ -74,6 +127,13 @@ export default class Settings extends React.Component {
                        <TextInput 
                         placeholder = 'Mettre le prenom ici'
                         style= {{fontSize: 17}}
+                        value={this.state.firstname}
+                        onChangeText={(input) => {
+
+                          this.setState({
+                            firstname: input
+                          });
+                        }}
                        ></TextInput>
           
           </View>
@@ -89,6 +149,7 @@ export default class Settings extends React.Component {
             <TextInput 
              placeholder = 'Mettre le nom ici'
              style= {{fontSize: 17}}
+             value={this.state.lastname}
             ></TextInput>
 
             </View>
@@ -97,17 +158,6 @@ export default class Settings extends React.Component {
             <View style= {{height: 0.4, backgroundColor : '#B8B8B8', marginHorizontal: 40}}> 
             </View> 
 
-            {/* Phone Number */}
-
-            <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
-            
-            <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Phone number</Text>
-            <TextInput 
-             placeholder = 'Mettre le numero de telephone ici'
-             style= {{fontSize: 17}}
-            ></TextInput>
-
-            </View>
 
             {/* Email adress */}
 
@@ -120,6 +170,7 @@ export default class Settings extends React.Component {
             <TextInput 
              placeholder = 'Mettre l\adresse email' 
              style= {{fontSize: 17}}
+             value={this.state.email}
             ></TextInput>
 
             </View>
@@ -158,6 +209,13 @@ export default class Settings extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+
+  return state;
+}
+
+export default connect(mapStateToProps)(Settings);
 
 const styles = StyleSheet.create({
     container:{

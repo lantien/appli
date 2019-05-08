@@ -183,9 +183,9 @@ class Catalogue extends React.Component {
 
             <TouchableHighlight
                 style={styles.footerContainer}
-                onPress={() =>{
+                onPress={() => {
                     this.props.navigation.navigate('Basket');
-                        }}
+                }}
             >
 
                 <View 
