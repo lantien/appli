@@ -28,6 +28,7 @@ class Settings extends React.Component {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          'x-access-token': this.props.token
         },
         body: JSON.stringify({
             lastname: this.state.lastname,

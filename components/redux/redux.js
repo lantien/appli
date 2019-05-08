@@ -6,7 +6,11 @@ const initialState = {
     total: 0,
     shopID: "",
     currency: "",
-    user: null
+    user: {
+        firstname: "",
+        lastname: "",
+        email: ""
+    }
 };
 
 const myReducer = (state = initialState, action) => {
