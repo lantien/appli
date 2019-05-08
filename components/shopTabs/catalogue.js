@@ -146,7 +146,7 @@ class Catalogue extends React.Component {
                                 }}
                             >
                                 <MaterialCommunityIcons name="map-marker" size={22} />
-                                <Text style={{fontWeight: '300', color : '#a8a8a8', fontSize: 15}}>1.2km</Text>
+                                <Text style={{fontWeight: '400', color : '#646464', fontSize: 15}}>1.2km</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -200,7 +200,7 @@ class Catalogue extends React.Component {
                     <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>Voir la commande</Text>
                     </View>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                    <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>9,40€</Text>
+                    <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>{this.props.total}</Text>
                     </View>
 
                 </View>
