@@ -159,7 +159,7 @@ class Catalogue extends React.Component {
                                 }}
                             >
                                 <MaterialCommunityIcons name="map-marker" size={22} />
-                                <Text style={{fontWeight: '300', color : '#a8a8a8', fontSize: 15}}>1.2km</Text>
+                                <Text style={{fontWeight: '400', color : '#646464', fontSize: 15}}>1.2km</Text>
                             </TouchableOpacity>
                         </View>
 
