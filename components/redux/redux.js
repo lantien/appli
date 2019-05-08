@@ -5,7 +5,8 @@ const initialState = {
     basket: [],
     total: 0,
     shopID: "",
-    currency: ""
+    currency: "",
+    user: null
 };
 
 const myReducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ const myReducer = (state = initialState, action) => {
             nextState = {
                 ...state,
                 token: action.token
+            }
+            return nextState || state
+        case 'SET_USER':
+            nextState = {
+                ...state,
+                user: action.user
             }
             return nextState || state
         case 'SET_ORDERS':

@@ -106,7 +106,7 @@ class Orders extends React.Component {
                                                   </View>
 
                                                   <View style={styles.orderNumber}>
-                                                    <Text>Order n° : 254684</Text>
+                                                    <Text>Order n° : {parseInt(item._id.substr(item._id.length - 4), 16)}</Text>
                                                   </View>
 
                                                 </View>
@@ -127,7 +127,7 @@ class Orders extends React.Component {
                                               <Text style={{fontSize : 14, fontWeight : '500', marginLeft : 10}}>Commande terminée</Text>
 
                                               <View style={{ flexDirection : 'row', paddingHorizontal : 5}}>
-                                              <Text style ={{color : '#A9A9A9'}}>3 avr. 2019 à </Text>
+                                              <Text style ={{color : '#A9A9A9'}}>{new Date(item.createdAt).toLocaleDateString()} à </Text>
                                               <Text style ={{color : '#A9A9A9'}}>{item.heure}</Text>
                                               </View>
 
@@ -136,52 +136,29 @@ class Orders extends React.Component {
                                               </View>
 
                                               <View style={{ flexDirection :'row', height : '100%',width : '50%'/* , backgroundColor :'#f021' */, justifyContent :'flex-end', alignItems : 'flex-end', padding : 5}}>
-                                              <Text style={{fontSize : 15, fontWeight : '600'}}> Total: {item.total} {item.symbol}</Text>
+                                              <Text style={{fontSize : 15, fontWeight : '600'}}> Total: {item.total}{convertCurrency(item.currency)}</Text>
                                               </View>
 
                                               </View>
-
-                                              
-
-
-
-                                              <View style={{backgroundColor : '#E8E8E8', height : 0.5}}></View>
-
-                                                {/* <View style={styles.containerCardItem}>
-
-                                                    <View style={styles.containerLeft}>
-                                                    
-                                                        <View style={styles.containerName}>
-                                                          <View style={{flexDirection :'row'}}>
-                                                            <Text style={styles.statusOrder}>Complétée à </Text>
-                                                            <Text style={styles.statusOrder}>{item.heure}</Text>
-                                                            </View>
-                                                            <Text style={styles.name}>{item.shop_name}</Text>
-                                                            
-                                                        </View>
-
-                                                        <View style={styles.containerPrice}>
-                                                            <Text style={styles.price}>{item.total}</Text>
-                                                            <Text style={styles.price}>{item.symbol}</Text>
-                                                            <Text style={styles.price}> • </Text>
-                                                            <Text style={styles.price}>{item.createdAt}</Text>
-                                                        </View>
-
-                                                    </View>
-
-                                                    <TouchableOpacity style={styles.containerRight}>
-                                                        <Ionicons name="ios-arrow-forward" size={18} color="#00d751"/>
-                                                    </TouchableOpacity>
-
-                                                </View>
-
-                                                <View style={{height: 0.8, backgroundColor : '#E8E8E8'}}>
-                                                </View> */}
-                                            
+                                             <View style={{backgroundColor : '#E8E8E8', height : 0.5}}></View>
                                             </TouchableOpacity>
                                 }
                     
                 />;
+      } else {
+
+        var goBack = <TouchableOpacity
+            onPress={() => {
+
+              this.setState({
+                showDetail: null
+              });
+            }}
+          >
+
+          <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
+
+          </TouchableOpacity>;
       }
 
         return (
@@ -190,16 +167,8 @@ class Orders extends React.Component {
           <View style={styles.header} > 
 
           <View style={styles.headerLeft}> 
-          <TouchableOpacity
-            onPress={() => {
-
-              this.props.navigation.goBack();
-            }}
-          >
-
-          <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
-
-          </TouchableOpacity>
+          
+          {goBack}
               
             </View>
 

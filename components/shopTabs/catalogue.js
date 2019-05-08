@@ -6,6 +6,8 @@ import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-ic
 
 import apiUrl from '../../config/api.url.js';
 
+import convertCurrency from '../../tools/convertCurrency.js';
+
 import { connect } from 'react-redux';
 
 class Catalogue extends React.Component {
@@ -32,7 +34,8 @@ class Catalogue extends React.Component {
                 shopName: tmpShop.name,
                 note: (tmpShop.sum_note/tmpShop.nb_note).toFixed(1),
                 adress: tmpShop.adress + " " + tmpShop.zip + " " + tmpShop.city,
-                urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude
+                urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude,
+                currency: convertCurrency(tmpShop.currency)
             });
         }
     }
@@ -107,7 +110,7 @@ class Catalogue extends React.Component {
                     <Appbar.Content
                         style={{backgroundColor :'#fff'}}
                         color= '#000'
-                        title= "Antoinette Pain & Brioche"
+                        title= {this.state.shopName}
                         />
                     <Appbar.Action
                     
@@ -180,9 +183,9 @@ class Catalogue extends React.Component {
 
             <TouchableHighlight
                 style={styles.footerContainer}
-                onPress={() =>{
+                onPress={() => {
                     this.props.navigation.navigate('Basket');
-                        }}
+                }}
             >
 
                 <View 
@@ -200,7 +203,7 @@ class Catalogue extends React.Component {
                     <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>Voir la commande</Text>
                     </View>
                     <View style={{flex: 0.2, alignItems: 'center'}}>
-                    <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>{this.props.total}</Text>
+                    <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>{this.props.total}{this.state.currency}</Text>
                     </View>
 
                 </View>
