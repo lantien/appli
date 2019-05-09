@@ -22,6 +22,7 @@ class Orders extends React.Component {
       headerLeft: null
     };
 
+
     constructor(props) {
         super(props);
 
@@ -85,10 +86,12 @@ class Orders extends React.Component {
       return moment(date, 'MM/DD/YYYY').format('ddd DD MMMM').toString();
     }
 
+    
     render() {
       let pic ={
         uri: 'http://painrisien.com/wp-content/uploads/2017/06/DSC09787.jpg'
       }
+
 
       if(!this.state.showDetail) {
 
@@ -166,21 +169,23 @@ class Orders extends React.Component {
                 />;
       } else {
 
-        var goBack = <TouchableOpacity
-            onPress={() => {
+        var goBack = 
+          <TouchableOpacity
+              onPress={() => {
 
-              this.setState({
-                showDetail: null
-              });
-            }}
-          >
+                this.setState({
+                  showDetail: null
+                });
+              }}
+            >
 
-          <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
+            <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
 
-          </TouchableOpacity>;
+            </TouchableOpacity>;
       }
 
         return (
+
             <View  style={styles.container}>
 
           <View style={styles.header} > 
