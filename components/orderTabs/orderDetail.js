@@ -1,19 +1,40 @@
 import React from 'react';
-import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollView, Platform, NativeModules } from 'react-native';
 
 
 import convertCurrency from '../../tools/convertCurrency.js';
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+import 'moment/locale/fr';
+
 class OrderDetail extends React.Component {
 
   static navigationOptions = {
       title: 'Order Details',
-    };
+  };
+
 
     constructor(props) {
         super(props);
 
+    }
+
+    getLanguageCode() {
+      let systemLanguage = 'en';
+      if (Platform.OS === 'android') {
+        systemLanguage = NativeModules.I18nManager.localeIdentifier;
+      } else {
+        systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
+      }
+      const languageCode = systemLanguage.substring(0, 2);
+      return languageCode;
+    }
+
+    convertDate(date) {
+
+      moment.locale(this.getLanguageCode());
+      return moment(date, 'MM/DD/YYYY').format('dddd DD MMMM').toString();
     }
 
     shouldComponentUpdate(nextState) {
@@ -89,7 +110,7 @@ class OrderDetail extends React.Component {
     
                 <View style={styles.containerStatus}>
                   <Text style={styles.statusHeader}>Statut</Text>
-                  <Text style={styles.status}>En cours 8 avril 2018</Text>
+                  <Text style={styles.status}>En cours {this.convertDate(item.createdAt)}</Text>
                 </View>
     
                 </View>
