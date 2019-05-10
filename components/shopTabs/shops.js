@@ -20,6 +20,7 @@ class Shop extends React.Component {
             latitude: null,
             longitude: null,
             error: null,
+            isLoading: false
         }
     }
 
@@ -67,7 +68,8 @@ class Shop extends React.Component {
         .then(data => {
 
             this.setState({
-                listShops: data
+                listShops: data,
+                isLoading: false
             });
         })
         .catch(err => {
@@ -108,8 +110,8 @@ class Shop extends React.Component {
 
     _onRefresh = () => {
       
-      console.log("refresh");
-    }
+      this._getShops(this.state.latitude, this.state.longitude)
+    };
 
     renderListShop = item => {
 
@@ -204,6 +206,7 @@ class Shop extends React.Component {
                     renderItem={this.renderListShop}
                     refreshControl={
                       <RefreshControl
+                        refreshing={this.state.isLoading}
                         onRefresh={this._onRefresh}
                       />
                     }
