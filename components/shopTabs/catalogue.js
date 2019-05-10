@@ -10,6 +10,8 @@ import convertCurrency from '../../tools/convertCurrency.js';
 
 import { connect } from 'react-redux';
 
+import openMap from 'react-native-open-maps';
+
 class Catalogue extends React.Component {
 
     constructor(props) {
@@ -45,7 +47,11 @@ class Catalogue extends React.Component {
                 adress: tmpShop.adress + " " + tmpShop.zip + " " + tmpShop.city,
                 urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude,
                 currency: currency,
-                priceRange: strPrice
+                priceRange: strPrice,
+                position: {
+                    latitude: tmpShop.latitude,
+                    longitude: tmpShop.longitude
+                }
             });
         }
     }
@@ -91,7 +97,7 @@ class Catalogue extends React.Component {
                     <Text style={styles.itemName}>{item.item.name}</Text>
                     <Text style={styles.itemDescription}>{item.item.desc}</Text>
                     <View style={styles.priceContainer}>
-                        <Text style={styles.itemPrice}>{item.item.prix}</Text>
+                        <Text style={styles.itemPrice}>{item.item.prix}{this.state.currency}</Text>
                         </View>
                         <View style={styles.greyLine}>
                         </View>
@@ -159,7 +165,8 @@ class Catalogue extends React.Component {
                             <TouchableOpacity 
                                 style={{paddingLeft : 10, flexDirection: 'row', justifyContent : 'center', alignItems: 'center'}}
                                 onPress={() => {
-                                    Linking.openURL(this.state.urlMap);
+
+                                    openMap({ travelType: 'walk', end: this.state.adress });
                                 }}
                             >
                                 <MaterialCommunityIcons name="map-marker" size={22} />
