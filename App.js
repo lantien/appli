@@ -66,15 +66,14 @@ export default class App extends React.Component {
     try {
       const value = await AsyncStorage.getItem('token');
 
+      Store.dispatch({
+        type: 'SET_TOKEN',
+        token: value
+      });
+
       if(value != null) {
 
         this.getOrders(value);
-        
-        Store.dispatch({
-          type: 'SET_TOKEN',
-          token: value
-        });
-
       }
 
     } catch(err) {

@@ -116,6 +116,10 @@ class Catalogue extends React.Component {
                         style={{backgroundColor :'#fff',}}
                         size={20}
                         icon ="arrow-back"
+                        onPress={() => {
+
+                            this.props.navigation.goBack();
+                        }}
                     />
                     <Appbar.Content
                         style={{backgroundColor :'#fff'}}

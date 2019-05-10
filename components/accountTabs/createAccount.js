@@ -192,7 +192,7 @@ export default class CreateAccount extends React.Component {
                 <TouchableOpacity
                 onPress={() => {
 
-                    this.props.navigation.goBack();
+                    this.props.navigation();
                 }}
                 >
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, RefreshControl } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -106,6 +106,11 @@ class Shop extends React.Component {
       return String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" "));
     }
 
+    _onRefresh = () => {
+      
+      console.log("refresh");
+    }
+
     renderListShop = item => {
 
         var strType = item.item.type.join(" • ");
@@ -197,6 +202,11 @@ class Shop extends React.Component {
                     data={this.state.listShops}
                     keyExtractor={this._keyExtractor}
                     renderItem={this.renderListShop}
+                    refreshControl={
+                      <RefreshControl
+                        onRefresh={this._onRefresh}
+                      />
+                    }
                 />
 
                 <View>
