@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, Image,ScrollView, BackHandler } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, Image,ScrollView, BackHandler, Platform, NativeModules } from 'react-native';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
@@ -10,6 +10,9 @@ import convertCurrency from '../../tools/convertCurrency.js';
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
+import moment from 'moment';
+import 'moment/locale/fr';
+
 class Orders extends React.Component {
     static navigationOptions = {
       title: 'My orders',
@@ -17,7 +20,8 @@ class Orders extends React.Component {
 
     navigationOptions =  {
       headerLeft: null
-    }
+    };
+
 
     constructor(props) {
         super(props);
@@ -65,10 +69,29 @@ class Orders extends React.Component {
       });
     }
 
+    getLanguageCode() {
+      let systemLanguage = 'en';
+      if (Platform.OS === 'android') {
+        systemLanguage = NativeModules.I18nManager.localeIdentifier;
+      } else {
+        systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
+      }
+      const languageCode = systemLanguage.substring(0, 2);
+      return languageCode;
+    }
+
+    convertDate(date) {
+
+      moment.locale(this.getLanguageCode());
+      return moment(date, 'MM/DD/YYYY').format('ddd DD MMMM').toString();
+    }
+
+    
     render() {
       let pic ={
         uri: 'http://painrisien.com/wp-content/uploads/2017/06/DSC09787.jpg'
       }
+
 
       if(!this.state.showDetail) {
 
@@ -127,8 +150,7 @@ class Orders extends React.Component {
                                               <Text style={{fontSize : 14, fontWeight : '500', marginLeft : 10}}>Commande terminée</Text>
 
                                               <View style={{ flexDirection : 'row', paddingHorizontal : 5}}>
-                                              <Text style ={{color : '#A9A9A9'}}>{new Date(item.createdAt).toLocaleDateString()} à </Text>
-                                              <Text style ={{color : '#A9A9A9'}}>{item.heure}</Text>
+                                              <Text style ={{color : '#A9A9A9'}}>{this.convertDate(item.createdAt)} à {item.heure}</Text>
                                               </View>
 
                                                 </View >
@@ -147,21 +169,23 @@ class Orders extends React.Component {
                 />;
       } else {
 
-        var goBack = <TouchableOpacity
-            onPress={() => {
+        var goBack = 
+          <TouchableOpacity
+              onPress={() => {
 
-              this.setState({
-                showDetail: null
-              });
-            }}
-          >
+                this.setState({
+                  showDetail: null
+                });
+              }}
+            >
 
-          <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
+            <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
 
-          </TouchableOpacity>;
+            </TouchableOpacity>;
       }
 
         return (
+
             <View  style={styles.container}>
 
           <View style={styles.header} > 

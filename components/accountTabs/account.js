@@ -127,7 +127,6 @@ class Account extends React.Component {
                     var date = new Date(data[i].createdAt);
   
                     data[i].createdAt = date.toLocaleDateString();
-                    data[i].symbol = convertCurrency(data[i].currency);
                     data[i].heure = date.getHours() + ":" + date.getMinutes();
                     displayData.push(data[i]);
                 }
@@ -178,16 +177,16 @@ class Account extends React.Component {
 
             <View style={styles.name}>
                 <Text style={styles.firstname}>
-                    {this.state.firstname}  
+                    {this.props.user.firstname}  
                 </Text>
                 <Text style={styles.lastname}>
-                    {this.state.lastname}  
+                    {this.props.user.lastname}  
                 </Text>
             </View>
 
             <View style={styles.email}>
                 <Text style={styles.emailText}>
-                    {this.state.email}  
+                    {this.props.user.email}  
                 </Text>
             </View> 
 

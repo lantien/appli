@@ -10,6 +10,8 @@ import convertCurrency from '../../tools/convertCurrency.js';
 
 import { connect } from 'react-redux';
 
+import openMap from 'react-native-open-maps';
+
 class Catalogue extends React.Component {
 
     constructor(props) {
@@ -25,7 +27,16 @@ class Catalogue extends React.Component {
 
         let tmpShop = this.props.navigation.getParam('shopData', null);
 
-        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:'
+        var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+
+        let currency = convertCurrency(tmpShop.currency);
+        
+        var strPrice = "• ";
+
+        for(var i = 0; i < tmpShop.rate_price; i++) {
+
+          strPrice += currency;
+        }
         
         if(tmpShop != null) {
 
@@ -35,7 +46,12 @@ class Catalogue extends React.Component {
                 note: (tmpShop.sum_note/tmpShop.nb_note).toFixed(1),
                 adress: tmpShop.adress + " " + tmpShop.zip + " " + tmpShop.city,
                 urlMap: scheme + tmpShop.latitude + ',' + tmpShop.longitude,
-                currency: convertCurrency(tmpShop.currency)
+                currency: currency,
+                priceRange: strPrice,
+                position: {
+                    latitude: tmpShop.latitude,
+                    longitude: tmpShop.longitude
+                }
             });
         }
     }
@@ -81,7 +97,7 @@ class Catalogue extends React.Component {
                     <Text style={styles.itemName}>{item.item.name}</Text>
                     <Text style={styles.itemDescription}>{item.item.desc}</Text>
                     <View style={styles.priceContainer}>
-                        <Text style={styles.itemPrice}>{item.item.prix}</Text>
+                        <Text style={styles.itemPrice}>{item.item.prix}{this.state.currency}</Text>
                         </View>
                         <View style={styles.greyLine}>
                         </View>
@@ -106,6 +122,10 @@ class Catalogue extends React.Component {
                         style={{backgroundColor :'#fff',}}
                         size={20}
                         icon ="arrow-back"
+                        onPress={() => {
+
+                            this.props.navigation.goBack();
+                        }}
                     />
                     <Appbar.Content
                         style={{backgroundColor :'#fff'}}
@@ -140,12 +160,13 @@ class Catalogue extends React.Component {
                             <View style={{backgroundColor :'#F0F0F0', flexDirection : 'row', alignItems : 'center', justifyContent : 'center', borderRadius : 5, padding : 2}}>
                                 <Ionicons name="md-star" size={20} color="#00b38B"/>
                                 <Text style={styles.noteRestaurant}>{this.state.note}</Text>
-                                <Text style={styles.priceRange}>• €</Text>
+                                <Text style={styles.priceRange}>{this.state.priceRange}</Text>
                             </View>
                             <TouchableOpacity 
                                 style={{paddingLeft : 10, flexDirection: 'row', justifyContent : 'center', alignItems: 'center'}}
                                 onPress={() => {
-                                    Linking.openURL(this.state.urlMap);
+
+                                    openMap({ travelType: 'walk', end: this.state.adress });
                                 }}
                             >
                                 <MaterialCommunityIcons name="map-marker" size={22} />

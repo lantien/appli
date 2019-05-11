@@ -1,19 +1,44 @@
 import React from 'react';
-import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, Animated, FlatList,TouchableOpacity, Text, StatusBar, ScrollView, Platform, NativeModules } from 'react-native';
 
 
 import convertCurrency from '../../tools/convertCurrency.js';
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+import 'moment/locale/fr';
+
 class OrderDetail extends React.Component {
 
   static navigationOptions = {
       title: 'Order Details',
-    };
+  };
+
+  state = {
+    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+  }
+
 
     constructor(props) {
         super(props);
 
+    }
+
+    getLanguageCode() {
+      let systemLanguage = 'en';
+      if (Platform.OS === 'android') {
+        systemLanguage = NativeModules.I18nManager.localeIdentifier;
+      } else {
+        systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
+      }
+      const languageCode = systemLanguage.substring(0, 2);
+      return languageCode;
+    }
+
+    convertDate(date) {
+
+      moment.locale(this.getLanguageCode());
+      return moment(date, 'MM/DD/YYYY').format('dddd DD MMMM').toString();
     }
 
     shouldComponentUpdate(nextState) {
@@ -47,15 +72,34 @@ class OrderDetail extends React.Component {
       );
     }
 
+    componentDidMount() {
+
+      Animated.timing(                  // Animate over time
+        this.state.fadeAnim,            // The animated value to drive
+        {
+          toValue: 1,                   // Animate to opacity: 1 (opaque)
+          duration: 200,              // Make it take a while
+        }
+      ).start();
+    }
+
     render() {
 
-      
         var item = this.props.order;
         item.displaynum = parseInt(item._id.substr(item._id.length - 4), 16);
         item.displaytotal = item.total + convertCurrency(item.currency);
         item.zipdisplay = item.zip + " " + item.city;
 
+        let { fadeAnim } = this.state;
+
         return (
+
+          <Animated.View                 // Special animatable View
+        style={{
+          ...this.props.style,
+          opacity: fadeAnim,         // Bind opacity to animated value
+        }}
+      >
 
           
             <View style={styles.container}>
@@ -89,7 +133,7 @@ class OrderDetail extends React.Component {
     
                 <View style={styles.containerStatus}>
                   <Text style={styles.statusHeader}>Statut</Text>
-                  <Text style={styles.status}>En cours 8 avril 2018</Text>
+                  <Text style={styles.status}>En cours {this.convertDate(item.createdAt)}</Text>
                 </View>
     
                 </View>
@@ -128,6 +172,7 @@ class OrderDetail extends React.Component {
                   </ScrollView>
     
           </View>
+          </Animated.View>
         );
     }
 }
