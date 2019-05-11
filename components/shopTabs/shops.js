@@ -150,10 +150,10 @@ class Shop extends React.Component {
                           <Text style={styles.descriptionRestaurant}>{strType}</Text>
                           </View>
                           <View style={{flexDirection: 'row'}}>
-                            <View style={{backgroundColor :'#F0F0F0', borderRadius :2, paddingHorizontal : 2}}>
+                            <View style={{backgroundColor :'#F0F0F0', borderRadius :2, padding :4}}>
                               <Text style={styles.waitingTime}>{item.item.average_time_prep}</Text>
                             </View> 
-                            <View style={{backgroundColor :'#F0F0F0', borderRadius :2, paddingHorizontal : 2, marginLeft : 5}}>
+                            <View style={{backgroundColor :'#F0F0F0', borderRadius :2, padding : 4, marginLeft : 5}}>
                               <Text style={styles.noteRestaurant}> {(item.item.sum_note/item.item.nb_note).toFixed(1)} ★</Text>
                             </View>
                           </View>
@@ -294,10 +294,10 @@ const styles = StyleSheet.create({
       },
       priceRange: {
         color : '#808080',
-        fontSize: 14,
+        fontSize: 15,
       },
       descriptionRestaurant: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight :'400',
         color: '#808080'
       },
@@ -310,11 +310,11 @@ const styles = StyleSheet.create({
       noteRestaurant :{
         color :'#00b38B',
         fontSize: 14,
-        fontWeight :'300', 
+        fontWeight :'400', 
       },
       waitingTime:{
         fontSize: 14,
-        fontWeight :'300', 
+        fontWeight :'400', 
       },
       
   
