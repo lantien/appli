@@ -26,27 +26,34 @@ class Shop extends React.Component {
 
     componentDidMount() {
 
-        navigator.geolocation.getCurrentPosition(
+        this.getNearShops();
+    }
 
-            (position) => {
-                
-                this.state.latitude = position.coords.latitude;
-                this.state.longitude = position.coords.longitude;
-                this.state.error = null;
+    getNearShops() {
 
-                this._getShops(position.coords.latitude, 
-                    position.coords.longitude);
-            },
-            () => {
+      navigator.geolocation.getCurrentPosition(
 
-                this._getShops(this.position[0], this.position[1]);
-            },
-            { 
-                enableHighAccuracy: true, 
-                timeout: 20000, 
-                maximumAge: 1000 
-            },
-        );
+        (position) => {
+            
+            this.state.latitude = position.coords.latitude;
+            this.state.longitude = position.coords.longitude;
+            this.state.error = null;
+
+            this._getShops(this.position[0], this.position[1]);
+            /* this._getShops(position.coords.latitude, 
+                position.coords.longitude); */
+        },
+        () => {
+
+            console.log('catch pos');
+            this._getShops(this.position[0], this.position[1]);
+        },
+        { 
+            enableHighAccuracy: true, 
+            timeout: 20000, 
+            maximumAge: 1000 
+        },
+    );
     }
 
     _getShops(latitude, longitude) {
@@ -110,7 +117,7 @@ class Shop extends React.Component {
 
     _onRefresh = () => {
       
-      this._getShops(this.state.latitude, this.state.longitude)
+      this.getNearShops();
     };
 
     renderListShop = item => {

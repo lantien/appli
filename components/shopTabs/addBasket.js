@@ -25,6 +25,8 @@ class addBasket extends React.Component {
             supplements: item.supplements,
             selectedSupps: []
         });
+
+        console.log( item.supplements);
     }
 
     addBasket = () => {
@@ -78,22 +80,11 @@ class addBasket extends React.Component {
                     keyExtractor={this._keyExtractor}
                     extraData={this.state}
                     renderItem={
-                        ({item}) => {
-                        
+                        (item) => {
+                                item = item.item;
                                 return <View>
-                                    <Text>{item.nom}</Text>
-
-
-                                    {/* <SelectMultiple
-                                        items={item.list}
-                                        selectedItems={this.state.selectedSupps}
-                                        onSelectionsChange={(selectedSupps) => {
-
-                                            this.setState({
-                                                selectedSupps
-                                            })
-                                        }}>
-                                        </SelectMultiple> */}
+                                    <Text>{item.question}</Text>
+                                    <Text>{JSON.stringify(item.list)}</Text>
                                 </View>;
                             
                     }}
