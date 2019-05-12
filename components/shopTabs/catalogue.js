@@ -169,14 +169,20 @@ class Catalogue extends React.Component {
                                     openMap({ travelType: 'walk', end: this.state.adress });
                                 }}
                             >
-                                <MaterialCommunityIcons name="map-marker" size={22} color="#1982f8" />
-                                <Text style={{fontWeight: '400', color : '#646464', fontSize: 15, color :'#1982f8'}}>1.2km</Text>
+                                <MaterialCommunityIcons name="map-marker" size={22} color="#00b38B" />
+                                <Text style={{fontWeight: '400', color : '#646464', fontSize: 15, color :'#00b38B'}}>1.2km</Text>
                             </TouchableOpacity>
                         </View>
+                        <TouchableOpacity
+                        onPress={() => {
 
+                            openMap({ travelType: 'walk', end: this.state.adress });
+                        }}
+                        >
                         <Text style={styles.descriptionText}>
                             {this.state.adress}
                         </Text>
+                        </TouchableOpacity>
 
                         </View>
 
@@ -210,14 +216,14 @@ class Catalogue extends React.Component {
             >
 
                 <View 
-                style={{flexDirection: 'row',backgroundColor:'#4cbb17', flex : 1, paddingHorizontal: 10,}}            
+                style={{flexDirection: 'row',backgroundColor:'#00b38B', flex : 1, paddingHorizontal: 10,}}            
                 >
 
 
                 <View style={{flexDirection : 'row', flex : 1, justifyContent: 'center', alignItems: 'center'}}>
                         
                     <View style={{flex: 0.2, alignItems: 'flex-start'}}>
-                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', backgroundColor: '#44a814', padding : 3}}>0</Text>
+                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', backgroundColor: '#00a17d', paddingHorizontal: 4,paddingVertical : 2}}>0</Text>
                     </View>
                     
                     <View style={{flex : 0.7, alignItems: 'center'}}>
@@ -227,14 +233,6 @@ class Catalogue extends React.Component {
                     <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>{this.props.total}{this.state.currency}</Text>
                     </View>
 
-                </View>
-
-                <View style={{}}>
-                    
-                </View>
-
-                <View style={{}}>
-                    
                 </View>
                 
                 </View>
@@ -418,7 +416,5 @@ const styles = StyleSheet.create({
         flex : 0.085, 
         width: '100%', 
        }
-
-
     
     });

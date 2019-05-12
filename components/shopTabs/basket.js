@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, ScrollView  ,Button , StyleSheet , TouchableOpacity , TextInput} from 'react-native';
+import { View, Text, FlatList, ScrollView  ,Button , StyleSheet , TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback,TextInput} from 'react-native';
+import { Appbar } from 'react-native-paper';
+
 
 import { AntDesign,Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons'
 
@@ -101,46 +103,62 @@ class Basket extends React.Component {
     render() {
 
         return (
-            <View style={{flex:1, backgroundColor : '#f9fafb'}}>
+            <View style={{flex:1, backgroundColor : '#fff'}}>
 
 {/* ------------------------------------------------------------HEADER------------------------------------------------- */}
-            <View style={styles.header}>
+            <Appbar
+                    style={styles.header}
+                >
+                    <Appbar.Action
+                        style={{backgroundColor :'#fff',}}
+                        size={20}
+                        icon ="close"
+                        onPress={() => {
 
-            <View style={styles.headerLeft}> 
-            <AntDesign name = "close" size={22} color ="#000"/>
-            </View>
+                            this.props.navigation.goBack();
+                        }}
+                    />
+                    <Appbar.Content
+                        style={{backgroundColor :'#fff'}}
+                        color= '#000'
+                        title= "Votre panier"
+                        />
+                    <Appbar.Action
+                    
+                    />
+                                        
+                </Appbar>
 
-
-            <View style={styles.headerCenter}>
-            <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Basket</Text>
-            </View>
-
-            <View style = {styles.headerRight}>
-
-
-            </View>
-
-            </View>
-
-            <View style= {{height: 0.4, backgroundColor : '#E8E8E8' ,}}>        
-              </View>
+            <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
+                </View>
 
               {/* ----------------------------------------------------------------------------------------- */}
 
           <ScrollView>
 
-          <View style={styles.containerName2}>
-            <View style={styles.containerNameText}>
-              <Text style={styles.name}>Antoinette Pain & Brioche</Text>
-              </View>
-
-              <View style={styles.line}>
-                </View>
+          <View style={{backgroundColor : '#fff', justifyContent: 'center', alignItems : 'center', paddingTop: 20}}>
+            
+              <Text style={{fontSize: 23, fontWeight : '400'}}>Antoinette Pain & Brioche</Text>
+              
             </View>
-
             <View>
+
+          <TouchableOpacity style={{justifyContent: 'center', alignItems:'center', paddingTop: 10, paddingBottom: 25}}>
+              <Text style={{fontSize: 13, fontWeight: '500'}}>117 Rue Sébastien Gryphe, 69007 Lyon</Text>
+          </TouchableOpacity>
+            
+            <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', paddingBottom :25}}>
+            <View style={{height :1.2, backgroundColor: '#505050', width : '8%'}}></View>
+            </View>
+            
+            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingBottom: 25}}>
+                <MaterialIcons name="timer" size={17} color="#505050"/>
+                <Text style={{color:'#505050', fontWeight: '500', paddingStart: 10}}>Dés que possible</Text>
+                </TouchableOpacity>
           
           {/* --------------------------------------------- ITEM BASKET ------------------------------- */}
+          <View style={styles.line}>
+                </View>
 
             <View style={styles.containerCardItem}>
         <View style={styles.containerLeft}>
@@ -184,20 +202,19 @@ class Basket extends React.Component {
                     <Text style={styles.totalPrice}>22€</Text>
                   </View>
 
-                <View style={styles.greyLine}>
+                <View style={styles.line}>
                   </View>
 
                 <View style={styles.containerInstructions}>
 
-                  <View style={styles.containerTextInput}>
-                    <TextInput
-                      style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 8, padding: 10}}
-                      placeholder="Allergies, Demandes..."
-                      />
-                    </View>
-
+                  <TouchableWithoutFeedback style={{width : '100%'}}>
+                    <Text style={{color : '#808080', fontSize : 14, fontWeight : '500'}}>Ajouter un commentaire</Text>
+                    </TouchableWithoutFeedback>
                   </View>
-
+                  
+                  <View style={styles.line}>
+                  </View>
+              
                 <Text>Show basket</Text>
                 <FlatList
                     data={this.props.basket}
@@ -205,17 +222,15 @@ class Basket extends React.Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />
-                <Button
-                        onPress={this.makeOrder}
-                        title="Buy"
-                        color="#841584"
-                    />
+                
           
           </ScrollView>
 
           <View style={styles.containerFooter}>
               <View style={styles.containerButton}>
-                <TouchableOpacity style={styles.confirmButton}>
+                <TouchableOpacity style={styles.confirmButton}
+                  onPress={this.makeOrder}
+                >
                   <Text style={styles.buttonText}>Confirmer</Text>
                   </TouchableOpacity>
                 </View>
@@ -241,21 +256,19 @@ const styles = StyleSheet.create({
 
 /* -----------------HEADER------------------------- */
 header :{
-  height : 65,
-  backgroundColor : '#fff',
-  flexDirection : 'row',    
-  justifyContent : 'space-between',
-  alignItems : 'center', 
-  shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.18,
-shadowRadius: 1.00,
-
-elevation: 1,
-  
+    backgroundColor :'#fff', 
+    paddingTop: 25 ,
+    height: 65, 
+    justifyContent: 'flex-end', 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.00,
+    
+    elevation: 1,
   },
 
 headerLeft:{
@@ -359,7 +372,7 @@ headerRight: {
     },
     line:{
       backgroundColor: '#e0e0e0',
-      height: 1
+      height: 0.5
     },
     containerHeaderArticles:{
       alignItems: 'center',
@@ -428,8 +441,8 @@ headerRight: {
       fontWeight: '400'
     },
       line:{
-        backgroundColor: '#00b38B',
-        height: 1,
+        backgroundColor: '#DCDCDC',
+        height: 0.5,
         flex: 1,
         alignItems: 'flex-end'
       },
@@ -444,7 +457,7 @@ headerRight: {
         justifyContent:'space-between',
         paddingVertical: 15,
         paddingHorizontal: 10,
-        marginTop: 25,
+        
       },
       containerTotal:{
         flexDirection: 'row',
@@ -468,11 +481,10 @@ headerRight: {
       },
     
       containerInstructions: {
-        marginTop: 25,
+        
         flexDirection: 'row',
-        padding: 10,
-        borderRadius: 8
-    
+        paddingHorizontal: 10, 
+        paddingVertical: 15,   
       },
       containerTextInput:{
         backgroundColor :'#FFF',
