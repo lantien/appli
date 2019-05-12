@@ -160,6 +160,10 @@ class Basket extends React.Component {
           <View style={styles.line}>
                 </View>
 
+          <View style={{paddingVertical: 10, paddingHorizontal: 20}}> 
+                <Text style={{fontSize: 17, fontWeight : '500'}}>Votre commande</Text>
+
+          </View>
             <View style={styles.containerCardItem}>
         <View style={styles.containerLeft}>
 
@@ -198,16 +202,7 @@ class Basket extends React.Component {
               <View style={styles.line}>
                 </View>
 
-                  <View style={styles.containerPayment}>
-                    <View style={styles.containerTotal}>
-                      <Text style={styles.totalText}>Total</Text>
-                      <Text style={styles.tvaText}> (incl. TVA)</Text>
-                      </View>
-                    <Text style={styles.totalPrice}>22€</Text>
-                  </View>
-
-                <View style={styles.line}>
-                  </View>
+                  
 
                 <View style={styles.containerInstructions}>
 
@@ -219,13 +214,33 @@ class Basket extends React.Component {
                   <View style={styles.line}>
                   </View>
               
-                <Text>Show basket</Text>
                 <FlatList
                     data={this.props.basket}
                     extraData={this.props}
                     keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />
+
+                  <View>
+                  <View style={{flexDirection : 'row', justifyContent: 'space-between', paddingTop:10, paddingStart : 20, paddingEnd : 30}}>
+                    <Text style={{color :'#606060', fontSize: 14, fontWeight: '400'}}>Sous-total</Text>
+                    <Text style={{color :'#606060', fontSize: 14, fontWeight: '400'}}>5,50€</Text>
+                  </View>
+
+                  </View>
+
+
+                  <View style={styles.containerPayment}>
+                  
+                    <View style={styles.containerTotal}>
+                      <Text style={styles.totalText}>Total</Text>
+                      <Text style={styles.tvaText}> (incl. TVA)</Text>
+                      </View>
+                    <Text style={styles.totalPrice}>22€</Text>
+                  </View>
+
+                <View style={styles.line}>
+                  </View>
                 
           
           </ScrollView>
@@ -460,7 +475,7 @@ headerRight: {
         flexDirection: 'row',
         justifyContent:'space-between',
         paddingVertical: 15,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         
       },
       containerTotal:{
@@ -487,8 +502,8 @@ headerRight: {
       containerInstructions: {
         
         flexDirection: 'row',
-        paddingHorizontal: 10, 
-        paddingVertical: 15,   
+        paddingHorizontal: 20, 
+        paddingVertical: 20,   
       },
       containerTextInput:{
         backgroundColor :'#FFF',
@@ -524,14 +539,15 @@ headerRight: {
         backgroundColor: '#FFF',
         flexDirection: 'row', 
         width : '100%',
-        paddingVertical :15
+        paddingTop :10,
+        paddingBottom: 20
       },
       containerLeft:{
         backgroundColor: '#FFF',
         flexDirection: 'row',
         flex : 0.15,
         justifyContent:'space-between',
-        paddingLeft: 10
+        paddingLeft: 20
       },
       containerMinus:{
         
