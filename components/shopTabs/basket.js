@@ -180,13 +180,17 @@ class Basket extends React.Component {
           <View style={styles.contentOfArticle}>
             <Text style={styles.textContentOfArticle}>Menu midi (Sandwich, Canette, ...</Text>
             </View>
+          </View>
+
+          <View style={{flex : 0.2, alignItems: 'flex-end'}}>
           <View style={styles.priceOfArticle}>
             <Text style={styles.textContentOfArticle}>5,50€</Text>
+          </View>
           </View>
 
               {/* ---------------------------------------------------------------------------------------------- */}
            
-           </View>
+           
 
         </View>
               </View>
@@ -477,7 +481,7 @@ headerRight: {
         fontSize: 16,
         fontWeight: '500',
         color: '#000',
-        paddingHorizontal: 20
+        paddingHorizontal: 10
       },
     
       containerInstructions: {
@@ -518,33 +522,34 @@ headerRight: {
 
       containerCardItem:{
         backgroundColor: '#FFF',
-        flexDirection: 'row'
+        flexDirection: 'row', 
+        width : '100%',
+        paddingVertical :15
       },
       containerLeft:{
         backgroundColor: '#FFF',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flex : 0.15,
+        justifyContent:'space-between'
       },
       containerMinus:{
-        paddingVertical: 20,
-        paddingHorizontal: 8
+        
       },
       containerNumber:{
-        paddingVertical: 20,
-        paddingHorizontal: 8
+        
       },
       numberOfArticle:{
         fontSize: 15,
         fontWeight: '400'
       },
       containerPlus:{
-        paddingVertical: 20,
-        paddingHorizontal: 8
       },
       
       // container Centre
       containerCenter: {
-        backgroundColor: '#FFF',
+        backgroundColor: '#fff',
         flexDirection: 'row',
+        flex : 0.6
       },
       textContentOfArticle:{
         fontSize: 14,
@@ -552,12 +557,11 @@ headerRight: {
         color: '#000',
       },
       contentOfArticle:{
-        paddingVertical: 20,
-        paddingHorizontal: 10
+        flex : 1,
+        alignItems: 'flex-end',
       },
       priceOfArticle: {
-        backgroundColor: '#FFF',
-        padding: 20
+        backgroundColor: '#fff',
       },
     
 });
