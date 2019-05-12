@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, Image,ScrollView, BackHandler, Platform, NativeModules } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, StatusBar, Image,ScrollView, BackHandler } from 'react-native';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
+
+import { Localization } from 'expo';
 
 import OrderDetail from './orderDetail.js';
 
@@ -34,7 +36,9 @@ class Orders extends React.Component {
         this.navigationOptions.headerLeft = this.state.showDetail;
     }
 
-    componentWillMount(){
+    componentWillMount() {
+
+      moment.locale(Localization.locale.substring(0, 2));
 
       BackHandler.addEventListener('hardwareBackPress', () => {
 
@@ -69,20 +73,8 @@ class Orders extends React.Component {
       });
     }
 
-    getLanguageCode() {
-      let systemLanguage = 'en';
-      if (Platform.OS === 'android') {
-        systemLanguage = NativeModules.I18nManager.localeIdentifier;
-      } else {
-        systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
-      }
-      const languageCode = systemLanguage.substring(0, 2);
-      return languageCode;
-    }
-
     convertDate(date) {
 
-      moment.locale(this.getLanguageCode());
       return moment(date, 'MM/DD/YYYY').format('ddd DD MMMM').toString();
     }
 

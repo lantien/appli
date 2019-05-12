@@ -45,11 +45,10 @@ class Shop extends React.Component {
         },
         () => {
 
-            console.log('catch pos');
             this._getShops(this.position[0], this.position[1]);
         },
         { 
-            enableHighAccuracy: true, 
+            enableHighAccuracy: false, 
             timeout: 20000, 
             maximumAge: 1000 
         },
