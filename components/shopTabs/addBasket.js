@@ -25,8 +25,6 @@ class addBasket extends React.Component {
             supplements: item.supplements,
             selectedSupps: []
         });
-
-        console.log( item.supplements);
     }
 
     addBasket = () => {
