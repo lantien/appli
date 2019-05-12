@@ -530,7 +530,8 @@ headerRight: {
         backgroundColor: '#FFF',
         flexDirection: 'row',
         flex : 0.15,
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        paddingLeft: 10
       },
       containerMinus:{
         
