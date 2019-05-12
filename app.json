@@ -10,6 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
+    "primaryColor": "black",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

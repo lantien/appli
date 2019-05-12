@@ -183,7 +183,6 @@ class Shop extends React.Component {
       
         return (
             <View style={{flex : 1, backgroundColor : '#fff'}}>
-
                 <View style={styles.header}>
 
                     <View style={styles.headerLeft}> 
