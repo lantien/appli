@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, ScrollView,StyleSheet,TouchableOpacity, Button, AsyncStorage } from 'react-native';
+import { Text, View, ScrollView,StyleSheet,TouchableOpacity, TouchableWithoutFeedback, AsyncStorage} from 'react-native';
+import Modal from "react-native-modal";
 
 import { Feather, MaterialIcons, AntDesign } from 'react-native-vector-icons'
 
@@ -25,7 +26,8 @@ class Account extends React.Component {
             lastname : "",
             email: "",
             phone_number: "",
-            firstname : ""
+            firstname : "",
+            showSupport: false
         }
 
     }
@@ -237,7 +239,15 @@ class Account extends React.Component {
                 {/* --------------------------------------- Support ------------------------------------------------------- */}
 
             
-            <TouchableOpacity style = {{ padding: 18, flexDirection: 'row',backgroundColor : '#fff', }}>
+            <TouchableOpacity 
+                style = {{ padding: 18, flexDirection: 'row',backgroundColor : '#fff', }}
+                onPress={() => {
+
+                    this.setState({
+                        showSupport: true
+                    });
+                }}
+            >
             
                 <Feather name = "help-circle" size={18} color ="#989898"/>
 
@@ -266,9 +276,34 @@ class Account extends React.Component {
 
             </ScrollView>
 
-            </View>
-            
+            <Modal
+                isVisible={this.state.showSupport}
+                backdropOpacity={0.7}
+                animationIn={'zoomIn'}
+                animationOut={'zoomOut'}
+                animationInTiming={350}
+                animationOutTiming={350}
+                backdropTransitionInTiming={350}
+                backdropTransitionOutTiming={350}
+            >
+            <TouchableOpacity
+                onPress={() => {
 
+                    this.setState({
+                        showSupport: false
+                    });
+                }}
+                style={{flex:1, justifyContent:'center', alignItems:'center',}}
+            >
+                <View style={styles.modalContent}>
+                        <TouchableWithoutFeedback style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                            <Text>Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou Issou</Text>
+                        </TouchableWithoutFeedback>
+                </View>
+            </TouchableOpacity>
+            </Modal>
+
+        </View>
         );
     }
 }
@@ -387,6 +422,13 @@ const styles = StyleSheet.create({
     logOutText:{
         color : '#FFF',
         fontSize : 17
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'rgba(0, 0, 0, 0.1)',
     }
 
 })
