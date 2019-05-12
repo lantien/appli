@@ -104,7 +104,8 @@ class addBasket extends React.Component {
         this.setState({
             ref: item.ref,
             supplements: item.supplements,
-            selectedSupps: []
+            selectedSupps: [],
+            showSupps: false
         });
     }
 
@@ -175,6 +176,18 @@ class addBasket extends React.Component {
                 color="#841584"
             />
 
+            <Button
+                 onPress={() => {
+
+                    console.log("set state true");
+                    this.setState({
+                        showSupps: true
+                    });
+                 }}
+                title="showModal"
+                color="#841584"
+            />
+
             <SectionedMultiSelect
                 items={items}
                 uniqueKey="id"
@@ -184,6 +197,9 @@ class addBasket extends React.Component {
                 readOnlyHeadings={true}
                 hideSearch={true}
                 showCancelButton={true}
+                showChips={false}
+                showModal={this.state.showSupps}
+                hideSelect={true}
                 onSelectedItemsChange={(selectedSupps) => {
 
                     this.setState({ selectedSupps });
