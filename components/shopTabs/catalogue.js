@@ -3,7 +3,9 @@ import { Appbar } from 'react-native-paper';
 import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Platform, Linking,Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 
+import store from '../redux/store.js';
 import apiUrl from '../../config/api.url.js';
 
 import convertCurrency from '../../tools/convertCurrency.js';
@@ -19,7 +21,11 @@ class Catalogue extends React.Component {
 
         this.state = {
             catalogue: [],
-            isModalVisible: false
+            isModalVisible: false,
+            ref: null,
+            selectedSupps: [],
+            showSupps: false,
+            supplements: []
         }
     }
 
@@ -58,6 +64,70 @@ class Catalogue extends React.Component {
 
     _keyExtractor = (item, index) => index.toString();
 
+    extractSupps(supp) {
+
+        var resObject = [];
+  
+        for(var i in supp) {
+  
+          var tmpObj = {
+            name: supp[i].question,
+            id: i,
+            children: []
+          };
+  
+          for(var j in supp[i].list) {
+  
+            tmpObj.children.push({
+              name: supp[i].list[j].nom,
+              id: JSON.stringify([i, j])
+            })
+          }
+  
+          resObject.push(tmpObj);
+        }
+  
+        return resObject;
+      }
+  
+      addBasket = () => {
+  
+          var cardItem = this.state.catalogue[this.state.ref[0]].content[this.state.ref[1]];
+  
+          var item = {
+              ref: this.state.ref,
+              supps: this.state.selectedSupps.map(e => JSON.parse(e)),
+              nom: cardItem.name,
+              nom_supps: [],
+              prix: 0
+          };
+  
+          var total = Number(cardItem.prix);
+  
+          for(var i in item.supps) {
+  
+              let x = item.supps[i][0];
+              let y = item.supps[i][1];
+  
+              item.nom_supps.push(cardItem.supplements[x].list[y].nom);
+  
+              total += Number(cardItem.supplements[x].list[y].prix);
+          }
+  
+          item.prix = total;
+  
+          store.dispatch({
+              type: 'ADD_ITEM',
+              item: item,
+              prix: total
+          });
+  
+          this.setState({
+            selectedSupps: [],
+            showSupps: false
+          });
+      }
+
     renderCatalogue = (item) => {
 
         return(
@@ -79,8 +149,10 @@ class Catalogue extends React.Component {
 
     showSupplement = (item) => {
 
-        this.props.navigation.navigate('addBasket', {
-            item
+        this.setState({
+            ref: item.item.ref,
+            supplements: item.item.supplements,
+            showSupps: true
         });
     }
 
@@ -238,6 +310,35 @@ class Catalogue extends React.Component {
                 </View>
                 
             </TouchableHighlight>
+
+            <SectionedMultiSelect
+                items={this.extractSupps(this.state.supplements)}
+                uniqueKey="id"
+                subKey="children"
+                showDropDowns={false}
+                readOnlyHeadings={true}
+                hideSearch={true}
+                showCancelButton={true}
+                showChips={false}
+                showModal={this.state.showSupps}
+                hideSelect={true}
+                onSelectedItemsChange={(selectedSupps) => {
+
+                    this.setState({ selectedSupps });
+                }}
+                selectedItems={this.state.selectedSupps}
+                onConfirm={() => {
+
+                    this.addBasket();
+                }}
+                onCancel={() => {
+
+                    this.setState({
+                        selectedSupps: [],
+                        showSupps: false
+                    });
+                }}
+            />
 
             </View>
         );
