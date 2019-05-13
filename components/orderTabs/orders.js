@@ -49,18 +49,6 @@ class Orders extends React.Component {
 
       return moment(date, 'MM/DD/YYYY').format('ddd DD MMMM').toString();
     }
-
-    shouldComponentUpdate(nextState) {
-
-      if(nextState.token == "") {
-
-        return false;
-      } else {
-
-        return true;
-      }
-    }
-
     
     render() {
       let pic ={
