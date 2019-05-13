@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Animated, FlatList,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
 
 import { Localization } from 'expo';
 
@@ -11,14 +11,9 @@ import 'moment/locale/fr';
 
 class OrderDetail extends React.Component {
 
-  static navigationOptions = {
-      title: 'Order Details',
-  };
-
-  state = {
-    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
-  }
-
+    static navigationOptions = {
+        title: 'Order Details',
+    };
 
     constructor(props) {
         super(props);
@@ -28,6 +23,17 @@ class OrderDetail extends React.Component {
     componentWillMount() {
 
       moment.locale(Localization.locale.substring(0, 2));
+
+      var item = this.props.navigation.getParam('item', {});
+        
+      item.displaynum = parseInt(item._id.substr(item._id.length - 4), 16);
+      item.displaytotal = item.total + convertCurrency(item.currency);
+      item.zipdisplay = item.zip + " " + item.city;
+
+      this.setState({
+        order: item,
+        currency: convertCurrency(item.currency)
+      })
     }
 
     convertDate(date) {
@@ -35,29 +41,22 @@ class OrderDetail extends React.Component {
       return moment(date, 'MM/DD/YYYY').format('dddd DD MMMM').toString();
     }
 
-    shouldComponentUpdate(nextState) {
-
-      if(nextState.token == "") {
-
-        return false;
-      } else {
-
-        return true;
-      }
-    }
+    
 
     _keyExtractor = (item, index) => index.toString();
 
     _renderItem = (orderList) => {
+
+      orderList = orderList.item;
       
-      let tmpPrice = orderList.item.prix + convertCurrency(this.props.order.currency);
+      let tmpPrice = orderList.prix + this.state.currency;
       return (
         <View style={styles.orderDetails}>
           <View style={styles.numberOfArticle}>
             <Text style={styles.textNumberOfArticle}>1x</Text>
           </View>
           <View style={styles.contentOfArticle}>
-            <Text style={styles.textContentOfArticle}>{orderList.item.prod}</Text>
+            <Text style={styles.textContentOfArticle}>{orderList.prod}</Text>
             </View>
           <View style={styles.priceOfArticle}>
             <Text style={styles.textContentOfArticle}>{tmpPrice}</Text>
@@ -66,36 +65,10 @@ class OrderDetail extends React.Component {
       );
     }
 
-    componentDidMount() {
-
-      Animated.timing(                  // Animate over time
-        this.state.fadeAnim,            // The animated value to drive
-        {
-          toValue: 1,                   // Animate to opacity: 1 (opaque)
-          duration: 200,              // Make it take a while
-        }
-      ).start();
-    }
-
     render() {
-
-        var item = this.props.order;
-        item.displaynum = parseInt(item._id.substr(item._id.length - 4), 16);
-        item.displaytotal = item.total + convertCurrency(item.currency);
-        item.zipdisplay = item.zip + " " + item.city;
-
-        let { fadeAnim } = this.state;
 
         return (
 
-          <Animated.View                 // Special animatable View
-        style={{
-          ...this.props.style,
-          opacity: fadeAnim,         // Bind opacity to animated value
-        }}
-      >
-
-          
             <View style={styles.container}>
             <StatusBar
               barStyle="dark-content"
@@ -111,23 +84,23 @@ class OrderDetail extends React.Component {
               <View style={styles.containerDetails}>
     
                 <TouchableOpacity style={styles.containerName}>
-                  <Text style={styles.name}>{item.shop_name}</Text>
+                  <Text style={styles.name}>{this.state.order.shop_name}</Text>
                 </TouchableOpacity>
     
                 <View style={styles.containerOrderNumber}>
                   <Text style={styles.orderNumberHeader}>Numéro de commande</Text>
-                  <Text style={styles.orderNumber}>{item.displaynum}</Text>
+                  <Text style={styles.orderNumber}>{this.state.order.displaynum}</Text>
                 </View>
     
                 <View style={styles.containerAdress}>
                   <Text style={styles.adressHeader}>Récupérée au</Text>
-                  <Text style={styles.adress}>{item.shop_adress}</Text>
-                  <Text style={styles.zipCode}>{item.zipdisplay}</Text>
+                  <Text style={styles.adress}>{this.state.order.shop_adress}</Text>
+                  <Text style={styles.zipCode}>{this.state.order.zipdisplay}</Text>
                 </View>
     
                 <View style={styles.containerStatus}>
                   <Text style={styles.statusHeader}>Statut</Text>
-                  <Text style={styles.status}>En cours {this.convertDate(item.createdAt)}</Text>
+                  <Text style={styles.status}>En cours {this.convertDate(this.state.order.createdAt)}</Text>
                 </View>
     
                 </View>
@@ -144,7 +117,7 @@ class OrderDetail extends React.Component {
                         <View style={styles.containerOrderDetails}>
 
         <FlatList
-          data={this.props.order.content}
+          data={this.state.order.content}
           extraData={this.state}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
@@ -158,7 +131,7 @@ class OrderDetail extends React.Component {
     
                       <View style={styles.containerPayment}>
                         <Text style={styles.totalText}>Total</Text>
-                        <Text style={styles.totalText}>{item.displaytotal}</Text>
+                        <Text style={styles.totalText}>{this.state.order.displaytotal}</Text>
                       </View>
     
                     </View>
@@ -166,7 +139,6 @@ class OrderDetail extends React.Component {
                   </ScrollView>
     
           </View>
-          </Animated.View>
         );
     }
 }

@@ -40,12 +40,25 @@ class Orders extends React.Component {
 
     showOrder(item)  {
 
-      this.props.navigation.navigate('OrderDetail');
+      this.props.navigation.navigate('OrderDetail', {
+        item
+      });
     }
 
     convertDate(date) {
 
       return moment(date, 'MM/DD/YYYY').format('ddd DD MMMM').toString();
+    }
+
+    shouldComponentUpdate(nextState) {
+
+      if(nextState.token == "") {
+
+        return false;
+      } else {
+
+        return true;
+      }
     }
 
     
