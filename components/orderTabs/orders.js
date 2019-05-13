@@ -28,49 +28,19 @@ class Orders extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-          showDetail: false
-        };
-
-        this.navigationOptions.headerLeft = this.state.showDetail;
     }
 
     componentWillMount() {
 
       moment.locale(Localization.locale.substring(0, 2));
-
-      BackHandler.addEventListener('hardwareBackPress', () => {
-
-        if(this.state.showDetail) {
-
-          this.setState({
-            showDetail: false
-          });
-
-          return true;
-        }
-      });
     }
 
-    shouldComponentUpdate(nextState) {
-
-      if(nextState.token == "") {
-
-        this.state.showDetail = false;
-        return true;
-      }
-
-      return true;
-    }
 
     _keyExtractor = (item, index) => index.toString();
 
     showOrder(item)  {
 
-      this.setState({
-        showDetail: <OrderDetail order={item}/>
-      });
+      this.props.navigation.navigate('OrderDetail');
     }
 
     convertDate(date) {
@@ -85,9 +55,31 @@ class Orders extends React.Component {
       }
 
 
-      if(!this.state.showDetail) {
+        return (
 
-        var list = <FlatList
+            <View  style={styles.container}>
+
+          <View style={styles.header} > 
+
+          <View style={styles.headerLeft}> 
+                        
+            </View>
+
+
+          <View style={styles.headerCenter}>
+            <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Orders</Text>
+            </View>
+
+            <View style = {styles.headerRight}>
+            
+            </View>
+
+          </View>
+          <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
+              </View>
+              <ScrollView>
+
+              <FlatList
                     data={this.props.orderList}
                     keyExtractor={this._keyExtractor}
                     renderItem={({item}) => 
@@ -158,54 +150,9 @@ class Orders extends React.Component {
                                             </TouchableOpacity>
                                 }
                     
-                />;
-      } else {
+                />
 
-        var goBack = 
-          <TouchableOpacity
-              onPress={() => {
-
-                this.setState({
-                  showDetail: null
-                });
-              }}
-            >
-
-            <MaterialIcons name = "keyboard-return" size={28} color ="#00d751"/>
-
-            </TouchableOpacity>;
-      }
-
-        return (
-
-            <View  style={styles.container}>
-
-          <View style={styles.header} > 
-
-          <View style={styles.headerLeft}> 
-          
-          {goBack}
-              
-            </View>
-
-
-          <View style={styles.headerCenter}>
-            <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Orders</Text>
-            </View>
-
-            <View style = {styles.headerRight}>
-            
-            </View>
-
-          </View>
-          <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
-              </View>
-              <ScrollView>
-
-            {this.state.showDetail}
-            {list}
-
-                </ScrollView>
+              </ScrollView>
             </View >
         );
     }
