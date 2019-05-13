@@ -16,32 +16,6 @@ const items = [
       name: 'Fruits',
       id: 0,
       icon: { uri: 'https://cdn4.iconfinder.com/data/icons/free-crystal-icons/512/Gemstone.png' }, // Make sure the icon const is set, or you can remove this
-      children: [
-        {
-          name: 'Apple',
-          id: 10,
-        },
-        {
-          name: 'Strawberry',
-          id: 17,
-        },
-        {
-          name: 'Pineapple',
-          id: 13,
-        },
-        {
-          name: 'Banana',
-          id: 14,
-        },
-        {
-          name: 'Watermelon',
-          id: 15,
-        },
-        {
-          name: 'Kiwi fruit',
-          id: 16,
-        },
-      ],
     },
     {
       name: 'Gems',
@@ -109,13 +83,39 @@ class addBasket extends React.Component {
         });
     }
 
+    extractSupps(supp) {
+
+      var resObject = [];
+
+      for(var i in supp) {
+
+        var tmpObj = {
+          name: supp[i].question,
+          id: i,
+          children: []
+        };
+
+        for(var j in supp[i].list) {
+
+          tmpObj.children.push({
+            name: supp[i].list[j].nom,
+            id: JSON.stringify([i, j])
+          })
+        }
+
+        resObject.push(tmpObj);
+      }
+
+      return resObject;
+    }
+
     addBasket = () => {
 
         var cardItem = this.props.navigation.getParam('item', []).item;
 
         var item = {
             ref: this.state.ref,
-            supps: this.state.selectedSupps,
+            supps: this.state.selectedSupps.map(e => JSON.parse(e)),
             nom: cardItem.name,
             nom_supps: [],
             prix: 0
@@ -125,10 +125,10 @@ class addBasket extends React.Component {
 
         for(var i in item.supps) {
 
-            let x = item.supps[i].value[0];
-            let y = item.supps[i].value[1];
+            let x = item.supps[i][0];
+            let y = item.supps[i][1];
 
-            item.nom_supps.push(cardItem.supplements[x].list[y].label);
+            item.nom_supps.push(cardItem.supplements[x].list[y].nom);
 
             total += Number(cardItem.supplements[x].list[y].prix);
         }
@@ -139,6 +139,10 @@ class addBasket extends React.Component {
             type: 'ADD_ITEM',
             item: item,
             prix: total
+        });
+
+        this.setState({
+          selectedSupps: []
         });
     }
 
@@ -179,7 +183,6 @@ class addBasket extends React.Component {
             <Button
                  onPress={() => {
 
-                    console.log("set state true");
                     this.setState({
                         showSupps: true
                     });
@@ -189,10 +192,9 @@ class addBasket extends React.Component {
             />
 
             <SectionedMultiSelect
-                items={items}
+                items={this.extractSupps(this.state.supplements)}
                 uniqueKey="id"
                 subKey="children"
-                selectText="Choose some things..."
                 showDropDowns={false}
                 readOnlyHeadings={true}
                 hideSearch={true}
@@ -205,6 +207,10 @@ class addBasket extends React.Component {
                     this.setState({ selectedSupps });
                 }}
                 selectedItems={this.state.selectedSupps}
+                onConfirm={() => {
+
+                  this.addBasket();
+                }}
             />
 
             </View>
