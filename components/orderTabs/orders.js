@@ -40,21 +40,18 @@ class Orders extends React.Component {
 
     showOrder(item)  {
 
-      this.props.navigation.navigate('OrderDetail');
+      this.props.navigation.navigate('OrderDetail', {
+        item
+      });
     }
 
     convertDate(date) {
 
       return moment(date, 'MM/DD/YYYY').format('ddd DD MMMM').toString();
     }
-
     
     render() {
-      let pic ={
-        uri: 'http://painrisien.com/wp-content/uploads/2017/06/DSC09787.jpg'
-      }
-
-
+      
         return (
 
             <View  style={styles.container}>
@@ -106,7 +103,11 @@ class Orders extends React.Component {
 
                                                   <Image
                                                     style = {{height : 35, width: 35, borderRadius : 35/2}}
-                                                    source={pic}
+                                                    source={
+                                                      {
+                                                        uri: apiUrl + 'images/' + item.shopID + '_order.jpg'
+                                                      }
+                                                    }
                                                   />
 
                                                   <Text style={styles.name}>{item.shop_name}</Text>
