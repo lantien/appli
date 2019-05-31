@@ -264,7 +264,7 @@ class Catalogue extends React.Component {
                     </View>
 
                     <View style={styles.foodAllergy}>
-                    <Text style={styles.allergyText}>Vous pouvez renseignez vos détails allergies dans votre panier.</Text>
+                    <Text style={styles.allergyText}>Vous pouvez renseigner vos détails allergies dans votre panier.</Text>
                     </View>
 
                     {/* --------------------------------------------------------------------------------------------------------- */}
