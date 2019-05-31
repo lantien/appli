@@ -21,7 +21,8 @@ class Basket extends React.Component {
         super(props);
 
         this.state = {
-          isDateTimePickerVisible: false
+          isDateTimePickerVisible: false,
+          selectedTime: 'Dés que possible'
         };
     }
 
@@ -180,15 +181,17 @@ class Basket extends React.Component {
               }}
             >
                 <MaterialIcons name="timer" size={17} color="#505050"/>
-                <Text style={{color:'#505050', fontWeight: '500', paddingStart: 10}}>Dés que possible</Text>
+                <Text style={{color:'#505050', fontWeight: '500', paddingStart: 10}}>{this.state.selectedTime}</Text>
             </TouchableOpacity>
 
             <DateTimePicker
               isVisible={this.state.isDateTimePickerVisible}
               onConfirm={(date) => {
 
-                console.log(date.getHours(), date.getMinutes());
-                this.setState({ isDateTimePickerVisible: false });
+                this.setState({ 
+                  isDateTimePickerVisible: false,
+                  selectedTime: date.getHours() + ':' + date.getMinutes(),
+                });
               }}
               onCancel={() => {
 
