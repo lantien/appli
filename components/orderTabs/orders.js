@@ -107,7 +107,11 @@ class Orders extends React.Component {
 
                                                   <Image
                                                     style = {{height : 35, width: 35, borderRadius : 35/2}}
-                                                    source={pic}
+                                                    source={
+                                                      {
+                                                        uri: apiUrl + 'images/' + item.shopID + '_order.jpg'
+                                                      }
+                                                    }
                                                   />
 
                                                   <Text style={styles.name}>{item.shop_name}</Text>

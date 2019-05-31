@@ -57,6 +57,9 @@ class Catalogue extends React.Component {
                 position: {
                     latitude: tmpShop.latitude,
                     longitude: tmpShop.longitude
+                },
+                logo: {
+                    uri: apiUrl + tmpShop.logo
                 }
             });
         }
@@ -179,10 +182,6 @@ class Catalogue extends React.Component {
 
     render() {
 
-        let pic ={
-            uri: 'https://scontent-cdt1-1.xx.fbcdn.net/v/t31.0-8/13403146_184981928566610_276148320834237026_o.jpg?_nc_cat=105&_nc_ht=scontent-cdt1-1.xx&oh=d820c14f5b388820204a2d36a0f395a5&oe=5D40135A'
-          }
-
         return (
             <View style={{flex : 1, backgroundColor: '#f5f5f5'}}>
 
@@ -221,7 +220,7 @@ class Catalogue extends React.Component {
 
                     <View style={styles.containerLogo}>
                     <Image style={styles.pictureLogo}
-                    source={pic}
+                    source={this.state.logo}
                     />
                     </View>
 
