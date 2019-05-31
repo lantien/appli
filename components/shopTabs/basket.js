@@ -3,7 +3,9 @@ import { View, Text, FlatList, ScrollView  ,Button , StyleSheet , TouchableOpaci
 import { Appbar } from 'react-native-paper';
 
 
-import { AntDesign,Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons'
+import { AntDesign,Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons';
+
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 
 import apiUrl from '../../config/api.url.js';
@@ -18,6 +20,14 @@ class Basket extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+          isDateTimePickerVisible: false
+        };
+    }
+
+    componentWillMount() {
+
+      this.setState(this.props.navigation.getParam('shopData', null));
     }
 
     makeOrder = () => {
@@ -76,27 +86,39 @@ class Basket extends React.Component {
         let id = item.index;
 
         item = item.item;
-        return (            
-      
-            <View style={styles.orderDetails}>
-                <View style={styles.numberOfArticle}>
-                    <Text style={styles.textNumberOfArticle}>1x</Text>
-                </View>
-                <View style={styles.contentOfArticle}>
-                    <Text style={styles.textContentOfArticle}>{item.nom}</Text>
-                    </View>
-                <View style={styles.priceOfArticle}>
-                    <Text style={styles.textContentOfArticle}>{item.prix}</Text>
-                </View>
-                <Button
-                    onPress={() => {
+        return (
 
-                        this.deleteItem(id, item.prix);
-                    }}
-                    title="X"
-                    color="#841584"
-                />
+          <View>
+            <View style={styles.containerCardItem}>
+
+              <View style={styles.containerLeft}>
+
+                <TouchableOpacity style={styles.containerMinus}>
+                  <Feather name="minus" size={17} color="#00b38B"/>
+                </TouchableOpacity>
+
+                <View style={styles.containerNumber}>
+                  <Text style={styles.numberOfArticle}>1</Text>
+                </View>
+
+                <TouchableOpacity style={styles.containerPlus}>
+                  <Feather name="plus" size={17} color="#00b38B"/>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.containerCenter}>
+                <View style={styles.contentOfArticle}>
+                  <Text style={styles.textContentOfArticle}>{item.nom}</Text>
+                </View>
+              </View>
+
+              <View style={{flex : 0.2, alignItems: 'flex-end'}}>
+                <View style={styles.priceOfArticle}>
+                  <Text style={styles.textContentOfArticle}>{item.prix}{this.state.currency}</Text>
+                </View>
+              </View>
             </View>
+          </View>
         );
     }
 
@@ -138,66 +160,63 @@ class Basket extends React.Component {
 
           <View style={{backgroundColor : '#fff', justifyContent: 'center', alignItems : 'center', paddingTop: 20}}>
             
-              <Text style={{fontSize: 23, fontWeight : '400'}}>Antoinette Pain & Brioche</Text>
+              <Text style={{fontSize: 23, fontWeight : '400'}}>{this.state.shopName}</Text>
               
             </View>
             <View>
 
           <TouchableOpacity style={{justifyContent: 'center', alignItems:'center', paddingTop: 10, paddingBottom: 25}}>
-              <Text style={{fontSize: 13, fontWeight: '500'}}>117 Rue Sébastien Gryphe, 69007 Lyon</Text>
+              <Text style={{fontSize: 13, fontWeight: '500'}}>{this.state.adress}</Text>
           </TouchableOpacity>
             
             <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', paddingBottom :25}}>
             <View style={{height :1.2, backgroundColor: '#505050', width : '8%'}}></View>
             </View>
             
-            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingBottom: 25}}>
+            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingBottom: 25}}
+              onPress={() => {
+
+                this.setState({ isDateTimePickerVisible: true });
+              }}
+            >
                 <MaterialIcons name="timer" size={17} color="#505050"/>
                 <Text style={{color:'#505050', fontWeight: '500', paddingStart: 10}}>Dés que possible</Text>
-                </TouchableOpacity>
+            </TouchableOpacity>
+
+            <DateTimePicker
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={(date) => {
+
+                console.log(date.getHours(), date.getMinutes());
+                this.setState({ isDateTimePickerVisible: false });
+              }}
+              onCancel={() => {
+
+                this.setState({ isDateTimePickerVisible: false });
+              }}
+              mode="time"
+            />
           
           {/* --------------------------------------------- ITEM BASKET ------------------------------- */}
           <View style={styles.line}>
-                </View>
+          </View>
 
           <View style={{paddingVertical: 10, paddingHorizontal: 20}}> 
                 <Text style={{fontSize: 17, fontWeight : '500'}}>Votre commande</Text>
-
-          </View>
-            <View style={styles.containerCardItem}>
-        <View style={styles.containerLeft}>
-
-            <TouchableOpacity style={styles.containerMinus}>
-              <Feather name="minus" size={17} color="#00b38B"/>
-              </TouchableOpacity>
-
-            <View style={styles.containerNumber}>
-              <Text style={styles.numberOfArticle}>1</Text>
-              </View>
-
-            <TouchableOpacity style={styles.containerPlus}>
-              <Feather name="plus" size={17} color="#00b38B"/>
-              </TouchableOpacity>
           </View>
 
-          <View style={styles.containerCenter}>
-          <View style={styles.contentOfArticle}>
-            <Text style={styles.textContentOfArticle}>Menu midi (Sandwich, Canette, ...</Text>
-            </View>
-          </View>
-
-          <View style={{flex : 0.2, alignItems: 'flex-end'}}>
-          <View style={styles.priceOfArticle}>
-            <Text style={styles.textContentOfArticle}>5,50€</Text>
-          </View>
-          </View>
+          <FlatList
+                    data={this.props.basket}
+                    extraData={this.props}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this._renderItem}
+                />
 
               {/* ---------------------------------------------------------------------------------------------- */}
            
            
 
         </View>
-              </View>
 
               <View style={styles.line}>
                 </View>
@@ -214,18 +233,7 @@ class Basket extends React.Component {
                   <View style={styles.line}>
                   </View>
               
-                <FlatList
-                    data={this.props.basket}
-                    extraData={this.props}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this._renderItem}
-                />
-
                   <View>
-                  <View style={{flexDirection : 'row', justifyContent: 'space-between', paddingTop:10, paddingStart : 20, paddingEnd : 30}}>
-                    <Text style={{color :'#606060', fontSize: 14, fontWeight: '400'}}>Sous-total</Text>
-                    <Text style={{color :'#606060', fontSize: 14, fontWeight: '400'}}>5,50€</Text>
-                  </View>
 
                   </View>
 
@@ -236,7 +244,7 @@ class Basket extends React.Component {
                       <Text style={styles.totalText}>Total</Text>
                       <Text style={styles.tvaText}> (incl. TVA)</Text>
                       </View>
-                    <Text style={styles.totalPrice}>22€</Text>
+                    <Text style={styles.totalPrice}>{this.props.total}{this.state.currency}</Text>
                   </View>
 
                 <View style={styles.line}>

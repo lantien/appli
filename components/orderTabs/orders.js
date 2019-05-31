@@ -51,11 +51,7 @@ class Orders extends React.Component {
     }
     
     render() {
-      let pic ={
-        uri: 'http://painrisien.com/wp-content/uploads/2017/06/DSC09787.jpg'
-      }
-
-
+      
         return (
 
             <View  style={styles.container}>
