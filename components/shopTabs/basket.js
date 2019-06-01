@@ -1,17 +1,16 @@
 import React from 'react';
-import { View, Text, FlatList, ScrollView  ,Button , StyleSheet , TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback,TextInput} from 'react-native';
+import { View, Text, FlatList, AppRegistry, ScrollView  ,Button , StyleSheet , TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback,TextInput} from 'react-native';
 import { Appbar } from 'react-native-paper';
 
-
 import { AntDesign,Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons';
-
-import DateTimePicker from "react-native-modal-datetime-picker";
 
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
 
 import convertCurrency from '../../tools/convertCurrency.js';
+
+import ScrollPicker from 'react-native-picker-scrollview';
 
 import { connect } from 'react-redux';
 
@@ -21,8 +20,16 @@ class Basket extends React.Component {
         super(props);
 
         this.state = {
-          isDateTimePickerVisible: false,
-          selectedTime: 'Dés que possible'
+          listTimer: [
+            'Dés que possible',
+            'Dans 5min',
+            'Dans 10min',
+            'Dans 20min',
+            'Dans 30min',
+            'Dans 1 heure',
+            'Dans 2 heures'
+          ],
+          selectedTime: 0
         };
     }
 
@@ -174,31 +181,42 @@ class Basket extends React.Component {
             <View style={{height :1.2, backgroundColor: '#505050', width : '8%'}}></View>
             </View>
             
-            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingBottom: 25}}
+            {/* <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingBottom: 25}}
               onPress={() => {
 
-                this.setState({ isDateTimePickerVisible: true });
+                this.setState({
+                  isDateTimePickerVisible: true
+                })
               }}
             >
                 <MaterialIcons name="timer" size={17} color="#505050"/>
                 <Text style={{color:'#505050', fontWeight: '500', paddingStart: 10}}>{this.state.selectedTime}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
-            <DateTimePicker
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={(date) => {
+<View style={{backgroundColor : '#fff'}}>
+            <ScrollPicker
+              style={{backgroundColor : '#fff'}}
+              ref={(sp) => {this.sp = sp}}
 
-                this.setState({ 
-                  isDateTimePickerVisible: false,
-                  selectedTime: date.getHours() + ':' + date.getMinutes(),
-                });
+              dataSource={this.state.listTimer}
+              selectedIndex={0}
+              itemHeight={30}
+              wrapperHeight={80}
+              highlightColor={'#d8d8d8'}
+              renderItem={(data, index, isSelected) => {
+                  return(
+                      <View style={{backgroundColor : '#fff'}}>
+                          <Text >{data}</Text>
+                      </View>
+                  )
               }}
-              onCancel={() => {
-
-                this.setState({ isDateTimePickerVisible: false });
+              onValueChange={(data, selectedIndex) => {
+                  //
               }}
-              mode="time"
             />
+            </View>
+
+
           
           {/* --------------------------------------------- ITEM BASKET ------------------------------- */}
           <View style={styles.line}>
