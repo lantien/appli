@@ -154,13 +154,14 @@ export default connect(mapStateToProps)(OrderDetail);
 const styles = StyleSheet.create({
     container:{
       flex: 1 ,
-      backgroundColor: '#fafbfb'
+      backgroundColor: '#fafbfb',
     },
     // Partie Supérieure
     containerDetails:{
   
       padding: 5,
-      alignItems: 'center'
+      alignItems: 'center',
+      marginTop: 50
   
     },
     containerName:{

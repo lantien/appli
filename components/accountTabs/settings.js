@@ -157,13 +157,11 @@ class Settings extends React.Component {
             
 
             <View style= {{height: 0.4, backgroundColor : '#B8B8B8', marginHorizontal: 40}}> 
-            </View> 
+          </View>
 
 
             {/* Email adress */}
 
-            <View style= {{height: 0.4, backgroundColor : '#B8B8B8', marginHorizontal: 40}}> 
-            </View> 
 
             <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
             

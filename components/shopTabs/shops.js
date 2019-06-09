@@ -7,6 +7,7 @@ import store from '../redux/store.js';
 import convertCurrency from '../../tools/convertCurrency.js';
 
 import { connect } from 'react-redux';
+import { AntDesign, Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons';
 
 class Shop extends React.Component {
 
@@ -185,19 +186,21 @@ class Shop extends React.Component {
             <View style={{flex : 1, backgroundColor : '#fff'}}>
                 <View style={styles.header}>
 
-                    <View style={styles.headerLeft}> 
+                    <TouchableOpacity style={styles.headerLeft}>  
+                          <Feather name="clock" size={15} color="#00b38B"/> 
+                          <Text style={{color : '#404040', fontSize : 15, fontWeight : '500', paddingLeft : 5}} >Délais commande → </Text>
+                          <Text style={{color : '#404040', fontSize : 15, fontWeight : '500'}}>Dés que possible</Text> 
+                          
+                    </TouchableOpacity>
 
-                    </View>
-
-
+{/* 
                     <View style={styles.headerCenter}>
                         <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
-                    </View>
+                    </View> */}
 
-                    <View style = {styles.headerRight}>
-
-
-                    </View>
+                    <TouchableOpacity style = {styles.headerRight}>
+                    <AntDesign name="down" size={16} color="#00b38B"/>
+                    </TouchableOpacity>
 
                 </View>
 
@@ -241,8 +244,9 @@ const styles = StyleSheet.create({
       height : 65,
       backgroundColor : '#fff',
       flexDirection : 'row',    
-      justifyContent : 'space-between',
-      alignItems : 'center', 
+      /* justifyContent : 'space-between',*/
+      alignItems : 'flex-end', 
+      padding : 10,
       shadowColor: "#000",
       shadowOffset: {
 	    width: 0,
@@ -254,26 +258,21 @@ const styles = StyleSheet.create({
 
     headerLeft:{
       backgroundColor :'#fff',
-      flex :0.33,
-      height : '75%',
-      marginLeft : 10,
-      justifyContent : 'flex-end',
-  
+      paddingHorizontal : 10,
+      justifyContent : 'center',
+      flexDirection :'row',
     },
     headerCenter:{
-      
-      flex :0.33,
       height : '50%',
       justifyContent : 'flex-end',
       alignItems : 'center'
     },
 
     headerRight: {
-      flex :0.33,
-      height : '50%',
+     
       marginRight : 15,
-      alignItems : 'flex-end',
-      justifyContent :'flex-end'
+      /* alignItems : 'flex-end',
+      justifyContent :'flex-end' */
       },
 
       containerCardItem: {
