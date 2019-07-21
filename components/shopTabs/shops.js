@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, RefreshControl } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, RefreshControl, TextInput } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -8,6 +8,7 @@ import convertCurrency from '../../tools/convertCurrency.js';
 
 import { connect } from 'react-redux';
 import { AntDesign, Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons';
+
 
 class Shop extends React.Component {
 
@@ -184,25 +185,56 @@ class Shop extends React.Component {
       
         return (
             <View style={{flex : 1, backgroundColor : '#fff'}}>
-                <View style={styles.header}>
+
+              {/* Avant clic sur icon recherche */} 
+                {/* <View style={styles.header}>
+
+              
 
                     <TouchableOpacity style={styles.headerLeft}>  
-                          <Feather name="clock" size={15} color="#00b38B"/> 
-                          <Text style={{color : '#404040', fontSize : 15, fontWeight : '500', paddingLeft : 5}} >Délais commande → </Text>
-                          <Text style={{color : '#404040', fontSize : 15, fontWeight : '500'}}>Dés que possible</Text> 
+                          <Feather name="clock" size={18} color="#00b38B"/> 
+                          
+                          <Text style={{color : '#404040', fontSize : 17, fontWeight : '500', paddingLeft : 5}}>Dés que possible</Text> 
                           
                     </TouchableOpacity>
 
-{/* 
-                    <View style={styles.headerCenter}>
-                        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Home</Text>
-                    </View> */}
+ 
+                    
 
-                    <TouchableOpacity style = {styles.headerRight}>
-                    <AntDesign name="down" size={16} color="#00b38B"/>
+                    <TouchableOpacity style = {{paddingEnd : 20}}>
+                    <Feather name="search" size={20} color="#404040"/>
                     </TouchableOpacity>
 
-                </View>
+                </View> */}
+
+                 {/* ////////////////////////////////////////////// */}
+
+                 {/* Après clic sur icon recherche */}
+
+                 <View style={styles.header2}>
+
+                  <View style={{flex : 1, flexDirection: 'row', alignItems :'center',backgroundColor : "#F0F0F0", borderRadius : 8, paddingStart: 5}}>
+                 
+                  <Ionicons name="ios-search" size={18} color="#808080"/>
+                                     
+                  <TextInput 
+                  style ={{height : 35, flex : 1, paddingHorizontal: 8, fontWeight : '300', color : '#808080'}}
+                  placeholder= "Trouver un restaurant"
+                  /> 
+
+                  </View>
+
+                  <TouchableOpacity style ={{height : 35, justifyContent:'center', paddingHorizontal : 5}}>
+                    <Text style={{fontSize : 15, fontWeight : '400', color : '#1560BD'}}>Annuler</Text>
+                  </TouchableOpacity>
+                  
+
+                  </View>
+
+
+                 {/* ////////////////////////////////////////////////// */}
+
+
 
                     <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
                 </View>
@@ -244,8 +276,8 @@ const styles = StyleSheet.create({
       height : 65,
       backgroundColor : '#fff',
       flexDirection : 'row',    
-      /* justifyContent : 'space-between',*/
-      alignItems : 'flex-end', 
+      justifyContent : 'space-between',
+      alignItems : 'flex-end',
       padding : 10,
       shadowColor: "#000",
       shadowOffset: {
@@ -255,6 +287,24 @@ const styles = StyleSheet.create({
       shadowRadius: 2.22,
 
       },
+
+      header2 :{
+        height : 65,
+        backgroundColor : '#fff',
+        flexDirection : 'row',    
+        /* justifyContent : 'space-between', */
+        alignItems : 'flex-end',
+        paddingBottom: 8,
+        paddingTop: 10,
+        paddingHorizontal : 10,
+        shadowColor: "#000",
+        shadowOffset: {
+        width: 0,
+        height: 1,},
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+  
+        },
 
     headerLeft:{
       backgroundColor :'#fff',
@@ -305,17 +355,18 @@ const styles = StyleSheet.create({
       },
 
       nameRestaurant: {
-        fontSize: 18,
-        fontWeight :'500',
+        fontSize: 16,
+        color: '#404040',
+        fontWeight :'400',
         marginTop: 5,
       },
       priceRange: {
         color : '#808080',
-        fontSize: 15,
+        fontSize: 14,
       },
       descriptionRestaurant: {
-        fontSize: 15,
-        fontWeight :'400',
+        fontSize: 14,
+        fontWeight :'300',
         color: '#808080'
       },
       containerNote:{
@@ -325,12 +376,12 @@ const styles = StyleSheet.create({
         paddingVertical : 5,
       },
       noteRestaurant :{
-        color :'#00b38B',
-        fontSize: 14,
+        color :'#24445C',
+        fontSize: 13,
         fontWeight :'400', 
       },
       waitingTime:{
-        fontSize: 14,
+        fontSize: 13,
         fontWeight :'400', 
       },
       
