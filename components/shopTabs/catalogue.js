@@ -289,20 +289,22 @@ class Catalogue extends React.Component {
             >
 
                 <View 
-                style={{flexDirection: 'row',backgroundColor:'#00b38B', flex : 1, paddingHorizontal: 10,}}            
+                style={{flexDirection: 'row',backgroundColor:'#14a093', flex : 1, paddingHorizontal: 10, justifyContent :'space-between'}}            
                 >
 
 
-                <View style={{flexDirection : 'row', flex : 1, justifyContent: 'center', alignItems: 'center'}}>
-                        
-                    <View style={{flex: 0.2, alignItems: 'flex-start'}}>
-                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', backgroundColor: '#00a17d', paddingHorizontal: 4,paddingVertical : 2}}>0</Text>
+                <View style={{flexDirection : 'row', flex : 1, justifyContent: 'space-between', alignItems: 'center'}}>
+                    
+            
+                    <View style={{alignItems: 'flex-start', backgroundColor: '#108075',borderRadius : 5}}>
+                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', marginHorizontal: 4,marginVertical : 2,}}>0</Text>
                     </View>
                     
-                    <View style={{flex : 0.7, alignItems: 'center'}}>
+                    
+                    <View style={{ alignItems: 'center'}}>
                     <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>Voir la commande</Text>
                     </View>
-                    <View style={{flex: 0.2, alignItems: 'center'}}>
+                    <View style={{ alignItems: 'center'}}>
                     <Text style={{fontSize: 16, fontWeight : '600', color : '#fff'}}>{this.props.total}{this.state.currency}</Text>
                     </View>
 

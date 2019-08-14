@@ -185,17 +185,26 @@ class Settings extends React.Component {
           
                   </View>
           
-                    <TouchableOpacity style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff', }}> 
+                    <View style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff', }}> 
 
                       <Feather name = "lock" size={15} color ="#808080"/>
 
                        <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8}}>Reset your password</Text>
                                  
-                      </TouchableOpacity>
-
+                      </View>
+                  
                       <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}> 
                      </View>
-                
+                     <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
+            
+                  <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Mot de passe</Text>
+                  <TextInput 
+                  placeholder = 'Mettre le mot de passe'
+                  style= {{fontSize: 17}}
+                  secureTextEntry = {true}
+                  ></TextInput>
+
+</View>
               
             
 

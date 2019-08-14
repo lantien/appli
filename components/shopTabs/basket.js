@@ -548,7 +548,7 @@ headerRight: {
     
       },
       confirmButton:{
-        backgroundColor: '#00b38B',
+        backgroundColor: '#14a093',
         padding: 10,
         borderRadius: 3,
         height: 45,
