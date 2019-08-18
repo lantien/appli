@@ -205,7 +205,7 @@ class Account extends React.Component {
                 }}
             >
 
-                <AntDesign name = "profile" size={18} color ="#989898"/>
+                <AntDesign name = "profile" size={18} color ="#000"/>
                 <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Account details</Text>
 
             </TouchableOpacity>
@@ -228,7 +228,7 @@ class Account extends React.Component {
                     this.props.navigation.navigate('PaymentOptions');
                 }}
             >
-                <MaterialIcons name = "payment" size={18} color ="#989898"/>
+                <MaterialIcons name = "payment" size={18} color ="#000"/>
                 <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Payment options</Text>
             </TouchableOpacity>
 
@@ -249,7 +249,7 @@ class Account extends React.Component {
                 }}
             >
             
-                <Feather name = "help-circle" size={18} color ="#989898"/>
+                <Feather name = "help-circle" size={18} color ="#000"/>
 
                 <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Support</Text>
 
@@ -267,7 +267,7 @@ class Account extends React.Component {
                         this.logout();
                     }}
                 >
-                    <Feather name = "log-out" size={18} color ="#989898"/>
+                    <Feather name = "log-out" size={18} color ="#000"/>
                     <Text style = {{color : '#505050', fontSize: 16, fontWeight: '500', marginHorizontal: 15}}>Log out</Text>
 
                 </TouchableOpacity>
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',    
         justifyContent : 'space-between',
         alignItems : 'center', 
-        shadowColor: "#000",
+        shadowColor: "#808080",
         shadowOffset: {
           width: 0,
           height: 1,},
@@ -387,7 +387,8 @@ const styles = StyleSheet.create({
         
     },
     emailText: {
-        color : '#0258',
+        fontWeight : '500',
+        color : '#2F7DE1',
     },
     line:{
         backgroundColor: '#bfbfbf',

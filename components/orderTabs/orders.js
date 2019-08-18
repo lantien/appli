@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
       flexDirection : 'row',    
       justifyContent : 'space-between',
       alignItems : 'center', 
-      shadowColor: "#000",
+      shadowColor: "#808080",
       shadowOffset: {
         width: 0,
         height: 1,},

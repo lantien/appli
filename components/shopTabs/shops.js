@@ -187,57 +187,88 @@ class Shop extends React.Component {
             <View style={{flex : 1, backgroundColor : '#fff'}}>
 
               {/* Avant clic sur icon recherche */} 
-                {/* <View style={styles.header}>
+                 {/* <View style={styles.header}>
 
+                <View style={{flex : 1 ,backgroundColor :'#fff', marginTop : 20, flexDirection : 'row',justifyContent : 'space-between', alignItems : 'center',}}>
               
+                <View style = {{height : 35, justifyContent : 'flex-end'}}>
 
-                    <TouchableOpacity style={styles.headerLeft}>  
-                          <Feather name="clock" size={18} color="#00b38B"/> 
-                          
+                    <TouchableOpacity style={styles.headerLeft}>
+
+                        <View style ={{ marginVertical : 2}}>
+                          <Feather name="clock" size={15} color="#00b38B"/> 
+                          </View>  
+
+                          <View style={{}}>                          
                           <Text style={{color : '#404040', fontSize : 17, fontWeight : '500', paddingLeft : 5}}>Dés que possible</Text> 
-                          
-                    </TouchableOpacity>
+                          </View>
 
+                    </TouchableOpacity>
+                    </View>
  
                     
+                    <View style={{height: 35, justifyContent :'flex-end', alignItems: 'center', }}>
 
-                    <TouchableOpacity style = {{paddingEnd : 20}}>
-                    <Feather name="search" size={20} color="#404040"/>
+                    <TouchableOpacity style = {{paddingEnd : 20, marginVertical : -2, flexDirection :'row'}}>
+                    <Ionicons name="ios-search" size={22} color="#000"/>
                     </TouchableOpacity>
+                    </View>
 
+                </View>
                 </View> */}
 
                  {/* ////////////////////////////////////////////// */}
 
                  {/* Après clic sur icon recherche */}
 
-                 <View style={styles.header2}>
+                  <View style={styles.header2}>
 
-                  <View style={{flex : 1, flexDirection: 'row', alignItems :'center',backgroundColor : "#F0F0F0", borderRadius : 8, paddingStart: 5}}>
+                  <View style={{flex : 1 ,backgroundColor :'#fff', marginTop : 20, flexDirection : 'row',justifyContent : 'space-between', alignItems : 'center',}}>
+
+                  <View style={{flex : 1, flexDirection: 'row', alignItems :'center',backgroundColor : "#fff", borderRadius : 8, paddingStart: 20,}}>
                  
-                  <Ionicons name="ios-search" size={18} color="#808080"/>
+                  <Ionicons name="ios-search" size={18} color="#000"/>
                                      
                   <TextInput 
-                  style ={{height : 35, flex : 1, paddingHorizontal: 8, fontWeight : '300', color : '#808080'}}
+                  style ={{height : 35, flex : 1, paddingHorizontal: 8, fontWeight : '300', color : '#000'}}
                   placeholder= "Trouver un restaurant"
                   /> 
 
                   </View>
 
+                <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>
+                  <AntDesign 
+                  name = "closecircle" 
+                  size={13} 
+                  color ="#cacaca"
+                  onPress={() => {
+
+                    this._clearPassword();
+                  }}
+                />
+                </View>
+
+
+                  <View style= {{ backgroundColor : '#fff', width : 1, height: 35, justifyContent :'center', alignItems :'center'}}>
+                    <View style= {{ backgroundColor : '#cacaca', width : 1, height: 25}}>
+                    </View>
+                  </View>
+
                   <TouchableOpacity style ={{height : 35, justifyContent:'center', paddingHorizontal : 5}}>
-                    <Text style={{fontSize : 15, fontWeight : '400', color : '#1560BD'}}>Annuler</Text>
+                    <Text style={{fontSize : 15, fontWeight : '400', color : '#000'}}>Annuler</Text>
                   </TouchableOpacity>
                   
-
                   </View>
+                  </View> 
+                
 
 
                  {/* ////////////////////////////////////////////////// */}
 
 
 
-                    <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
-                </View>
+                    {/* <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
+                </View> */}
 
 
                <FlatList
@@ -273,31 +304,22 @@ const styles = StyleSheet.create({
     
     },
     header :{
-      height : 65,
-      backgroundColor : '#fff',
-      flexDirection : 'row',    
-      justifyContent : 'space-between',
-      alignItems : 'flex-end',
-      padding : 10,
-      shadowColor: "#000",
+      height : 70,
+      backgroundColor : '#fff',      
+      shadowColor: "#808080",
       shadowOffset: {
 	    width: 0,
 	    height: 1,},
       shadowOpacity: 0.22,
-      shadowRadius: 2.22,
+      shadowRadius: 20,
+      
 
       },
 
       header2 :{
-        height : 65,
+        height : 80,
         backgroundColor : '#fff',
-        flexDirection : 'row',    
-        /* justifyContent : 'space-between', */
-        alignItems : 'flex-end',
-        paddingBottom: 8,
-        paddingTop: 10,
-        paddingHorizontal : 10,
-        shadowColor: "#000",
+        shadowColor: "#808080",
         shadowOffset: {
         width: 0,
         height: 1,},
@@ -308,7 +330,8 @@ const styles = StyleSheet.create({
 
     headerLeft:{
       backgroundColor :'#fff',
-      paddingHorizontal : 10,
+      paddingLeft : 20,
+      paddingRight : 10,
       justifyContent : 'center',
       flexDirection :'row',
     },
@@ -344,7 +367,7 @@ const styles = StyleSheet.create({
         
       },
       pictureLogo:{
-        height: 160,
+        height: 150,
         
         borderRadius: 3
       },
@@ -366,7 +389,7 @@ const styles = StyleSheet.create({
       },
       descriptionRestaurant: {
         fontSize: 14,
-        fontWeight :'300',
+        fontWeight :'400',
         color: '#808080'
       },
       containerNote:{
