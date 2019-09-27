@@ -37,24 +37,24 @@ class Shop extends React.Component {
 
         (position) => {
             
-            this.state.latitude = position.coords.latitude;
-            this.state.longitude = position.coords.longitude;
-            this.state.error = null;
+              this.state.latitude = position.coords.latitude;
+              this.state.longitude = position.coords.longitude;
+              this.state.error = null;
 
-            this._getShops(this.position[0], this.position[1]);
-            /* this._getShops(position.coords.latitude, 
-                position.coords.longitude); */
-        },
-        () => {
+              this._getShops(this.position[0], this.position[1]);
+              /* this._getShops(position.coords.latitude, 
+                  position.coords.longitude); */
+          },
+          () => {
 
-            this._getShops(this.position[0], this.position[1]);
-        },
-        { 
-            enableHighAccuracy: false, 
-            timeout: 20000, 
-            maximumAge: 1000 
-        },
-    );
+              this._getShops(this.position[0], this.position[1]);
+          },
+          { 
+              enableHighAccuracy: false, 
+              timeout: 20000, 
+              maximumAge: 1000 
+          },
+      );
     }
 
     _getShops(latitude, longitude) {

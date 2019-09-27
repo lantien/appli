@@ -13,6 +13,14 @@ import convertCurrency from '../../tools/convertCurrency.js';
 import ScrollPicker from 'react-native-picker-scrollview';
 
 import { connect } from 'react-redux';
+import stripeKey from '../../config/stripe.config';
+
+import stripe from 'tipsi-stripe';
+
+stripe.setOptions({
+
+  publishableKey: stripeKey.publicKey,
+});
 
 class Basket extends React.Component {
 
@@ -31,6 +39,53 @@ class Basket extends React.Component {
           ],
           selectedTime: 0
         };
+    }
+
+    requestPayment = () => {
+
+      return stripe
+        .paymentRequestWithCardForm()
+        .then(stripeTokenInfo => {
+
+          return doPayment(stripeTokenInfo.tokenId);
+        })
+        .then(() => {
+          
+          console.warn('Payment succeeded!');
+        })
+        .catch(error => {
+          console.warn('Payment failed', { error });
+        });
+    }
+
+    doPayment = (tokenId) => {
+      const body = {
+        amount: amount,
+        tokenId: tokenId,
+      };
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      return fetch(apiUrl + 'me/order', {
+                  method: 'POST',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-access-token': store.getState().token
+                  },
+                  body: JSON.stringify({
+                      shopID: this.props.shopID,
+                      orderContent: this.props.basket,
+                      currency: this.props.currency,
+                      tokenId: tokenId
+                  })
+              })
+        .then(({ data }) => {
+          return data;
+        })
+        .catch(error => {
+          return Promise.reject('Error in making payment', error);
+        });
     }
 
     componentWillMount() {

@@ -4,7 +4,7 @@ import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 
-import { Localization } from 'expo';
+import * as Localization from 'expo-localization'
 
 import OrderDetail from './orderDetail.js';
 

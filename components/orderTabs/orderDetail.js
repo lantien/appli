@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollView } from 'react-native';
 
-import { Localization } from 'expo';
+import * as Localization from 'expo-localization'
 
 import convertCurrency from '../../tools/convertCurrency.js';
 import { connect } from 'react-redux';

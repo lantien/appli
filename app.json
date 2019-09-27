@@ -3,16 +3,16 @@
     "name": "Foodr",
     "slug": "Foodr",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
       "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets_save/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets_save/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
