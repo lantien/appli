@@ -9,6 +9,8 @@
   "dependencies": {
     "expo": "^33.0.0",
     "expo-localization": "^5.0.1",
+    "expo-payments-stripe": "^5.0.1",
+    "expokit": "^33.0.4",
     "moment": "^2.24.0",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
@@ -23,6 +25,7 @@
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-textinput-effects": "^0.5.1",
     "react-native-typography": "^1.4.0",
+    "react-native-unimodules": "^0.4.2",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.3.2",
     "react-navigation-material-bottom-tabs": "^1.0.0",

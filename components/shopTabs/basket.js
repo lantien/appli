@@ -15,12 +15,9 @@ import ScrollPicker from 'react-native-picker-scrollview';
 import { connect } from 'react-redux';
 import stripeKey from '../../config/stripe.config';
 
-import stripe from 'tipsi-stripe';
 
-stripe.setOptions({
+import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 
-  publishableKey: stripeKey.publicKey,
-});
 
 class Basket extends React.Component {
 
@@ -41,31 +38,26 @@ class Basket extends React.Component {
         };
     }
 
-    requestPayment = () => {
+    requestPayment = async () => {
 
-      return stripe
-        .paymentRequestWithCardForm()
-        .then(stripeTokenInfo => {
+      try {
+        
+        const token = await Stripe.paymentRequestWithCardFormAsync();
+        this.doPayment(token.tokenId);
+        
+      } catch(err) {
 
-          return doPayment(stripeTokenInfo.tokenId);
-        })
-        .then(() => {
-          
-          console.warn('Payment succeeded!');
-        })
-        .catch(error => {
-          console.warn('Payment failed', { error });
-        });
+      }
+
+      
     }
 
     doPayment = (tokenId) => {
-      const body = {
-        amount: amount,
-        tokenId: tokenId,
-      };
+
       const headers = {
         'Content-Type': 'application/json',
       };
+
       return fetch(apiUrl + 'me/order', {
                   method: 'POST',
                   headers: {
@@ -80,55 +72,34 @@ class Basket extends React.Component {
                       tokenId: tokenId
                   })
               })
-        .then(({ data }) => {
-          return data;
-        })
-        .catch(error => {
-          return Promise.reject('Error in making payment', error);
-        });
+              .then(data => {
+
+                return data.json();
+              })
+              .then(data => {
+
+                var date = new Date(data.createdAt);
+
+                data.createdAt = date.toLocaleDateString();
+                //data.symbol = convertCurrency(data.currency);
+                data.heure = date.getHours() + ":" + date.getMinutes();
+        
+                store.dispatch({
+                  type: 'ADD_ORDER',
+                  orderList: data
+                });
+              })
+              .catch(error => {
+                return Promise.reject('Error in making payment', error);
+              });
     }
 
     componentWillMount() {
 
+      Stripe.setOptionsAsync({
+        publishableKey: stripeKey.publicKey
+      });
       this.setState(this.props.navigation.getParam('shopData', null));
-    }
-
-    makeOrder = () => {
-
-        fetch(apiUrl + 'me/order', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'x-access-token': store.getState().token
-            },
-            body: JSON.stringify({
-                shopID: this.props.shopID,
-                orderContent: this.props.basket,
-                currency: this.props.currency
-            })
-        })
-        .then(data => {
-  
-            return data.json();
-        })
-        .then(data => {
-
-          var date = new Date(data.createdAt);
-
-          data.createdAt = date.toLocaleDateString();
-          //data.symbol = convertCurrency(data.currency);
-          data.heure = date.getHours() + ":" + date.getMinutes();
-  
-          store.dispatch({
-            type: 'ADD_ORDER',
-            orderList: data
-          });
-        })
-        .catch(err => {
-  
-            console.log(err);
-        })
     }
 
     deleteItem = (id, prix) => {
@@ -332,7 +303,7 @@ class Basket extends React.Component {
           <View style={styles.containerFooter}>
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.confirmButton}
-                  onPress={this.makeOrder}
+                  onPress={this.requestPayment}
                 >
                   <Text style={styles.buttonText}>Confirmer</Text>
                   </TouchableOpacity>
