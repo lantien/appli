@@ -41,9 +41,20 @@ class Basket extends React.Component {
     requestPayment = async () => {
 
       try {
-        
-        const token = await Stripe.paymentRequestWithCardFormAsync();
-        this.doPayment(token.tokenId);
+
+        if(store.getState().token == null) {
+
+          store.dispatch({
+            type: 'SET_WILLPAY',
+            willPay: true
+          });
+
+          this.props.screenProps.rootNavigation.navigate('Account');
+        } else {
+
+          const token = await Stripe.paymentRequestWithCardFormAsync();
+          this.doPayment(token.tokenId);
+        }
         
       } catch(err) {
 

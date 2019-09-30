@@ -4,7 +4,9 @@ import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { connect } from 'react-redux';
 
-import * as Localization from 'expo-localization'
+import * as Localization from 'expo-localization';
+
+import { StackActions, NavigationActions } from 'react-navigation';
 
 import OrderDetail from './orderDetail.js';
 

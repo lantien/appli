@@ -2,6 +2,7 @@ import Shop from './shop.tab.js'
 import Order from './order.tab.js'
 import Account from './account.tab.js'
 
+
 import React from 'react';
 import { Icon } from 'react-native-elements'
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
@@ -9,7 +10,9 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 
 const TabNavigator = createMaterialBottomTabNavigator({
     Shop: {
-        screen: Shop,
+        screen: ({ navigation }) => {
+            return <Shop screenProps={{ rootNavigation: navigation }} />
+        },
         navigationOptions: {
             tabBarLabel: 'Restaurants',
             tabBarIcon: ({tintColor, activeTintColor}) => (

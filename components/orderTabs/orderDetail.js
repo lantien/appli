@@ -12,7 +12,7 @@ import 'moment/locale/fr';
 class OrderDetail extends React.Component {
 
     static navigationOptions = {
-        title: 'Order Details'
+        title: 'Order Details',
     };
 
     constructor(props) {

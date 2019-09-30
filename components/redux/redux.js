@@ -1,3 +1,5 @@
+import { newTS } from "uuid-js";
+
 const initialState = {
     
     token: "",
@@ -10,13 +12,20 @@ const initialState = {
         firstname: "",
         lastname: "",
         email: ""
-    }
+    },
+    willPay: false
 };
 
 const myReducer = (state = initialState, action) => {
     let nextState;
 
     switch (action.type) {
+        case 'SET_WILLPAY': 
+            nextState = {
+                ...state,
+                willPay: action.willPay
+            }
+            return nextState || state
         case 'SET_TOKEN':
             nextState = {
                 ...state,

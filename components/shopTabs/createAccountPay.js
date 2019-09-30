@@ -136,13 +136,8 @@ export default class CreateAccount extends React.Component {
                 return AsyncStorage.setItem('token', data.token);
             })
             .then(() => {
-    
-                const navigateAction = StackActions.reset({
-                    index: 0,
-                    actions: [NavigationActions.navigate({ routeName: "Account" })],
-                });
-            
-                this.navigate.dispatch(navigateAction);
+                
+                this.navigate.goBack();
             })
             .catch(err => {
     

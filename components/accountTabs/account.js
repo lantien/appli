@@ -42,17 +42,26 @@ class Account extends React.Component {
         this.getOrders();
         this.getProfile();
 
+
         if(this.props.navigation.getParam('justLogged', false)) {
             
             this.props.screenProps.rootNavigation.navigate({ routeName: 'Shop' });
+        } else if(this.props.willPay) {
+
+            store.dispatch({
+                type: 'SET_WILLPAY',
+                willPay: false
+            });
+            this.props.screenProps.rootNavigation.navigate({ routeName: 'Shop' });
         }
     }
+
 
     logout() {
 
         store.dispatch({
             type: 'SET_TOKEN',
-            token: ""
+            token: null
         });
         store.dispatch({
             type: 'SET_ORDERS',
