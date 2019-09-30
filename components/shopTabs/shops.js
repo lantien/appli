@@ -22,7 +22,9 @@ class Shop extends React.Component {
             latitude: null,
             longitude: null,
             error: null,
-            isLoading: false
+            isLoading: false,
+            search: '',
+            showCancelSearch: false
         }
     }
 
@@ -42,8 +44,6 @@ class Shop extends React.Component {
               this.state.error = null;
 
               this._getShops(this.position[0], this.position[1]);
-              /* this._getShops(position.coords.latitude, 
-                  position.coords.longitude); */
           },
           () => {
 
@@ -55,6 +55,53 @@ class Shop extends React.Component {
               maximumAge: 1000 
           },
       );
+    }
+
+    _setSearch(text) {
+
+      this.setState({
+          search: text,
+          showCancelSearch: text.length > 0
+      });
+    }
+
+    displaySearchAction() {
+
+      if(this.state.showCancelSearch) {
+
+          return (
+            <View style={{justifyContent: 'flex-start', flexDirection: 'row'}}>
+            <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>
+              <AntDesign 
+                name = "closecircle" 
+                size={13} 
+                color ="#cacaca"
+                onPress={() => {
+
+                  this.setState({
+                    search: ''
+                  });
+                }}
+              />
+            </View>
+
+
+            <View style= {{ backgroundColor : '#fff', width : 1, height: 35, justifyContent :'center', alignItems :'center'}}>
+              <View style= {{ backgroundColor : '#cacaca', width : 1, height: 25}}>
+              </View>
+            </View>
+
+            <TouchableOpacity 
+              style ={{height : 35, justifyContent:'center', paddingHorizontal : 5}}
+              onPress={() => {
+
+                this._setSearch('');
+              }}
+            >
+              <Text style={{fontSize : 15, fontWeight : '400', color : '#000'}}>Annuler</Text>
+            </TouchableOpacity>
+          </View>);
+      }
     }
 
     _getShops(latitude, longitude) {
@@ -221,45 +268,36 @@ class Shop extends React.Component {
 
                  {/* Après clic sur icon recherche */}
 
-                  <View style={styles.header2}>
+                  {<View style={styles.header2}>
 
-                  <View style={{flex : 1 ,backgroundColor :'#fff', marginTop : 20, flexDirection : 'row',justifyContent : 'space-between', alignItems : 'center',}}>
+                    <View style={{flex : 1 ,backgroundColor :'#fff', marginTop : 20, flexDirection : 'row',justifyContent : 'space-between', alignItems : 'center',}}>
 
-                  <View style={{flex : 1, flexDirection: 'row', alignItems :'center',backgroundColor : "#fff", borderRadius : 8, paddingStart: 20,}}>
-                 
-                  <Ionicons name="ios-search" size={18} color="#000"/>
-                                     
-                  <TextInput 
-                  style ={{height : 35, flex : 1, paddingHorizontal: 8, fontWeight : '300', color : '#000'}}
-                  placeholder= "Trouver un restaurant"
-                  /> 
+                      <View style={{flex : 1, flexDirection: 'row', alignItems :'center',backgroundColor : "#fff", borderRadius : 8, paddingStart: 20,}}>
+                    
+                        <Ionicons name="ios-search" size={18} color="#000"/>
+                                        
+                        <TextInput 
+                          style ={{height : 35, flex : 1, paddingHorizontal: 8, fontWeight : '300', color : '#000'}}
+                          placeholder= "Trouver un restaurant"
+                          onChangeText={(text) => {
 
-                  </View>
+                            this._setSearch(text);
+                          }}
+                          onFocus={() => {
 
-                <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>
-                  <AntDesign 
-                  name = "closecircle" 
-                  size={13} 
-                  color ="#cacaca"
-                  onPress={() => {
+                            this.setState({
 
-                    this._clearPassword();
-                  }}
-                />
-                </View>
+                              showCancelSearch: true
+                            });
+                          }}
+                          value={this.state.search}
+                        /> 
 
+                      </View>
 
-                  <View style= {{ backgroundColor : '#fff', width : 1, height: 35, justifyContent :'center', alignItems :'center'}}>
-                    <View style= {{ backgroundColor : '#cacaca', width : 1, height: 25}}>
-                    </View>
-                  </View>
-
-                  <TouchableOpacity style ={{height : 35, justifyContent:'center', paddingHorizontal : 5}}>
-                    <Text style={{fontSize : 15, fontWeight : '400', color : '#000'}}>Annuler</Text>
-                  </TouchableOpacity>
-                  
-                  </View>
-                  </View> 
+                      {this.displaySearchAction()}
+                      </View>
+                  </View>}
                 
 
 

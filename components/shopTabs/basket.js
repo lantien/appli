@@ -27,10 +27,10 @@ class Basket extends React.Component {
         this.state = {
           listTimer: [
             'Dés que possible',
-            'Dans 5min',
-            'Dans 10min',
-            'Dans 20min',
-            'Dans 30min',
+            'Dans 5 minutes',
+            'Dans 10 minutes',
+            'Dans 20 minutes',
+            'Dans 30 minutes',
             'Dans 1 heure',
             'Dans 2 heures'
           ],
@@ -47,9 +47,38 @@ class Basket extends React.Component {
         
       } catch(err) {
 
+        console.log(err);
       }
 
       
+    }
+
+    getInMinutes = (i) => {
+
+      switch (i) {
+
+        case 0:
+
+          return 0;
+        case 1:
+
+          return 5;
+        case 2:
+
+          return 10;
+        case 3:
+
+          return 20;
+        case 4:
+
+          return 30;
+        case 5:
+          
+          return 60;
+        case 6:
+          
+          return 120;
+      }
     }
 
     doPayment = (tokenId) => {
@@ -69,10 +98,17 @@ class Basket extends React.Component {
                       shopID: this.props.shopID,
                       orderContent: this.props.basket,
                       currency: this.props.currency,
-                      tokenId: tokenId
+                      tokenId: tokenId,
+                      time: this.getInMinutes(this.state.selectedTime)
                   })
               })
               .then(data => {
+
+                
+                if(data.status != 200) {
+
+                  throw 'fail payment';
+                }
 
                 return data.json();
               })
@@ -90,7 +126,8 @@ class Basket extends React.Component {
                 });
               })
               .catch(error => {
-                return Promise.reject('Error in making payment', error);
+
+                console.log(error);
               });
     }
 
@@ -237,7 +274,10 @@ class Basket extends React.Component {
                   )
               }}
               onValueChange={(data, selectedIndex) => {
-                  //
+                  
+                this.setState({
+                  selectedTime: selectedIndex
+                });
               }}
             />
             </View>
