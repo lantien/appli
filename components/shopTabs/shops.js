@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, RefreshControl, TextInput } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, RefreshControl, TextInput, Keyboard } from 'react-native';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
@@ -147,6 +147,7 @@ class Shop extends React.Component {
               onPress={() => {
 
                 this._setSearch('');
+                Keyboard.dismiss();
               }}
             >
               <Text style={{fontSize : 15, fontWeight : '400', color : '#000'}}>Annuler</Text>
