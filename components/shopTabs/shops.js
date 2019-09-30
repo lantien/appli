@@ -9,6 +9,8 @@ import convertCurrency from '../../tools/convertCurrency.js';
 import { connect } from 'react-redux';
 import { AntDesign, Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons';
 
+import * as JsSearch from 'js-search';
+
 
 class Shop extends React.Component {
 
@@ -24,7 +26,9 @@ class Shop extends React.Component {
             error: null,
             isLoading: false,
             search: '',
-            showCancelSearch: false
+            showCancelSearch: false,
+            nativeSearch: null,
+            searchList: null
         }
     }
 
@@ -57,11 +61,60 @@ class Shop extends React.Component {
       );
     }
 
-    _setSearch(text) {
+    _parseForSearch() {
+      var searchIndex = new JsSearch.Search('name');
+      searchIndex.addIndex('name');
+      searchIndex.addIndex('type');
+      searchIndex.addIndex('adress');
+      searchIndex.addIndex('categorieCata');
+      searchIndex.addIndex('zip');
+
+
+      for(var i in this.state.listShops) {
+
+        const parsedCata = JSON.parse(this.state.listShops[i].catalogue);
+
+        this.state.listShops[i].categorieCata = [];
+
+        for(var j in parsedCata) {
+
+          this.state.listShops[i].categorieCata.push(parsedCata[j].name);
+        }
+      }
+
+      searchIndex.addDocuments(this.state.listShops);
 
       this.setState({
+        searchList: searchIndex
+      });
+    }
+
+    _setSearch(text) {
+
+      const isEmpty = text.length > 0;
+
+      if(isEmpty) {
+
+        this.setState({
+          listShops: this.state.searchList.search(text),
           search: text,
-          showCancelSearch: text.length > 0
+          showCancelSearch: isEmpty
+        });
+      } else {
+
+        this.setState({
+          listShops: this.state.nativeSearch,
+          search: text,
+          showCancelSearch: isEmpty
+        });
+      }
+    }
+
+    resetSearch() {
+
+      this.setState({
+        listShops: this.state.nativeSearch,
+        search: '',
       });
     }
 
@@ -78,9 +131,7 @@ class Shop extends React.Component {
                 color ="#cacaca"
                 onPress={() => {
 
-                  this.setState({
-                    search: ''
-                  });
+                  this.resetSearch();
                 }}
               />
             </View>
@@ -124,8 +175,10 @@ class Shop extends React.Component {
 
             this.setState({
                 listShops: data,
-                isLoading: false
+                isLoading: false,
+                nativeSearch: data
             });
+            this._parseForSearch();
         })
         .catch(err => {
 
