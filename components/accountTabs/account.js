@@ -12,6 +12,7 @@ import convertCurrency from '../../tools/convertCurrency.js';
 
 import apiUrl from '../../config/api.url.js';
 import store from '../redux/store.js';
+import Toast from 'react-native-root-toast';
 
 class Account extends React.Component {
 
@@ -46,7 +47,22 @@ class Account extends React.Component {
         if(this.props.navigation.getParam('justLogged', false)) {
             
             this.props.screenProps.rootNavigation.navigate({ routeName: 'Shop' });
-        } else if(this.props.willPay) {
+        }
+    }
+
+    componentWillUpdate() {
+
+        
+        if(this.props.willPay) {
+
+            let toast = Toast.show('Compte crée avec succès !', {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.BOTTOM,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+            });
 
             store.dispatch({
                 type: 'SET_WILLPAY',

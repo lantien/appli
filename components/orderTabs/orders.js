@@ -17,6 +17,8 @@ import store from '../redux/store.js';
 import moment from 'moment';
 import 'moment/locale/fr';
 
+import Modal from "react-native-modal";
+
 class Orders extends React.Component {
     static navigationOptions = {
       title: 'My orders',

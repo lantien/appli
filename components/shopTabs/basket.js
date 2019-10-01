@@ -17,6 +17,7 @@ import stripeKey from '../../config/stripe.config';
 
 
 import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
+import Modal from "react-native-modal";
 
 
 class Basket extends React.Component {
@@ -34,7 +35,8 @@ class Basket extends React.Component {
             'Dans 1 heure',
             'Dans 2 heures'
           ],
-          selectedTime: 0
+          selectedTime: 0,
+          commentsModal: false
         };
     }
 
@@ -323,7 +325,15 @@ class Basket extends React.Component {
 
                 <View style={styles.containerInstructions}>
 
-                  <TouchableWithoutFeedback style={{width : '100%'}}>
+                  <TouchableWithoutFeedback 
+                    style={{width : '100%'}}
+                    onPress={() => {
+
+                      this.setState({
+                        commentsModal: true
+                      });
+                    }}
+                  >
                     <Text style={{color : '#808080', fontSize : 14, fontWeight : '500'}}>Ajouter un commentaire</Text>
                     </TouchableWithoutFeedback>
                   </View>
@@ -361,6 +371,35 @@ class Basket extends React.Component {
                 </View>
             </View>
 
+              <Modal
+                  isVisible={this.state.commentsModal}
+                  backdropOpacity={0.7}
+                  animationIn={'zoomIn'}
+                  animationOut={'zoomOut'}
+                  animationInTiming={350}
+                  animationOutTiming={350}
+                  backdropTransitionInTiming={350}
+                  backdropTransitionOutTiming={350}
+              >
+                <TouchableOpacity
+                    onPress={() => {
+
+                        this.setState({
+                          commentsModal: false
+                        });
+                    }}
+                    style={{flex:1, justifyContent:'center', alignItems:'center',}}
+                >
+                    <View style={styles.modalContent}>
+                      <TextInput
+                          multiline={true}
+                          underlineColorAndroid='black'
+                          placeholder="Enter comments"
+                          style={{ height: 40 }}
+                      />
+                    </View>
+                </TouchableOpacity>
+              </Modal>
             </View>
         );
     }
@@ -686,5 +725,17 @@ headerRight: {
       priceOfArticle: {
         backgroundColor: '#fff',
       },
-    
+      modalContent: {
+        backgroundColor: 'white',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+      },
+      input: {
+        paddingRight: 10,
+        lineHeight: 10,
+        flex: 2,
+        textAlignVertical: 'top'
+    },
 });
