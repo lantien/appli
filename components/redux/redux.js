@@ -5,6 +5,7 @@ const initialState = {
     token: "",
     orderList: [],
     basket: [],
+    basketSize: 0,
     total: 0,
     shopID: "",
     currency: "",
@@ -38,6 +39,7 @@ const myReducer = (state = initialState, action) => {
                         .filter(e => e.quantity > 0)
                 ,
                 total: state.total - action.prix,
+                basketSize: state.basketSize - 1
             }
             return nextState || state
         case 'PLUS_ONE': 
@@ -54,6 +56,7 @@ const myReducer = (state = initialState, action) => {
                     }
                 ),
                 total: state.total + action.prix,
+                basketSize: state.basketSize + 1
             }
             return nextState || state
         case 'SET_WILLPAY': 
@@ -90,7 +93,8 @@ const myReducer = (state = initialState, action) => {
             nextState = {
                 ...state,
                 total: state.total + action.prix,
-                basket: [...state.basket, action.item]
+                basket: [...state.basket, action.item],
+                basketSize: state.basketSize + 1
             }
             return nextState || state
         case 'REMOVE_ITEM':        

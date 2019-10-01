@@ -298,7 +298,7 @@ class Catalogue extends React.Component {
                     
             
                     <View style={{alignItems: 'flex-start', backgroundColor: '#108075',borderRadius : 5}}>
-                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', marginHorizontal: 4,marginVertical : 2,}}>0</Text>
+                        <Text style={{fontSize: 16, fontWeight : '600', color : '#fff', marginHorizontal: 4,marginVertical : 2,}}>{this.props.basketSize}</Text>
                     </View>
                     
                     
