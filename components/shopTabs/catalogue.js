@@ -102,7 +102,8 @@ class Catalogue extends React.Component {
               supps: this.state.selectedSupps.map(e => JSON.parse(e)),
               nom: cardItem.name,
               nom_supps: [],
-              prix: 0
+              prix: 0,
+              quantity: 1
           };
   
           var total = Number(cardItem.prix);
@@ -122,7 +123,7 @@ class Catalogue extends React.Component {
           store.dispatch({
               type: 'ADD_ITEM',
               item: item,
-              prix: total
+              prix: total*item.quantity
           });
   
           this.setState({

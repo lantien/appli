@@ -177,15 +177,35 @@ class Basket extends React.Component {
 
               <View style={styles.containerLeft}>
 
-                <TouchableOpacity style={styles.containerMinus}>
+                <TouchableOpacity 
+                  style={styles.containerMinus}
+                  onPress={() => {
+
+                    store.dispatch({
+                        type: 'MINUS_ONE',
+                        id: id,
+                        prix: item.prix
+                    });
+                  }}
+                >
                   <Feather name="minus" size={17} color="#00b38B"/>
                 </TouchableOpacity>
 
                 <View style={styles.containerNumber}>
-                  <Text style={styles.numberOfArticle}>1</Text>
+                  <Text style={styles.numberOfArticle}>{item.quantity}</Text>
                 </View>
 
-                <TouchableOpacity style={styles.containerPlus}>
+                <TouchableOpacity 
+                  style={styles.containerPlus}
+                  onPress={() => {
+
+                    store.dispatch({
+                        type: 'PLUS_ONE',
+                        id: id,
+                        prix: item.prix
+                    });
+                  }}
+                >
                   <Feather name="plus" size={17} color="#00b38B"/>
                 </TouchableOpacity>
               </View>
@@ -198,7 +218,7 @@ class Basket extends React.Component {
 
               <View style={{flex : 0.2, alignItems: 'flex-end'}}>
                 <View style={styles.priceOfArticle}>
-                  <Text style={styles.textContentOfArticle}>{item.prix}{this.state.currency}</Text>
+                  <Text style={styles.textContentOfArticle}>{item.prix*item.quantity}{this.state.currency}</Text>
                 </View>
               </View>
             </View>

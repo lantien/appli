@@ -20,6 +20,42 @@ const myReducer = (state = initialState, action) => {
     let nextState;
 
     switch (action.type) {
+        case 'MINUS_ONE': 
+            nextState = {
+                ...state,
+                basket: state.basket
+                        .map(
+                            (item, i) => {
+
+                                if(i == action.id) {
+
+                                    item.quantity -= 1;
+
+                                }
+                                return item;
+                            }
+                        )
+                        .filter(e => e.quantity > 0)
+                ,
+                total: state.total - action.prix,
+            }
+            return nextState || state
+        case 'PLUS_ONE': 
+            nextState = {
+                ...state,
+                basket: state.basket.map(
+                    (item, i) => {
+
+                        if(i == action.id) {
+
+                            item.quantity += 1;
+                        }
+                        return item;
+                    }
+                ),
+                total: state.total + action.prix,
+            }
+            return nextState || state
         case 'SET_WILLPAY': 
             nextState = {
                 ...state,

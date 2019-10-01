@@ -49,11 +49,11 @@ class OrderDetail extends React.Component {
 
       orderList = orderList.item;
       
-      let tmpPrice = orderList.prix + this.state.currency;
+      let tmpPrice = (orderList.prix * orderList.quantity) + this.state.currency;
       return (
         <View style={styles.orderDetails}>
           <View style={styles.numberOfArticle}>
-            <Text style={styles.textNumberOfArticle}>1x</Text>
+            <Text style={styles.textNumberOfArticle}>{orderList.quantity}x</Text>
           </View>
           <View style={styles.contentOfArticle}>
             <Text style={styles.textContentOfArticle}>{orderList.prod}</Text>
