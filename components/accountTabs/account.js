@@ -310,6 +310,12 @@ class Account extends React.Component {
                 animationOutTiming={350}
                 backdropTransitionInTiming={350}
                 backdropTransitionOutTiming={350}
+                onRequestClose={() => {
+                
+                    this.setState({
+                        showSupport: false
+                    });
+                }}
             >
             <TouchableOpacity
                 onPress={() => {

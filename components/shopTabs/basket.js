@@ -380,6 +380,12 @@ class Basket extends React.Component {
                   animationOutTiming={350}
                   backdropTransitionInTiming={350}
                   backdropTransitionOutTiming={350}
+                  onRequestClose={() => {
+                
+                    this.setState({
+                      commentsModal: false
+                    });
+                }}
               >
                 <TouchableOpacity
                     onPress={() => {
