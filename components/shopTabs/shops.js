@@ -57,8 +57,6 @@ class Shop extends React.Component {
 
     getNearShops() {
 
-      console.log(this.state.openOrder);
-
       navigator.geolocation.getCurrentPosition(
 
         (position) => {

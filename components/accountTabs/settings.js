@@ -6,7 +6,8 @@ import apiUrl from '../../config/api.url.js';
 import { connect } from 'react-redux';
 import store from '../redux/store.js';
 
-import { Feather, MaterialIcons } from 'react-native-vector-icons'
+import { Feather, MaterialIcons } from 'react-native-vector-icons';
+import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 
 class Settings extends React.Component {
 
