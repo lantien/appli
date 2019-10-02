@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { AntDesign, Ionicons, MaterialIcons, Feather } from 'react-native-vector-icons';
 
 import * as JsSearch from 'js-search';
-
+import { Notifications } from 'expo';
 
 class Shop extends React.Component {
 
@@ -19,6 +19,7 @@ class Shop extends React.Component {
     constructor(props) {
         super(props);
 
+        
         this.state = {
             listShops: [],
             latitude: null,
@@ -28,16 +29,35 @@ class Shop extends React.Component {
             search: '',
             showCancelSearch: false,
             nativeSearch: null,
-            searchList: null
+            searchList: null,
+            openOrder: null
         }
     }
 
-    componentDidMount() {
 
-        this.getNearShops();
+    async componentDidMount() {
+
+      this.getNearShops();
     }
 
+    /* _handleNotifications = async (notification) => {
+
+      const {origin} = notification;
+
+      if(origin == 'selected' && notification.data.orderID != undefined) {
+
+        console.log("set true open order");
+        this.setState({
+          openOrder: true
+        });
+        this.props.screenProps.rootNavigation.navigate('Order');
+      }
+    } */
+    
+
     getNearShops() {
+
+      console.log(this.state.openOrder);
 
       navigator.geolocation.getCurrentPosition(
 

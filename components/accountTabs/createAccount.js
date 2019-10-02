@@ -92,21 +92,81 @@ export default class CreateAccount extends React.Component {
         });
     }
 
-    createAccount() {
+    async createAccount() {
 
         if(this.state.validateEmail && this.state.validatePassword) {
-            fetch(apiUrl + 'user', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    lastname: this.state.lastname,
-                    firstname: this.state.firstname,
-                    email: this.state.email,
-                    password: this.state.password,
-                }),
+
+            try {
+
+                const token_expo = await AsyncStorage.getItem('token_expo');
+
+                const res = await fetch(apiUrl + 'user', {
+                                method: 'POST',
+                                headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    lastname: this.state.lastname,
+                                    firstname: this.state.firstname,
+                                    email: this.state.email,
+                                    password: this.state.password,
+                                    token_expo: token_expo
+                                })
+                            });
+                const login = await fetch(apiUrl + 'login', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        login: this.state.email,
+                        password: this.state.password,
+                        token_expo: token_expo
+                    }),
+                });
+                const logData = await login.json();
+
+                store.dispatch({
+                    type: 'SET_TOKEN',
+                    token: logData.token
+                });
+    
+                await AsyncStorage.setItem('token', logData.token);
+                const navigateAction = StackActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: "Account" })],
+                });
+            
+                this.navigate.dispatch(navigateAction);
+
+            } catch(err) {
+
+                console.log(err);
+            }
+
+            /* var globalToken_expo;
+
+            AsyncStorage.getItem('token_expo')
+            .then(token_expo => {
+
+                console.log(token_expo);
+                globalToken_expo = token_expo;
+                return fetch(apiUrl + 'user', {
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        lastname: this.state.lastname,
+                        firstname: this.state.firstname,
+                        email: this.state.email,
+                        password: this.state.password,
+                        token_expo: token_expo
+                    }),
+                });
             })
             .then(res => {
     
@@ -119,6 +179,7 @@ export default class CreateAccount extends React.Component {
                     body: JSON.stringify({
                       login: this.state.email,
                       password: this.state.password,
+                      token_expo: globalToken_expo
                     }),
                 });
             })
@@ -147,7 +208,7 @@ export default class CreateAccount extends React.Component {
             .catch(err => {
     
                 console.log(err);
-            });
+            }); */
         }
         else if (this.state.validateEmail == false) {
             Alert.alert(

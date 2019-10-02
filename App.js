@@ -1,6 +1,8 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { Provider } from 'react-redux';
+import registerNotif from './tools/notificationRegister';
+
 import Store from './components/redux/store.js';
 import Entry from './components/main.js';
 
@@ -74,6 +76,9 @@ export default class App extends React.Component {
 
         this.getOrders(value);
       }
+
+      const res = await registerNotif();
+      const json = await res.json();
 
     } catch(err) {
 

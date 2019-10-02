@@ -62,9 +62,54 @@ export default class Login extends React.Component {
       this.navigate.navigate(compoNanme);
     }
 
-    requestLogin() {
+    async requestLogin() {
 
-        fetch(apiUrl + 'login', {
+      try {
+
+        const token_expo = await AsyncStorage.getItem('token_expo');
+
+        const res = await fetch(apiUrl + 'login', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              login: this.state.login,
+              password: this.state.password,
+              token_expo: token_expo
+            }),
+        });
+        const logData = await res.json();
+
+        this._getOrders(
+          store.dispatch({
+            type: 'SET_TOKEN',
+            token: logData.token
+          })
+        );
+
+        await AsyncStorage.setItem('token', logData.token);
+
+        const navigateAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ 
+                      routeName: "Account",
+                      params: {justLogged: true}
+                    }
+          )],
+        });
+      
+        this.navigate.dispatch(navigateAction);
+
+      } catch(err) {
+
+        console.log(err);
+      }
+
+      
+
+        /* fetch(apiUrl + 'login', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -106,7 +151,7 @@ export default class Login extends React.Component {
         .catch(err => {
 
             console.log("err", err);
-        });
+        }); */
     }
 
     _getOrders() {
