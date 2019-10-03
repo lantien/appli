@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, Alert, StyleSheet, View, TextInput, TouchableOpacity, Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
 
-import { Feather, MaterialIcons } from 'react-native-vector-icons';
+import { AntDesign, MaterialIcons } from 'react-native-vector-icons';
 
 
 import apiUrl from '../../config/api.url.js';
@@ -58,6 +58,33 @@ class PaymentOptions extends React.Component {
       }
     }
 
+    async deleteCard(cardID) {
+
+
+      try {
+
+        var res = await fetch(apiUrl + 'me/card', {
+                              method: 'DELETE',
+                              headers: {
+                                  'Accept': 'application/json',
+                                  'Content-Type': 'application/json',
+                                  'x-access-token': this.props.token
+                              },
+                              body: JSON.stringify({
+                                cardID: cardID
+                              })
+                            });
+        const data = await res.json();
+        this.setState({
+          listCard: data.data
+        });
+
+      } catch(err) {
+
+        console.log(err);
+      }
+    }
+
     async addCard() {
 
       try {
@@ -94,7 +121,12 @@ class PaymentOptions extends React.Component {
               <View style={styles.header} > 
 
                 <View style={styles.headerLeft}> 
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+
+                        this.props.navigation.goBack();
+                      }}
+                    >
 
                       <MaterialIcons name = "keyboard-return" size={28} color ="#2F7DE1"/>
 
@@ -146,11 +178,23 @@ class PaymentOptions extends React.Component {
                           </View>
           
           
-                          <TouchableOpacity style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff'}}> 
+                          <TouchableOpacity 
+                            style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff'}}
+                          > 
           
                             <MaterialIcons name = "payment" size={22} color ="#2F7DE1"/>
                             <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8, marginVertical : 2}}>****-****-****-{card.last4}</Text>
-                                  
+                            <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>
+                              <AntDesign 
+                                name = "closecircle" 
+                                size={13} 
+                                color ="#cacaca"
+                                onPress={() => {
+
+                                  this.deleteCard(card.id);
+                                }}
+                              />
+                            </View>
                           </TouchableOpacity>
                         </View>
                       )
