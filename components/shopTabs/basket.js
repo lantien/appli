@@ -40,7 +40,7 @@ class Basket extends React.Component {
         };
     }
 
-    requestPayment = async () => {
+    requestPayment = async (askCard) => {
 
       try {
 
@@ -52,10 +52,13 @@ class Basket extends React.Component {
           });
 
           this.props.screenProps.rootNavigation.navigate('Account');
-        } else {
+        } else if(askCard == true) {
 
           const token = await Stripe.paymentRequestWithCardFormAsync();
-          this.doPayment(token.tokenId);
+          return this.doPayment(token.tokenId);
+        } else {
+
+          await this.doPayment();
         }
         
       } catch(err) {
@@ -94,54 +97,44 @@ class Basket extends React.Component {
       }
     }
 
-    doPayment = (tokenId) => {
+    doPayment = async (tokenId) => {
 
-      const headers = {
-        'Content-Type': 'application/json',
-      };
+      try {
+        const orderRes = await fetch(apiUrl + 'me/order', {
+                                          method: 'POST',
+                                          headers: {
+                                            'Accept': 'application/json',
+                                            'Content-Type': 'application/json',
+                                            'x-access-token': store.getState().token
+                                          },
+                                          body: JSON.stringify({
+                                              shopID: this.props.shopID,
+                                              orderContent: this.props.basket,
+                                              currency: this.props.currency,
+                                              tokenId: tokenId,
+                                              time: this.getInMinutes(this.state.selectedTime)
+                                          })
+                                      });
+        if(orderRes.status != 200) {
 
-      return fetch(apiUrl + 'me/order', {
-                  method: 'POST',
-                  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-access-token': store.getState().token
-                  },
-                  body: JSON.stringify({
-                      shopID: this.props.shopID,
-                      orderContent: this.props.basket,
-                      currency: this.props.currency,
-                      tokenId: tokenId,
-                      time: this.getInMinutes(this.state.selectedTime)
-                  })
-              })
-              .then(data => {
+          throw 'Fail payment not 200';
+        }
+        const order = await orderRes.json();
 
-                
-                if(data.status != 200) {
+        var date = new Date(order.createdAt);
 
-                  throw 'fail payment';
-                }
+        order.createdAt = date.toLocaleDateString();
+        order.heure = date.getHours() + ":" + date.getMinutes();
 
-                return data.json();
-              })
-              .then(data => {
+        store.dispatch({
+          type: 'ADD_ORDER',
+          orderList: order
+        });
 
-                var date = new Date(data.createdAt);
+      } catch(err) {
 
-                data.createdAt = date.toLocaleDateString();
-                //data.symbol = convertCurrency(data.currency);
-                data.heure = date.getHours() + ":" + date.getMinutes();
-        
-                store.dispatch({
-                  type: 'ADD_ORDER',
-                  orderList: data
-                });
-              })
-              .catch(error => {
-
-                console.log(error);
-              });
+        this.requestPayment(true);
+      }
     }
 
     componentWillMount() {
