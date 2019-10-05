@@ -17,7 +17,6 @@ class Settings extends React.Component {
 
       this.state = {
         lastname : this.props.user.lastname,
-        email: this.props.user.email,
         firstname : this.props.user.firstname
       }
     }
@@ -33,8 +32,7 @@ class Settings extends React.Component {
         },
         body: JSON.stringify({
             lastname: this.state.lastname,
-            firstname: this.state.firstname,
-            email: this.state.email
+            firstname: this.state.firstname
         }),
       })
       .then(data => {
@@ -152,6 +150,12 @@ class Settings extends React.Component {
              placeholder = 'Mettre le nom ici'
              style= {{fontSize: 17}}
              value={this.state.lastname}
+             onChangeText={(input) => {
+
+              this.setState({
+                lastname: input
+              });
+            }}
             ></TextInput>
 
             </View>
@@ -159,21 +163,6 @@ class Settings extends React.Component {
 
             <View style= {{height: 0.4, backgroundColor : '#B8B8B8', marginHorizontal: 40}}> 
           </View>
-
-
-            {/* Email adress */}
-
-
-            <View style = {{ padding: 15, flexDirection: 'column',backgroundColor : '#fff', }}> 
-            
-            <Text style = {{color : '#808080', marginBottom : 5, fontSize: 12, fontWeight: '500'}}>Email adress</Text>
-            <TextInput 
-             placeholder = 'Mettre l\adresse email' 
-             style= {{fontSize: 17}}
-             value={this.state.email}
-            ></TextInput>
-
-            </View>
 
             <View style= {{height: 0.4, backgroundColor : '#E8E8E8'}}>        
               </View>

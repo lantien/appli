@@ -68,11 +68,46 @@ class PaymentOptions extends React.Component {
       }
     }
 
-    async deleteCard(cardID) {
-
+    async setDefaultCard(cardID) {
 
       try {
 
+        this.setState({
+          listCard: [],
+          hasFetchedCard: false
+        });
+        var res = await fetch(apiUrl + 'me/card', {
+                              method: 'PUT',
+                              headers: {
+                                  'Accept': 'application/json',
+                                  'Content-Type': 'application/json',
+                                  'x-access-token': this.props.token
+                              },
+                              body: JSON.stringify({
+                                tokenCard: cardID
+                              })
+                            });
+        const data = await res.json();
+        this.setState({
+          listCard: data.data,
+          hasFetchedCard: true
+        });
+
+      } catch(err) {
+
+        this.setState({
+          hasFetchedCard: true
+        });
+      }
+    }
+
+    async deleteCard(cardID) {
+
+      try {
+
+        this.setState({
+          hasFetchedCard: false
+        });
         var res = await fetch(apiUrl + 'me/card', {
                               method: 'DELETE',
                               headers: {
@@ -86,12 +121,32 @@ class PaymentOptions extends React.Component {
                             });
         const data = await res.json();
         this.setState({
-          listCard: data.data
+          listCard: data.data,
+          hasFetchedCard: true
         });
 
       } catch(err) {
 
-        console.log(err);
+        this.setState({
+          hasFetchedCard: true
+        });
+      }
+    }
+
+    showMainCard(i) {
+
+      if(i == 0) {
+
+        return (
+            <AntDesign 
+              name = "checkcircle" 
+              size={32} 
+              color ="#7FFF00"
+              onPress={() => {
+                
+              }}
+            />
+        );
       }
     }
 
@@ -190,7 +245,7 @@ class PaymentOptions extends React.Component {
                   }}
                 > 
 
-                  <SvgUri source={require('../../assets/generic.svg')} />
+                  <SvgUri source={require('../../assets/add_card.svg')} />
                   <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8, marginVertical : 2}}>Add payment method</Text>
                           
                 </TouchableOpacity>
@@ -201,7 +256,9 @@ class PaymentOptions extends React.Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={(card) => {
 
+                      const index = card.index;
                       card = card.item;
+                      
                       return (
                         <View>
                           <View style= {{height: 0.4, backgroundColor : '#E8E8E8', marginHorizontal: 25}}> 
@@ -210,23 +267,54 @@ class PaymentOptions extends React.Component {
           
                           <TouchableOpacity 
                             style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff'}}
+                            onPress={() => {
+
+                              Alert.alert(
+                                '',
+                                'Mettre cette carte par defaut ?',
+                                [
+                                  {
+                                    text: 'Annuler',
+                                    style: 'cancel',
+                                  },
+                                  {text: 'OK', onPress: () => this.setDefaultCard(card.id)},
+                                ],
+                                {cancelable: false},
+                              );
+                            }}
                           > 
           
                             {this.showCardLogo(card.brand)}
                             <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8, marginVertical : 2}}>****-****-****-{card.last4}</Text>
-                            <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>
+                            <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>                
+                            </View>
+                            {this.showMainCard(index)}
+                            <View style={{marginLeft: 'auto'}}>
                               <AntDesign 
                                 name = "closecircle" 
-                                size={13} 
+                                size={32} 
                                 color ="#cacaca"
                                 onPress={() => {
 
-                                  this.deleteCard(card.id);
+                                  Alert.alert(
+                                    '',
+                                    'Etes-vous sur de vouloir supprimer cette carte ?',
+                                    [
+                                      {
+                                        text: 'Annuler',
+                                        style: 'cancel',
+                                      },
+                                      {text: 'OK', onPress: () => this.deleteCard(card.id)},
+                                    ],
+                                    {cancelable: false},
+                                  );
+                                  
                                 }}
                               />
-                
                             </View>
+                            
                           </TouchableOpacity>
+                          
                         </View>
                       )
                     }}

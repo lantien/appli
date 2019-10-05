@@ -46,7 +46,8 @@ export default class App extends React.Component {
               var date = new Date(data[i].createdAt);
 
               data[i].createdAt = date.toLocaleDateString();
-              data[i].heure = date.getHours() + ":" + date.getMinutes();
+              const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+              data[i].heure = date.getHours() + ":" +  min;
               displayData.push(data[i]);
           }
 
