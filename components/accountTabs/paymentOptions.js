@@ -60,7 +60,7 @@ class PaymentOptions extends React.Component {
       }
     }
 
-    showLogin() {
+    showLoading() {
 
       if(!this.state.hasFetchedCard) {
 
@@ -100,6 +100,9 @@ class PaymentOptions extends React.Component {
       try {
 
         const token = await Stripe.paymentRequestWithCardFormAsync();
+        this.setState({
+          hasFetchedCard: false
+        });
         var res = await fetch(apiUrl + 'me/card', {
                               method: 'POST',
                               headers: {
@@ -113,12 +116,15 @@ class PaymentOptions extends React.Component {
                             });
         const data = await res.json();
         this.setState({
-          listCard: data.data
+          listCard: data.data,
+          hasFetchedCard: true
         });
 
       } catch(err) {
 
-        console.log(err);
+        this.setState({
+          hasFetchedCard: true
+        });
       }
     }
 
@@ -190,7 +196,6 @@ class PaymentOptions extends React.Component {
                           
                 </TouchableOpacity>
 
-                {this.showLogin()}
                 <FlatList
                     data={this.state.listCard}
                     extraData={this.state}
@@ -220,13 +225,14 @@ class PaymentOptions extends React.Component {
                                   this.deleteCard(card.id);
                                 }}
                               />
+                
                             </View>
                           </TouchableOpacity>
                         </View>
                       )
                     }}
                 />
-
+                {this.showLoading()}
                 
 
             </ScrollView>

@@ -117,6 +117,7 @@ class Basket extends React.Component {
                                       });
         if(orderRes.status != 200) {
 
+          console.log(orderRes);
           throw 'Fail payment not 200';
         }
         const order = await orderRes.json();
