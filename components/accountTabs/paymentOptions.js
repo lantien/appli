@@ -1,7 +1,7 @@
 import React from 'react';
-import {FlatList, Alert, StyleSheet, View, TextInput, TouchableOpacity, Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
+import { ActivityIndicator, FlatList, Alert, StyleSheet, View, TextInput, TouchableOpacity, Keyboard,Text, StatusBar, ScrollView, Image } from 'react-native';
 
-import { AntDesign, MaterialIcons } from 'react-native-vector-icons';
+import { AntDesign, MaterialIcons, FontAwesome } from 'react-native-vector-icons';
 
 
 import apiUrl from '../../config/api.url.js';
@@ -24,7 +24,8 @@ class PaymentOptions extends React.Component {
 
         this.state = {
 
-          listCard: []
+          listCard: [],
+          hasFetchedCard: false
         }
     }
 
@@ -49,12 +50,21 @@ class PaymentOptions extends React.Component {
                             });
         const data = await res.json();
         this.setState({
-          listCard: data.data
+          listCard: data.data,
+          hasFetchedCard: true
         });
 
       } catch(err) {
 
         console.log(err);
+      }
+    }
+
+    showLogin() {
+
+      if(!this.state.hasFetchedCard) {
+
+        return (<ActivityIndicator size="large" color="#0000ff" />);
       }
     }
 
@@ -112,6 +122,21 @@ class PaymentOptions extends React.Component {
       }
     }
 
+    showCardLogo(name) {
+
+      if(name == 'Visa') {
+
+        return (<FontAwesome name = "cc-visa" size={22}/>);
+        //return(<Image style={{width: 50, height: 30}} source={require('../../assets/cards/1.png')}/>);
+      } else if(name == 'MasterCard') {
+
+        return (<FontAwesome name = "cc-mastercard" size={22}/>);
+      } else {
+
+        return(<FontAwesome name = "credit-card" size={22}/>);
+      }
+    }
+
     render() {
 
         return (
@@ -160,11 +185,12 @@ class PaymentOptions extends React.Component {
                   }}
                 > 
 
-                  <MaterialIcons name = "payment" size={22} color ="#2F7DE1"/>
+                  <FontAwesome name = "credit-card" size={27}/>
                   <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8, marginVertical : 2}}>Add payment method</Text>
                           
                 </TouchableOpacity>
 
+                {this.showLogin()}
                 <FlatList
                     data={this.state.listCard}
                     extraData={this.state}
@@ -182,7 +208,7 @@ class PaymentOptions extends React.Component {
                             style = {{ padding: 15, flexDirection: 'row',backgroundColor : '#fff'}}
                           > 
           
-                            <MaterialIcons name = "payment" size={22} color ="#2F7DE1"/>
+                            {this.showCardLogo(card.brand)}
                             <Text style = {{color : '#000', fontSize: 15, fontWeight: '500', marginHorizontal: 8, marginVertical : 2}}>****-****-****-{card.last4}</Text>
                             <View style= {{height : 35, justifyContent: 'center', alignItems :'center', paddingHorizontal : 5}}>
                               <AntDesign 
