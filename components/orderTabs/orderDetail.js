@@ -3,6 +3,8 @@ import { StyleSheet, View, FlatList,TouchableOpacity, Text, StatusBar, ScrollVie
 
 import { Localization } from 'expo';
 
+import { FontAwesome, MaterialIcons } from 'react-native-vector-icons'
+
 import convertCurrency from '../../tools/convertCurrency.js';
 import { connect } from 'react-redux';
 
@@ -135,7 +137,30 @@ class OrderDetail extends React.Component {
                       </View>
     
                     </View>
-    
+
+                    <View style={{alignItems: 'center', paddingBottom : 10}}>
+                      <View style={{backgroundColor: '#e0e0e0', height: 1, width : 45}}></View>
+                          </View>
+                          
+                      <View style={{flexDirection: 'column', alignItems: 'center', }}>
+                        <Text style={{fontSize: 15, fontWeight: 500}}>Qu'avez vous pensez</Text>
+                        <Text style={{fontSize: 15, fontWeight: 500}} >de {this.state.order.shop_name}</Text>
+                        <View style ={{width:'42%', flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between'}}>
+
+                        <FontAwesome name = "star" size={30} color ="#005b96"/>
+                        <FontAwesome name = "star" size={30} color ="#005b96"/>
+                        <FontAwesome name = "star" size={30} color ="#005b96"/>
+                        <FontAwesome name = "star" size={30} color ="#005b96"/>
+                        <FontAwesome name = "star" size={30} color ="#005b96"/>
+                        
+                                                
+                          </View>
+                      </View>
+                  <View>
+
+                  </View>
+
+          
                   </ScrollView>
     
           </View>
@@ -241,8 +266,10 @@ const styles = StyleSheet.create({
     containerPayment:{
       flexDirection: 'row',
       justifyContent:'space-between',
-      paddingVertical: 15,
-      paddingHorizontal: 10
+      paddingTop: 15,
+      paddingHorizontal: 10,
+      paddingBottom: 35
+
     },
     totalText:{
       fontSize: 16,

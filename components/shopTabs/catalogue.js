@@ -1,6 +1,6 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { View, Text, TextInput,TouchableHighlight,Image,Dimensions,FlatList, Platform, Linking,Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
+import { View, Text, TextInput,TouchableHighlight,StatusBar,Image,Dimensions,FlatList, Platform, Linking,Button, StyleSheet, ScrollView ,TouchableOpacity } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
@@ -144,8 +144,7 @@ class Catalogue extends React.Component {
                     keyExtractor={this._keyExtractor}
                     renderItem={(childItem) => this.renderProduit(childItem, item.index)}
                 />
-                <View style={styles.greyLine}>
-                </View>
+                
             </View>
             );
     }
@@ -181,33 +180,30 @@ class Catalogue extends React.Component {
     }
 
     render() {
-
+        
         return (
-            <View style={{flex : 1, backgroundColor: '#f5f5f5'}}>
+            <View style={{flex : 1, backgroundColor: '#f8f9f9'}}>
+                
+                <StatusBar barStyle="light-content" />      
+                
+                <View  style={styles.container}>
 
-                               
-                <Appbar
-                    style={{backgroundColor :'#fff', paddingTop: 25 ,height: 65, justifyContent: 'flex-end',}}
-                >
-                    <Appbar.Action
-                        style={{backgroundColor :'#fff',}}
-                        size={20}
-                        icon ="arrow-back"
-                        onPress={() => {
+                    <View style={styles.header} > 
 
-                            this.props.navigation.goBack();
-                        }}
-                    />
-                    <Appbar.Content
-                        style={{backgroundColor :'#fff'}}
-                        color= '#000'
-                        title= {this.state.shopName}
-                        />
-                    <Appbar.Action
-                    
-                    />
-                                        
-                </Appbar>
+                    <View style={styles.headerLeft}> 
+                                    
+                        </View>
+
+
+                    <View style={styles.headerCenter}>
+                        <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>{this.state.shopName}</Text>
+                        </View>
+
+                        <View style = {styles.headerRight}>
+                        
+                        </View>
+
+                    </View>
 
                 <View style= {{height: 1, backgroundColor : '#E8E8E8' }}>        
                 </View>
@@ -229,7 +225,7 @@ class Catalogue extends React.Component {
 
                         <View style={styles.containerNote}>
                             <View style={{backgroundColor :'#F0F0F0', flexDirection : 'row', alignItems : 'center', justifyContent : 'center', borderRadius : 5, padding : 2}}>
-                                <Ionicons name="md-star" size={20} color="#00b38B"/>
+                                <Ionicons name="md-star" size={20} color="#005b96"/>
                                 <Text style={styles.noteRestaurant}>{this.state.note}</Text>
                                 <Text style={styles.priceRange}>{this.state.priceRange}</Text>
                             </View>
@@ -240,8 +236,8 @@ class Catalogue extends React.Component {
                                     openMap({ travelType: 'walk', end: this.state.adress });
                                 }}
                             >
-                                <MaterialCommunityIcons name="map-marker" size={22} color="#00b38B" />
-                                <Text style={{fontWeight: '400', color : '#646464', fontSize: 15, color :'#00b38B'}}>1.2km</Text>
+                                <MaterialCommunityIcons name="map-marker" size={22} color="#005b96" />
+                                <Text style={{fontWeight: '400', color : '#646464', fontSize: 15, color :'#005b96'}}>1.2km</Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity
@@ -344,6 +340,7 @@ class Catalogue extends React.Component {
             />
 
             </View>
+            </View>
         );
     }
 }
@@ -359,47 +356,50 @@ const styles = StyleSheet.create({
     container:{
       flex: 1 ,
       backgroundColor: '#ECEFF1'
-    /* -------------------------------------------------------HEADER--------------------------------------------------------- */
+    
     },
+    /* -----------------HEADER------------------------- */
     header :{
-      height : 65,
-      backgroundColor : '#fff',
-      flexDirection : 'row',    
-      justifyContent : 'center',
-      alignItems : 'center', 
-      shadowColor: "#000",
-      shadowOffset: {
-	    width: 0,
-	    height: 1,},
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
-
-      },
-
-    headerLeft:{
-      backgroundColor :'#fff',
-      flex :0.33,
-      height : '75%',
-      marginLeft : 10,
-      justifyContent : 'flex-end',
-  
-    },
-    headerCenter:{
       
-      flex :0.33,
-      height : '50%',
-      justifyContent : 'flex-end',
-      alignItems : 'center'
-    },
+        height : 65,
+        backgroundColor : '#fff',
+        flexDirection : 'row',    
+        justifyContent : 'space-between',
+        alignItems : 'center', 
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,},
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
 
-    headerRight: {
-      flex :0.33,
-      height : '75%',
-      marginRight : 15,
-      alignItems : 'flex-end',
-      justifyContent :'flex-end'
+        },
+  
+      headerLeft:{
+        backgroundColor :'#fff',
+        flex :0.10,
+        height : '75%',
+        marginLeft : 10,
+        justifyContent : 'flex-end',
+    
       },
-/* ------------------------------------------------------------------------------------------------------ */
+      headerCenter:{
+        
+        flex :0.80,
+        height : '50%',
+        justifyContent : 'flex-end',
+        alignItems : 'center'
+      },
+  
+      headerRight: {
+        flex :0.10,
+        height : '50%',
+        marginRight : 15,
+        alignItems : 'flex-end',
+        justifyContent :'flex-end'
+        },
+  
+        /* ---------------FIN HEADER----------------------- */
       
     containerCardItem:{
         backgroundColor: '#FFF',
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
         
     },
     noteRestaurant:{
-        color :'#00b38B',
+        color :'#005b96',
         fontSize: 13,
         fontWeight :'300',
         marginLeft : 5
@@ -474,14 +474,15 @@ const styles = StyleSheet.create({
         
     },
     nameCategory:{
-        color: '#000',
+        color: '#2f2f2f',
         fontSize: 18,
-        fontWeight: '600'
+        fontWeight: '500',
+        paddingTop: 15
     },
     categoryCustom:{
         backgroundColor: '#FFF',
         paddingTop: 10,
-        paddingLeft: 15
+        paddingLeft: 15,
     },
     itemName:{
         color: '#000',
@@ -507,7 +508,7 @@ const styles = StyleSheet.create({
         marginRight:10
     },
     popularity:{
-        color:'#0fdfbd',
+        color:'#005b96',
         fontSize: 15,
         fontWeight: '500',
         marginLeft:5

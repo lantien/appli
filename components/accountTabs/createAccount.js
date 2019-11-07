@@ -185,6 +185,8 @@ export default class CreateAccount extends React.Component {
 
             <View style={styles.container}>
 
+            
+
              {/* ------------------------------------------------- HEADER ----------------------------------------------- */}
              <View style={styles.header} > 
 

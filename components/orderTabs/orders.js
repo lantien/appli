@@ -64,7 +64,7 @@ class Orders extends React.Component {
 
 
           <View style={styles.headerCenter}>
-            <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Orders</Text>
+            <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Commandes</Text>
             </View>
 
             <View style = {styles.headerRight}>

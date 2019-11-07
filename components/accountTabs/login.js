@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,View, SafeAreaView,TouchableOpacity, Platform,TouchableWithoutFeedback,Keyboard,TextInput, Text, AsyncStorage } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView,View, SafeAreaView,TouchableOpacity, Image,Platform,TouchableWithoutFeedback,Keyboard,TextInput, Text, AsyncStorage } from 'react-native';
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -12,8 +12,6 @@ export default class Login extends React.Component {
   static navigationOptions = {
     title: 'Sign in',
   };
-
-  
 
     constructor(props) {
         super(props);
@@ -62,9 +60,54 @@ export default class Login extends React.Component {
       this.navigate.navigate(compoNanme);
     }
 
-    requestLogin() {
+    async requestLogin() {
 
-        fetch(apiUrl + 'login', {
+      try {
+
+        const token_expo = await AsyncStorage.getItem('token_expo');
+
+        const res = await fetch(apiUrl + 'login', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              login: this.state.login,
+              password: this.state.password,
+              token_expo: token_expo
+            }),
+        });
+        const logData = await res.json();
+
+        this._getOrders(
+          store.dispatch({
+            type: 'SET_TOKEN',
+            token: logData.token
+          })
+        );
+
+        await AsyncStorage.setItem('token', logData.token);
+
+        const navigateAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ 
+                      routeName: "Account",
+                      params: {justLogged: true}
+                    }
+          )],
+        });
+      
+        this.navigate.dispatch(navigateAction);
+
+      } catch(err) {
+
+        console.log(err);
+      }
+
+      
+
+        /* fetch(apiUrl + 'login', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -106,7 +149,7 @@ export default class Login extends React.Component {
         .catch(err => {
 
             console.log("err", err);
-        });
+        }); */
     }
 
     _getOrders() {
@@ -136,7 +179,8 @@ export default class Login extends React.Component {
               var date = new Date(data[i].createdAt);
 
               data[i].createdAt = date.toLocaleDateString();
-              data[i].heure = date.getHours() + ":" + date.getMinutes();
+              const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+              data[i].heure = date.getHours() + ":" +  min;
               displayData.push(data[i]);
           }
 
@@ -172,9 +216,19 @@ export default class Login extends React.Component {
 
                 <View style={styles.logoText}>             
 
-                    <Text style={{fontSize: 33, color : '#000', fontWeight :'600'}} >
+
+                <Image 
+                style={{
+                  width:110, 
+                  height: 100
+                
+                }}
+                source={require('./icon2.png')} 
+                />
+ 
+                    {/* <Text style={{fontSize: 33, color : '#000', fontWeight :'600'}} >
                         Foodr
-                    </Text>
+                    </Text>  */}
 
                 </View>
 

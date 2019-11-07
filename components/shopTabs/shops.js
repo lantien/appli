@@ -187,7 +187,7 @@ class Shop extends React.Component {
             <View style={{flex : 1, backgroundColor : '#fff'}}>
 
               {/* Avant clic sur icon recherche */} 
-                {/* <View style={styles.header}>
+                <View style={styles.header}>
 
               
 
@@ -205,13 +205,13 @@ class Shop extends React.Component {
                     <Feather name="search" size={20} color="#404040"/>
                     </TouchableOpacity>
 
-                </View> */}
+                </View> 
 
                  {/* ////////////////////////////////////////////// */}
 
                  {/* Après clic sur icon recherche */}
 
-                 <View style={styles.header2}>
+                 {/* <View style={styles.header2}>
 
                   <View style={{flex : 1, flexDirection: 'row', alignItems :'center',backgroundColor : "#F0F0F0", borderRadius : 8, paddingStart: 5}}>
                  
@@ -229,7 +229,7 @@ class Shop extends React.Component {
                   </TouchableOpacity>
                   
 
-                  </View>
+                  </View> */}
 
 
                  {/* ////////////////////////////////////////////////// */}

@@ -136,28 +136,22 @@ class Basket extends React.Component {
             <View style={{flex:1, backgroundColor : '#fff'}}>
 
 {/* ------------------------------------------------------------HEADER------------------------------------------------- */}
-            <Appbar
-                    style={styles.header}
-                >
-                    <Appbar.Action
-                        style={{backgroundColor :'#fff',}}
-                        size={20}
-                        icon ="close"
-                        onPress={() => {
+            <View style={styles.header} > 
 
-                            this.props.navigation.goBack();
-                        }}
-                    />
-                    <Appbar.Content
-                        style={{backgroundColor :'#fff'}}
-                        color= '#000'
-                        title= "Votre panier"
-                        />
-                    <Appbar.Action
-                    
-                    />
-                                        
-                </Appbar>
+              <View style={styles.headerLeft}> 
+                            
+                </View>
+
+
+              <View style={styles.headerCenter}>
+                <Text style = {{color:'#000', fontWeight : '700', fontSize: 15}}>Panier</Text>
+                </View>
+
+                <View style = {styles.headerRight}>
+                
+                </View>
+
+              </View>
 
             <View style= {{height: 1, backgroundColor : '#E8E8E8' ,}}>        
                 </View>
@@ -304,42 +298,39 @@ const styles = StyleSheet.create({
 
 /* -----------------HEADER------------------------- */
 header :{
-    backgroundColor :'#fff', 
-    paddingTop: 25 ,
-    height: 65, 
-    justifyContent: 'flex-end', 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.00,
-    
-    elevation: 1,
+      
+  height : 65,
+  backgroundColor : '#fff',
+  flexDirection : 'row',    
+  justifyContent : 'space-between',
+  alignItems : 'center', 
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 1,},
+  shadowOpacity: 0.22,
+  shadowRadius: 2.22,
+
   },
 
 headerLeft:{
   backgroundColor :'#fff',
-  flex :1/3,
+  flex :0.33,
   height : '75%',
   marginLeft : 10,
   justifyContent : 'flex-end',
-  alignItems :'flex-start'
 
 },
 headerCenter:{
-  backgroundColor :'#fff',
-  flex :1/3,
-  height : '75%',
+  
+  flex :0.33,
+  height : '50%',
   justifyContent : 'flex-end',
-  alignItems : 'center',
-  paddingBottom :3,
-  paddingLeft :2,
+  alignItems : 'center'
 },
 
 headerRight: {
-  flex :1/3,
+  flex :0.33,
   height : '50%',
   marginRight : 15,
   alignItems : 'flex-end',
@@ -548,7 +539,7 @@ headerRight: {
     
       },
       confirmButton:{
-        backgroundColor: '#14a093',
+        backgroundColor: '#005b96',
         padding: 10,
         borderRadius: 3,
         height: 45,
