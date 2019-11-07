@@ -13,11 +13,11 @@ import convertCurrency from '../../tools/convertCurrency.js';
 import ScrollPicker from 'react-native-picker-scrollview';
 
 import { connect } from 'react-redux';
-import stripeKey from '../../config/stripe.config';
 
 
-import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 import Modal from "react-native-modal";
+import { CreditCardInput } from "react-native-credit-card-input";
+import getTokenFromCard from '../../tools/getTokenFromCard';
 
 
 class Basket extends React.Component {
@@ -36,7 +36,8 @@ class Basket extends React.Component {
             'Dans 2 heures'
           ],
           selectedTime: 0,
-          commentsModal: false
+          commentsModal: false,
+          showPayment: false
         };
     }
 
@@ -53,9 +54,10 @@ class Basket extends React.Component {
 
           this.props.screenProps.rootNavigation.navigate('Account');
         } else if(askCard == true) {
-
-          const token = await Stripe.paymentRequestWithCardFormAsync();
-          return this.doPayment(token.tokenId);
+          
+          this.setState({
+            showPayment: true
+          });
         } else {
 
           await this.doPayment();
@@ -99,6 +101,7 @@ class Basket extends React.Component {
 
     doPayment = async (tokenId) => {
 
+      console.log(tokenId);
       try {
         const orderRes = await fetch(apiUrl + 'me/order', {
                                           method: 'POST',
@@ -117,7 +120,8 @@ class Basket extends React.Component {
                                       });
         if(orderRes.status != 200) {
 
-          console.log(orderRes);
+          const tmpRes = await orderRes.json();
+          console.log(tmpRes);
           throw 'Fail payment not 200';
         }
         const order = await orderRes.json();
@@ -140,9 +144,6 @@ class Basket extends React.Component {
 
     componentWillMount() {
 
-      Stripe.setOptionsAsync({
-        publishableKey: stripeKey.publicKey
-      });
       this.setState(this.props.navigation.getParam('shopData', null));
     }
 
@@ -384,6 +385,46 @@ class Basket extends React.Component {
                   </TouchableOpacity>
                 </View>
             </View>
+
+              <Modal
+                isVisible={this.state.showPayment}
+                backdropOpacity={0.7}
+                animationIn={'zoomIn'}
+                animationOut={'zoomOut'}
+                animationInTiming={350}
+                animationOutTiming={350}
+                backdropTransitionInTiming={350}
+                backdropTransitionOutTiming={350}
+                onRequestClose={() => {
+                
+                  this.setState({
+                    showPayment: false
+                  });
+                }}
+              >
+                <TouchableOpacity
+                    onPress={() => {
+
+                        this.setState({
+                          showPayment: false
+                        });
+                    }}
+                    style={{flex:1, justifyContent:'center', alignItems:'center',}}
+                >
+                    <View style={styles.modalContent}>
+                            <TouchableWithoutFeedback style={{height: 'auto', flex: 0, justifyContent:'center', alignItems:'center'}}>
+                              <CreditCardInput onChange={async (card) => {
+
+                                if(card.valid === true) {
+
+                                  const res = await getTokenFromCard(card);
+                                  this.doPayment(res.id);
+                                }
+                              }} />
+                            </TouchableWithoutFeedback>
+                    </View>
+                </TouchableOpacity>
+                  </Modal>
 
               <Modal
                   isVisible={this.state.commentsModal}

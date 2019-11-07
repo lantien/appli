@@ -8,14 +8,6 @@ import apiUrl from '../../config/api.url.js';
 import { connect } from 'react-redux';
 import store from '../redux/store.js';
 
-import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
-import stripeKey from '../../config/stripe.config';
-
-
-Stripe.setOptionsAsync({
-  publishableKey: stripeKey.publicKey
-});
-
 class PaymentOptions extends React.Component {
 
     constructor(props) {
@@ -154,7 +146,6 @@ class PaymentOptions extends React.Component {
 
       try {
 
-        const token = await Stripe.paymentRequestWithCardFormAsync();
         this.setState({
           hasFetchedCard: false
         });
