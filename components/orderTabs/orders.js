@@ -125,20 +125,20 @@ class Orders extends React.Component {
 
                                               <View style={{backgroundColor : '#F0F0F0', height : 0.5}}></View>
 
-                                              <View style ={{ flexDirection : 'row'}}>
+                                              <View style ={{ flexDirection : 'row', justifyContent :'space-between'}}>
 
                                               <View style={{ flexDirection :'row',width : '50%'/* , backgroundColor : '#02f1' */}}>
 
-                                              <View style={{paddingVertical : 8, paddingHorizontal : 5 }}>
+                                              <View style={{paddingVertical : 8, paddingHorizontal: 5}}>
 
                                                     <AntDesign name="checkcircleo" size={12} color="#00d751"/>
                                               </View>
 
-                                              <View style={{padding : 5, flexDirection : 'column', alignItems : 'center'}}>
+                                              <View style={{paddingVertical : 5, paddingRight: 0, flexDirection : 'column', alignItems : 'center'/* , backgroundColor : "#fd2" */}}>
 
                                               <Text style={{fontSize : 14, fontWeight : '500', marginLeft : 10}}>Commande terminée</Text>
 
-                                              <View style={{ flexDirection : 'row', paddingHorizontal : 5}}>
+                                              <View style={{ paddingStart : 30}}>
                                               <Text style ={{color : '#A9A9A9'}}>{this.convertDate(item.createdAt)} à {item.heure}</Text>
                                               </View>
 
@@ -146,7 +146,7 @@ class Orders extends React.Component {
 
                                               </View>
 
-                                              <View style={{ flexDirection :'row', height : '100%',width : '50%'/* , backgroundColor :'#f021' */, justifyContent :'flex-end', alignItems : 'flex-end', padding : 5}}>
+                                              <View style={{ flexDirection :'row', /* height : '100%',width : '50%' , */ backgroundColor :'#f021' , justifyContent :'flex-end', alignItems : 'flex-end', padding : 5}}>
                                               <Text style={{fontSize : 15, fontWeight : '600'}}> Total: {item.total}{convertCurrency(item.currency)}</Text>
                                               </View>
 

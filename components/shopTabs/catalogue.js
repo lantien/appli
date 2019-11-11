@@ -155,9 +155,15 @@ class Catalogue extends React.Component {
 
         this.setState({
             ref: item.item.ref,
+            supplements: item.item.supplements
+        });
+        this.addBasket();
+
+        /* this.setState({
+            ref: item.item.ref,
             supplements: item.item.supplements,
             showSupps: true
-        });
+        }); */
     }
 
     renderProduit = (item, motherIndex) => {
