@@ -12,7 +12,7 @@
     "expo-payments-stripe": "^5.0.1",
     "expokit": "^33.0.4",
     "js-search": "^1.4.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
