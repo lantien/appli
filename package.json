@@ -7,7 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^33.0.0",
+    "expo": "^46.0.14",
     "expo-localization": "^5.0.1",
     "expo-payments-stripe": "^5.0.1",
     "expokit": "^33.0.4",
